@@ -6,6 +6,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { useAuth } from "../hooks/useAuth";
 import { useUserProfile } from "../hooks/useUserProfile";
 import { Header } from "../components/Header";
+import { OfferCountdown } from "../components/OfferCountdown";
 import { MobileMenu } from "../components/MobileMenu";
 import { IconAlertCircle } from "../components/Icons";
 import { LoadingState } from "../components/ui/StatesScreens";
@@ -108,9 +109,10 @@ export function ProfilePage() {
 
   // ── Render ────────────────────────────────────────────────────────────────
   return (
-    <div className="min-h-screen bg-black text-white selection:bg-white/20 overflow-x-hidden pt-16">
+    <div className="min-h-screen bg-black text-white selection:bg-white/20 overflow-x-hidden pt-[104px]">
       <ProfileBackground />
       <Header menuOpen={menuOpen} setMenuOpen={setMenuOpen} />
+      <OfferCountdown />
       <MobileMenu menuOpen={menuOpen} setMenuOpen={setMenuOpen} />
 
       <div className="relative z-10 max-w-[680px] mx-auto px-6 md:px-8 py-20">

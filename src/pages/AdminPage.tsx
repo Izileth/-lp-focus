@@ -6,6 +6,7 @@ import { useAuth } from "../hooks/useAuth";
 import { useAdmin } from "../hooks/useAdmin";
 import { supabase } from "../lib/supabaseClient";
 import { Header } from "../components/Header";
+import { OfferCountdown } from "../components/OfferCountdown";
 import { MobileMenu } from "../components/MobileMenu";
 import { NoiseOverlay } from "../components/NoiseOverlay";
 import { LoadingState, ErrorState } from "../components/ui/StatesScreens";
@@ -104,9 +105,10 @@ export function AdminPage() {
   const isFormView = viewState.current === "create" || viewState.current === "edit";
 
   return (
-    <div className="min-h-screen bg-black text-white overflow-x-hidden selection:bg-white/20 pt-16">
+    <div className="min-h-screen bg-black text-white overflow-x-hidden selection:bg-white/20 pt-[104px]">
       <NoiseOverlay />
       <Header menuOpen={menuOpen} setMenuOpen={setMenuOpen} />
+      <OfferCountdown />
       <MobileMenu menuOpen={menuOpen} setMenuOpen={setMenuOpen} />
 
       <div className="relative z-10 max-w-[1100px] mx-auto px-6 md:px-10 py-16">

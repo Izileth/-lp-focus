@@ -5,6 +5,7 @@ import { AuthForm } from '../components/auth/AuthForm';
 import { useAuth } from '../hooks/useAuth';
 import { useAdmin } from '../hooks/useAdmin';
 import { Header } from '../components/Header';
+import { OfferCountdown } from '../components/OfferCountdown';
 import { MobileMenu } from '../components/MobileMenu';
 import { LoadingState } from '../components/ui/StatesScreens';
 export function LoginPage() {
@@ -43,6 +44,7 @@ export function LoginPage() {
   return (
     <>
       <Header menuOpen={menuOpen} setMenuOpen={setMenuOpen} />
+      <OfferCountdown />
       <MobileMenu menuOpen={menuOpen} setMenuOpen={setMenuOpen} />
       <AuthForm onSuccess={() => {}} />
     </>

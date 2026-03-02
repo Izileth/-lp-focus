@@ -3,6 +3,7 @@ import { useState } from "react";
 import { useProduct } from "../hooks/useProduct";
 import { IconArrowLeft, IconShare } from "../components/Icons";
 import { Header } from "../components/Header";
+import { OfferCountdown } from "../components/OfferCountdown";
 import { MobileMenu } from "../components/MobileMenu";
 import { NotFound } from "../components/ui/NotFound";
 
@@ -59,11 +60,12 @@ export function BookPage() {
       />
 
       <div
-        className="bg-black min-h-screen text-white overflow-x-hidden pt-16"
+        className="bg-black min-h-screen text-white overflow-x-hidden pt-[104px]"
         style={{ fontFamily: "'Georgia', serif" }}
       >
         <BookBackground />
         <Header menuOpen={menuOpen} setMenuOpen={setMenuOpen} />
+        <OfferCountdown />
         <MobileMenu menuOpen={menuOpen} setMenuOpen={setMenuOpen} />
 
         <main className="max-w-[1200px] mx-auto px-8 md:px-16 py-16 md:py-24">

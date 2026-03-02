@@ -46,7 +46,7 @@ export function HeroSection() {
   ];
 
   return (
-    <section id="home" className="min-h-screen flex items-center px-10 pt-24 pb-20 relative overflow-hidden bg-black">
+    <section id="home" className="min-h-screen flex items-center px-10 pt-32 pb-20 relative overflow-hidden bg-black">
       {/* Cinematic Video Background with Gradients and Playlist */}
       <VideoBackground 
         videoSources={videoPlaylist} 
