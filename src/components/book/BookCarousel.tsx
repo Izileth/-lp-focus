@@ -186,6 +186,16 @@ export function BookCarousel({
           </div>
         )}
 
+        {hasMultiple && !isPaused && !isHovered && (
+          <motion.div
+            key={`progress-${currentIndex}`}
+            className="absolute bottom-0 left-0 h-0.5 bg-white/20 z-20"
+            initial={{ width: "0%" }}
+            animate={{ width: "100%" }}
+            transition={{ duration: AUTOPLAY_DELAY_MS / 1000, ease: "linear" }}
+          />
+        )}
+
         {hasMultiple && (
           <>
             <NavButton side="left" visible={isHovered} onClick={(e) => { setIsPaused(true); paginate(-1, e); }} />
