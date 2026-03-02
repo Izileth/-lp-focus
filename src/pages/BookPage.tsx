@@ -7,7 +7,7 @@ import { MobileMenu } from "../components/MobileMenu";
 import { NotFound } from "../components/ui/NotFound";
 
 // ─── Sub-components ───────────────────────────────────────────────────────────
-import { BookCover } from "../components/book/BookCover";
+import { BookCarousel } from "../components/book/BookCarousel";
 import { BookDetails } from "../components/book/BookDetails";
 import { BookFooter } from "../components/book/BookFooter";
 import { BookBackground } from "../components/book/BookBackground";
@@ -30,9 +30,6 @@ export function BookPage() {
   );
   
   if (!book) return <NotFound />;
-
-  // Extract imageUrl from product_images, use first one if available
-  const imageUrl = book.product_images?.[0]?.image_url;
 
   // Format price for display
   const hasDiscount = Boolean(book.discount_price && book.discount_price > 0 && book.discount_price < book.price);
@@ -93,10 +90,10 @@ export function BookPage() {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-12 lg:gap-20 items-start">
-            <BookCover 
+            <BookCarousel 
               name={book.name} 
               category={book.category} 
-              imageUrl={imageUrl} 
+              images={book.product_images} 
               badge={book.badge} 
             />
             
@@ -114,3 +111,4 @@ export function BookPage() {
     </>
   );
 }
+
