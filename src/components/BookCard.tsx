@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import type { Product } from "../types";
 import { cardVariants } from "../motionVariants";
 import { IconBook, IconArrowRight, IconStar } from "./Icons";
-
+import { BookCarousel } from "./book/BookCarousel";
 interface BookCardProps {
   book: Product;
   index: number;
@@ -46,22 +46,27 @@ export function BookCard({ book, index }: BookCardProps) {
       )}
 
       {/* Cover */}
-      <div className="relative w-full aspect-[3/4] bg-gradient-to-br from-white/[0.06] to-white/[0.02] border border-white/[0.06] mb-6 flex items-center justify-center overflow-hidden">
-        <img 
-          src={imageUrl} 
-          alt={book.name}
-          className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+      <div className="relative w-full aspect-[3/4] mb-6 overflow-hidden">
+        <BookCarousel 
+          images={book.product_images}
+          name={book.name}
+          category={book.category}
+          showBadge={false}
+          showDecorations={false}
+          showThumbnailNav={false}
+          showDots={false}
+          className="w-full h-full"
         />
+        
         {/* Subtle category watermark + Rating */}
-        <div className="absolute bottom-4 left-4 z-50 flex items-center gap-2">
+        <div className="absolute bottom-4 left-4 z-50 flex items-center gap-2 pointer-events-none">
           <span className="font-sans text-[9px] tracking-[0.2em] uppercase text-white/40 bg-black/40 px-2 py-0.5 backdrop-blur-sm">
             {book.category}
           </span>
           <span className="font-sans text-[9px] tracking-[0.1em] text-white/60 bg-black/40 px-2 py-0.5 backdrop-blur-sm flex items-center gap-1">
-          <IconStar size={10} /> {book.rating}
+            <IconStar size={10} /> {book.rating}
           </span>
         </div>
-        <div className="absolute bottom-0 left-0 right-0 h-1/3 bg-gradient-to-t from-[#0a0a0a] to-transparent" />
       </div>
 
       <p className="font-sans text-[10px] tracking-[0.18em] uppercase text-white/40 mb-2 flex items-center gap-1.5">
