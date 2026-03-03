@@ -1,8 +1,8 @@
 // src/components/OfferCountdown.tsx
 import { useState, useEffect, useCallback, useRef } from "react";
-import { motion, AnimatePresence} from "framer-motion";
-import type { Variants } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import { IconClock, IconX, IconArrowRight } from "./Icons";
+import type { Variants } from "framer-motion";
 
 // ─── Types ────────────────────────────────────────────────────────────────────
 
@@ -69,7 +69,7 @@ function Digit({ value, label }: DigitProps) {
   return (
     <div className="flex flex-col items-center gap-0.5">
       <div
-        className="relative w-7 h-7 border border-white/[0.12] bg-white/[0.05] flex items-center justify-center overflow-hidden tabular-nums"
+        className="relative w-7 h-7 border border-black/[0.12] bg-black/[0.04] flex items-center justify-center overflow-hidden tabular-nums"
         aria-label={`${value} ${label}`}
       >
         <AnimatePresence mode="popLayout" initial={false}>
@@ -79,13 +79,13 @@ function Digit({ value, label }: DigitProps) {
             initial="initial"
             animate="animate"
             exit="exit"
-            className="absolute font-mono text-[13px] font-bold text-white leading-none"
+            className="absolute font-mono text-[13px] font-bold text-black leading-none"
           >
             {value}
           </motion.span>
         </AnimatePresence>
       </div>
-      <span className="font-sans text-[8px] tracking-[0.18em] uppercase text-white/25 leading-none hidden sm:block">
+      <span className="font-sans text-[8px] tracking-[0.18em] uppercase text-black/35 leading-none hidden sm:block">
         {label}
       </span>
     </div>
@@ -99,7 +99,7 @@ function Separator() {
     <motion.span
       animate={{ opacity: [0.2, 0.7, 0.2] }}
       transition={{ duration: 1, repeat: Infinity, ease: "easeInOut" }}
-      className="font-mono text-[13px] font-bold text-white/40 mb-3 leading-none self-start mt-1.5"
+      className="font-mono text-[13px] font-bold text-black/35 mb-3 leading-none self-start mt-1.5"
       aria-hidden="true"
     >
       :
@@ -115,9 +115,9 @@ function LiveDot() {
       <motion.span
         animate={{ scale: [1, 1.8, 1], opacity: [0.6, 0, 0.6] }}
         transition={{ duration: 1.4, repeat: Infinity, ease: "easeInOut" }}
-        className="absolute inset-0 rounded-full bg-white/60"
+        className="absolute inset-0 rounded-full bg-black/50"
       />
-      <span className="relative rounded-full h-1.5 w-1.5 bg-white/80" />
+      <span className="relative rounded-full h-1.5 w-1.5 bg-black/70" />
     </span>
   );
 }
@@ -163,12 +163,12 @@ export function OfferCountdown() {
           exit="exit"
           role="banner"
           aria-label="Oferta por tempo limitado"
-          className="fixed top-16 left-0 right-0 z-[90] h-11 bg-black border-b border-white/[0.08] flex items-center"
+          className="fixed top-16 left-0 right-0 z-[90] h-11 bg-white border-b border-black/[0.08] flex items-center"
         >
           {/* Subtle noise */}
           <div
             aria-hidden="true"
-            className="absolute inset-0 pointer-events-none opacity-[0.04]"
+            className="absolute inset-0 pointer-events-none opacity-[0.02]"
             style={{
               backgroundImage:
                 "url(\"data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E\")",
@@ -178,12 +178,12 @@ export function OfferCountdown() {
           {/* Left accent line */}
           <div
             aria-hidden="true"
-            className="absolute left-0 top-0 bottom-0 w-px bg-gradient-to-b from-transparent via-white/20 to-transparent"
+            className="absolute left-0 top-0 bottom-0 w-px bg-gradient-to-b from-transparent via-black/15 to-transparent"
           />
           {/* Right accent line */}
           <div
             aria-hidden="true"
-            className="absolute right-0 top-0 bottom-0 w-px bg-gradient-to-b from-transparent via-white/20 to-transparent"
+            className="absolute right-0 top-0 bottom-0 w-px bg-gradient-to-b from-transparent via-black/15 to-transparent"
           />
 
           <div className="flex items-center justify-center gap-4 sm:gap-6 max-w-[1200px] w-full mx-auto px-4 sm:px-10">
@@ -191,20 +191,20 @@ export function OfferCountdown() {
             {/* Live indicator + label */}
             <div className="hidden sm:flex items-center gap-2.5">
               <LiveDot />
-              <span className="font-sans text-[10px] tracking-[0.22em] uppercase text-white/40">
+              <span className="font-sans text-[10px] tracking-[0.22em] uppercase text-black/45">
                 {OFFER_LABEL}
               </span>
             </div>
 
             {/* Mobile: clock icon */}
-            <span className="sm:hidden text-white/35">
+            <span className="sm:hidden text-black/40">
               <IconClock size={13} />
             </span>
 
             {/* Divider */}
             <div
               aria-hidden="true"
-              className="hidden sm:block h-4 w-px bg-white/[0.1]"
+              className="hidden sm:block h-4 w-px bg-black/[0.1]"
             />
 
             {/* Countdown */}
@@ -223,19 +223,19 @@ export function OfferCountdown() {
             {/* Divider */}
             <div
               aria-hidden="true"
-              className="hidden md:block h-4 w-px bg-white/[0.1]"
+              className="hidden md:block h-4 w-px bg-black/[0.1]"
             />
 
             {/* Offer copy */}
             <div className="hidden md:flex items-center gap-2.5">
               <span
-                className="[font-family:'Playfair_Display',serif] font-bold text-white text-[13px] tracking-wide"
+                className="[font-family:'Playfair_Display',serif] font-bold text-black text-[13px] tracking-wide"
               >
                 {OFFER_COPY}
               </span>
               <a
                 href="#livros"
-                className="group flex items-center gap-1 font-sans text-[10px] tracking-[0.15em] uppercase text-white/40 hover:text-white transition-colors duration-200"
+                className="group flex items-center gap-1 font-sans text-[10px] tracking-[0.15em] uppercase text-black/45 hover:text-black transition-colors duration-200"
               >
                 {OFFER_CTA}
                 <span className="transition-transform duration-200 group-hover:translate-x-0.5">
@@ -253,7 +253,7 @@ export function OfferCountdown() {
             whileHover={{ scale: 1.15 }}
             whileTap={{ scale: 0.9 }}
             aria-label="Fechar banner de oferta"
-            className="absolute right-4 sm:right-6 text-white/25 hover:text-white/60 transition-colors duration-200"
+            className="absolute right-4 sm:right-6 text-black/30 hover:text-black/70 transition-colors duration-200"
           >
             <IconX size={13} />
           </motion.button>
