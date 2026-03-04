@@ -1,11 +1,12 @@
 import { useParams, Link } from "react-router-dom";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useProduct } from "../hooks/useProduct";
 import { IconArrowLeft, IconShare } from "../components/Icons";
 import { Header } from "../components/Header";
 import { OfferCountdown } from "../components/OfferCountdown";
 import { MobileMenu } from "../components/MobileMenu";
 import { NotFound } from "../components/ui/NotFound";
+import { useInteractions } from "../hooks/useInteractions";
 
 // ─── Sub-components ───────────────────────────────────────────────────────────
 import { BookCarousel } from "../components/book/BookCarousel";
@@ -17,6 +18,17 @@ export function BookPage() {
   const { bookId } = useParams<{ bookId: string }>();
   const { product: book, loading, error } = useProduct(bookId);
   const [menuOpen, setMenuOpen] = useState(false);
+  const { trackInteraction } = useInteractions();
+
+  // Track detailed product view
+  useEffect(() => {
+    if (book) {
+      trackInteraction('product_view', book.id, { 
+        name: book.name,
+        location: 'product_page' 
+      });
+    }
+  }, [book, trackInteraction]);
 
   if (loading) return (
     <div className="min-h-screen bg-black flex items-center justify-center text-white/50 font-sans text-[11px] tracking-widest uppercase">

@@ -1,10 +1,13 @@
 // src/components/BookCard.tsx
 import { motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
+import { useEffect } from "react";
 import type { Product } from "../types";
 import { cardVariants } from "../motionVariants";
 import { IconBook, IconArrowRight, IconStar } from "./Icons";
 import { BookCarousel } from "./book/BookCarousel";
+import { useInteractions } from "../hooks/useInteractions";
+
 interface BookCardProps {
   book: Product;
   index: number;
@@ -12,12 +15,26 @@ interface BookCardProps {
 
 export function BookCard({ book, index }: BookCardProps) {
   const navigate = useNavigate();
+  const { trackInteraction } = useInteractions();
+
+  // Track product view on mount
+  useEffect(() => {
+    trackInteraction('product_view', book.id, { 
+      name: book.name,
+      location: 'card_list' 
+    });
+  }, [book.id, book.name, trackInteraction]);
 
   const handleCardClick = () => {
     navigate(`/ebook/${book.id}`);
   };
 
   const handleCheckout = () => {
+    trackInteraction('cta_click', book.id, {
+      name: book.name,
+      action: 'checkout_from_card'
+    });
+    
     if (book.checkout_url) {
       window.location.href = book.checkout_url;
     }

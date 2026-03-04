@@ -2,6 +2,19 @@ import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import { IconArrowRight, IconShield, IconMail, IconBook, IconStar } from "../Icons";
 import { fadeUpVariants, stagger } from "./variants";
+import { useInteractions } from "../../hooks/useInteractions";
+
+interface BookDetailsType {
+  id: string;
+  category: string;
+  name: string;
+  rating: number;
+  description?: string;
+  pages?: string | number;
+  language: string;
+  checkout_url?: string;
+  access_url?: string;
+}
 
 interface StatItemProps {
   label: string;
@@ -34,13 +47,22 @@ function TrustBadge({ icon, label }: { icon: React.ReactNode; label: string }) {
 }
 
 interface BookDetailsProps {
-  book: any;
+  book: BookDetailsType;
   formattedPrice: string;
   formattedDiscountPrice: string | null;
   hasDiscount: boolean;
 }
 
 export function BookDetails({ book, formattedPrice, formattedDiscountPrice, hasDiscount }: BookDetailsProps) {
+  const { trackInteraction } = useInteractions();
+
+  const handleCheckout = () => {
+    trackInteraction('cta_click', book.id, {
+      name: book.name,
+      action: 'checkout_from_details'
+    });
+  };
+
   return (
     <motion.div
       variants={stagger}
@@ -96,7 +118,7 @@ export function BookDetails({ book, formattedPrice, formattedDiscountPrice, hasD
         custom={0.2}
         className="flex items-stretch divide-x divide-white/[0.08] border border-white/[0.08] mb-8"
       >
-        <StatItem label="Páginas" value={book.pages ?? "–"} />
+        <StatItem label="Páginas" value={book.pages ? String(book.pages) : "–"} />
         <StatItem label="Idioma" value={book.language} />
         <StatItem label="Formato" value="Digital" />
         <StatItem label="Entrega" value="Imediata" />
@@ -126,6 +148,7 @@ export function BookDetails({ book, formattedPrice, formattedDiscountPrice, hasD
             href={book.checkout_url || "#"}
             target="_blank"
             rel="noopener noreferrer"
+            onClick={handleCheckout}
             whileHover={{ scale: 1.03, y: -1 }}
             whileTap={{ scale: 0.97 }}
             className="w-full sm:w-auto bg-white text-black font-sans text-[13px] font-medium tracking-[0.1em] uppercase py-4 px-8 flex items-center justify-center gap-2 hover:bg-white/85 transition-colors duration-200"
