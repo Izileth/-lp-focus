@@ -1,40 +1,43 @@
 // src/components/OfferCountdown.tsx
 import { useState, useEffect, useCallback, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { IconClock, IconX, IconArrowRight } from "./Icons";
+import { IconX } from "./Icons";
 import type { Variants } from "framer-motion";
 
 // ─── Types ────────────────────────────────────────────────────────────────────
 
 interface TimeLeft {
+  days:    number;
   hours:   number;
   minutes: number;
   seconds: number;
 }
 
-interface DigitProps {
+interface DigitBlockProps {
   value: string;
   label: string;
 }
 
 // ─── Constants ────────────────────────────────────────────────────────────────
 
-const OFFER_LABEL  = "Oferta por tempo limitado";
-const OFFER_COPY   = "30% OFF em todos os ebooks";
-const OFFER_CTA    = "Aproveitar";
+const OFFER_HEADLINE = "PROMOÇÃO ACABA EM";
+const OFFER_COPY     = "30% OFF em todos os ebooks";
+const DAYS_AHEAD     = 3; // days from now the offer expires
 
 // ─── Helpers ─────────────────────────────────────────────────────────────────
 
-function getEndOfDay(): Date {
+function getTarget(): Date {
   const d = new Date();
+  d.setDate(d.getDate() + DAYS_AHEAD);
   d.setHours(23, 59, 59, 999);
   return d;
 }
 
 function calcTimeLeft(target: Date): TimeLeft {
   const diff = target.getTime() - Date.now();
-  if (diff <= 0) return { hours: 0, minutes: 0, seconds: 0 };
+  if (diff <= 0) return { days: 0, hours: 0, minutes: 0, seconds: 0 };
   return {
+    days:    Math.floor(diff / (1000 * 60 * 60 * 24)),
     hours:   Math.floor((diff / (1000 * 60 * 60)) % 24),
     minutes: Math.floor((diff / (1000 * 60)) % 60),
     seconds: Math.floor((diff / 1000) % 60),
@@ -46,31 +49,33 @@ function fmt(n: number): string {
 }
 
 function isExpired(t: TimeLeft): boolean {
-  return t.hours === 0 && t.minutes === 0 && t.seconds === 0;
+  return t.days === 0 && t.hours === 0 && t.minutes === 0 && t.seconds === 0;
 }
 
 // ─── Motion Variants ──────────────────────────────────────────────────────────
 
 const bannerVariants: Variants = {
-  hidden:  { y: -40, opacity: 0 },
-  visible: { y: 0,   opacity: 1, transition: { delay: 0.8, duration: 0.7, ease: [0.16, 1, 0.3, 1] } },
-  exit:    { y: -40, opacity: 0,             transition: { duration: 0.4, ease: [0.7, 0, 1, 1] } },
+  hidden:  { y: -20, opacity: 0 },
+  visible: { y: 0, opacity: 1, transition: { delay: 0.6, duration: 0.7, ease: [0.16, 1, 0.3, 1] } },
+  exit:    { y: -20, opacity: 0, transition: { duration: 0.35, ease: [0.7, 0, 1, 1] } },
 };
 
 const digitVariants: Variants = {
-  initial: { y: -10, opacity: 0 },
-  animate: { y: 0,   opacity: 1, transition: { duration: 0.18, ease: "easeOut" } },
-  exit:    { y:  10, opacity: 0, transition: { duration: 0.14, ease: "easeIn"  } },
+  initial: { y: -14, opacity: 0 },
+  animate: { y: 0,   opacity: 1, transition: { duration: 0.2,  ease: "easeOut" } },
+  exit:    { y:  14, opacity: 0, transition: { duration: 0.15, ease: "easeIn"  } },
 };
 
-// ─── Digit cell ──────────────────────────────────────────────────────────────
+// ─── DigitBlock ───────────────────────────────────────────────────────────────
 
-function Digit({ value, label }: DigitProps) {
+function DigitBlock({ value, label }: DigitBlockProps) {
   return (
-    <div className="flex flex-col items-center gap-0.5">
+    <div className="flex flex-col items-center gap-1.5">
+      {/* Number */}
       <div
-        className="relative w-7 h-7 border border-black/[0.12] bg-black/[0.04] flex items-center justify-center overflow-hidden tabular-nums"
+        className="relative overflow-hidden tabular-nums"
         aria-label={`${value} ${label}`}
+        style={{ minWidth: "2ch" }}
       >
         <AnimatePresence mode="popLayout" initial={false}>
           <motion.span
@@ -79,27 +84,41 @@ function Digit({ value, label }: DigitProps) {
             initial="initial"
             animate="animate"
             exit="exit"
-            className="absolute font-mono text-[13px] font-bold text-black leading-none"
+            className="block font-black text-white leading-none"
+            style={{
+              fontFamily: "'Playfair Display', serif",
+              fontSize: "clamp(36px, 7vw, 72px)",
+              letterSpacing: "-0.02em",
+            }}
           >
             {value}
           </motion.span>
         </AnimatePresence>
       </div>
-      <span className="font-sans text-[8px] tracking-[0.18em] uppercase text-black/35 leading-none hidden sm:block">
+      {/* Label */}
+      <span
+        className="font-sans text-[9px] sm:text-[10px] tracking-[0.25em] uppercase text-white/35"
+      >
         {label}
       </span>
     </div>
   );
 }
 
-// ─── Separator ───────────────────────────────────────────────────────────────
+// ─── Colon separator ─────────────────────────────────────────────────────────
 
-function Separator() {
+function Colon() {
   return (
     <motion.span
-      animate={{ opacity: [0.2, 0.7, 0.2] }}
-      transition={{ duration: 1, repeat: Infinity, ease: "easeInOut" }}
-      className="font-mono text-[13px] font-bold text-black/35 mb-3 leading-none self-start mt-1.5"
+      animate={{ opacity: [0.15, 0.6, 0.15] }}
+      transition={{ duration: 1.1, repeat: Infinity, ease: "easeInOut" }}
+      className="font-black text-white/30 self-start pb-6"
+      style={{
+        fontFamily: "'Playfair Display', serif",
+        fontSize: "clamp(28px, 5vw, 56px)",
+        lineHeight: 1,
+        marginTop: "4px",
+      }}
       aria-hidden="true"
     >
       :
@@ -107,39 +126,19 @@ function Separator() {
   );
 }
 
-// ─── Live dot ────────────────────────────────────────────────────────────────
-
-function LiveDot() {
-  return (
-    <span className="relative flex h-1.5 w-1.5 shrink-0" aria-hidden="true">
-      <motion.span
-        animate={{ scale: [1, 1.8, 1], opacity: [0.6, 0, 0.6] }}
-        transition={{ duration: 1.4, repeat: Infinity, ease: "easeInOut" }}
-        className="absolute inset-0 rounded-full bg-black/50"
-      />
-      <span className="relative rounded-full h-1.5 w-1.5 bg-black/70" />
-    </span>
-  );
-}
-
 // ─── OfferCountdown ───────────────────────────────────────────────────────────
 
 export function OfferCountdown() {
-  const targetRef = useRef<Date>(getEndOfDay());
+  const targetRef = useRef<Date>(getTarget());
+  const [timeLeft,  setTimeLeft]  = useState<TimeLeft>(() => calcTimeLeft(targetRef.current));
+  const [dismissed, setDismissed] = useState<boolean>(false);
 
-  const [timeLeft,   setTimeLeft]   = useState<TimeLeft>(() => calcTimeLeft(targetRef.current));
-  const [dismissed,  setDismissed]  = useState<boolean>(false);
-
-  // Tick every second
   const tick = useCallback(() => {
     const next = calcTimeLeft(targetRef.current);
-
-    // Roll over to next day on expire
     if (isExpired(next)) {
-      const nextDay = new Date(targetRef.current.getTime() + 24 * 60 * 60 * 1000);
-      nextDay.setHours(23, 59, 59, 999);
-      targetRef.current = nextDay;
-      setTimeLeft(calcTimeLeft(nextDay));
+      const nd = getTarget();
+      targetRef.current = nd;
+      setTimeLeft(calcTimeLeft(nd));
     } else {
       setTimeLeft(next);
     }
@@ -149,8 +148,6 @@ export function OfferCountdown() {
     const id = setInterval(tick, 1000);
     return () => clearInterval(id);
   }, [tick]);
-
-  // ─────────────────────────────────────────────────────────────────────────
 
   return (
     <AnimatePresence>
@@ -162,98 +159,66 @@ export function OfferCountdown() {
           animate="visible"
           exit="exit"
           role="banner"
-          aria-label="Oferta por tempo limitado"
-          className="fixed top-16 left-0 right-0 z-[90] h-11 bg-white border-b border-black/[0.08] flex items-center"
+          aria-label="Promoção por tempo limitado"
+          className="fixed top-16 left-0 right-0 z-[90] bg-black border-b border-white/[0.07] flex flex-col items-center justify-center py-6 px-4"
         >
-          {/* Subtle noise */}
+          {/* Noise */}
           <div
             aria-hidden="true"
-            className="absolute inset-0 pointer-events-none opacity-[0.02]"
+            className="absolute inset-0 pointer-events-none opacity-[0.03]"
             style={{
               backgroundImage:
                 "url(\"data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E\")",
             }}
           />
+          {/* Vertical accent lines */}
+          <div aria-hidden="true" className="absolute left-0 inset-y-0 w-px bg-gradient-to-b from-transparent via-white/10 to-transparent" />
+          <div aria-hidden="true" className="absolute right-0 inset-y-0 w-px bg-gradient-to-b from-transparent via-white/10 to-transparent" />
 
-          {/* Left accent line */}
+          {/* Headline */}
+          <motion.p
+            initial={{ opacity: 0, y: 6 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.9, duration: 0.5 }}
+            className="font-sans font-black text-white/70 tracking-[0.3em] uppercase mb-4"
+            style={{ fontSize: "clamp(9px, 1.5vw, 11px)" }}
+          >
+            {OFFER_HEADLINE}
+          </motion.p>
+
+          {/* Countdown row */}
           <div
-            aria-hidden="true"
-            className="absolute left-0 top-0 bottom-0 w-px bg-gradient-to-b from-transparent via-black/15 to-transparent"
-          />
-          {/* Right accent line */}
-          <div
-            aria-hidden="true"
-            className="absolute right-0 top-0 bottom-0 w-px bg-gradient-to-b from-transparent via-black/15 to-transparent"
-          />
-
-          <div className="flex items-center justify-center gap-4 sm:gap-6 max-w-[1200px] w-full mx-auto px-4 sm:px-10">
-
-            {/* Live indicator + label */}
-            <div className="hidden sm:flex items-center gap-2.5">
-              <LiveDot />
-              <span className="font-sans text-[10px] tracking-[0.22em] uppercase text-black/45">
-                {OFFER_LABEL}
-              </span>
-            </div>
-
-            {/* Mobile: clock icon */}
-            <span className="sm:hidden text-black/40">
-              <IconClock size={13} />
-            </span>
-
-            {/* Divider */}
-            <div
-              aria-hidden="true"
-              className="hidden sm:block h-4 w-px bg-black/[0.1]"
-            />
-
-            {/* Countdown */}
-            <div
-              className="flex items-end gap-1"
-              aria-label={`Tempo restante: ${fmt(timeLeft.hours)} horas, ${fmt(timeLeft.minutes)} minutos e ${fmt(timeLeft.seconds)} segundos`}
-              role="timer"
-            >
-              <Digit value={fmt(timeLeft.hours)}   label="hrs" />
-              <Separator />
-              <Digit value={fmt(timeLeft.minutes)} label="min" />
-              <Separator />
-              <Digit value={fmt(timeLeft.seconds)} label="seg" />
-            </div>
-
-            {/* Divider */}
-            <div
-              aria-hidden="true"
-              className="hidden md:block h-4 w-px bg-black/[0.1]"
-            />
-
-            {/* Offer copy */}
-            <div className="hidden md:flex items-center gap-2.5">
-              <span
-                className="[font-family:'Playfair_Display',serif] font-bold text-black text-[13px] tracking-wide"
-              >
-                {OFFER_COPY}
-              </span>
-              <a
-                href="#livros"
-                className="group flex items-center gap-1 font-sans text-[10px] tracking-[0.15em] uppercase text-black/45 hover:text-black transition-colors duration-200"
-              >
-                {OFFER_CTA}
-                <span className="transition-transform duration-200 group-hover:translate-x-0.5">
-                  <IconArrowRight size={11} />
-                </span>
-              </a>
-            </div>
-
+            className="flex items-end gap-3 sm:gap-5"
+            role="timer"
+            aria-label={`${fmt(timeLeft.days)} dias, ${fmt(timeLeft.hours)} horas, ${fmt(timeLeft.minutes)} minutos e ${fmt(timeLeft.seconds)} segundos`}
+          >
+            <DigitBlock value={fmt(timeLeft.days)}    label="Dias"     />
+            <Colon />
+            <DigitBlock value={fmt(timeLeft.hours)}   label="Horas"    />
+            <Colon />
+            <DigitBlock value={fmt(timeLeft.minutes)} label="Minutos"  />
+            <Colon />
+            <DigitBlock value={fmt(timeLeft.seconds)} label="Segundos" />
           </div>
 
-          {/* Dismiss */}
+          {/* Sub-copy */}
+          <motion.p
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 1.1, duration: 0.5 }}
+            className="font-sans text-[11px] tracking-[0.18em] uppercase text-white/50 mt-4 hidden sm:block"
+          >
+            {OFFER_COPY}
+          </motion.p>
+
+          {/* Dismiss button */}
           <motion.button
             type="button"
             onClick={() => setDismissed(true)}
             whileHover={{ scale: 1.15 }}
             whileTap={{ scale: 0.9 }}
-            aria-label="Fechar banner de oferta"
-            className="absolute right-4 sm:right-6 text-black/30 hover:text-black/70 transition-colors duration-200"
+            aria-label="Fechar oferta"
+            className="absolute top-3 right-4 sm:right-6 text-white hover:text-white/55 transition-colors duration-200"
           >
             <IconX size={13} />
           </motion.button>
