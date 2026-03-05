@@ -3,7 +3,7 @@ import type { FormEvent } from "react";
 import { motion,  AnimatePresence } from "framer-motion";
 import type { Variants } from "framer-motion";
 import { IconMail, IconArrowRight, IconCheck, IconLoader, IconAlertCircle } from "./Icons";
-import { supabase } from "../lib/supabaseClient";
+import { useNewsletter } from "../hooks/useNewsletter";
 
 // ─── Variants ─────────────────────────────────────────────────────────────────
 
@@ -21,40 +21,13 @@ const fadeUp: Variants = {
 
 const NewsletterSection = () => {
   const [email, setEmail]       = useState<string>("");
-  const [submitted, setSubmitted] = useState<boolean>(false);
-  const [loading, setLoading]     = useState<boolean>(false);
-  const [error, setError]         = useState<string | null>(null);
+  const { subscribe, loading, error, submitted } = useNewsletter();
   const [focused, setFocused]   = useState<boolean>(false);
 
   const handleSubmit = useCallback(async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    if (!email.trim() || loading) return;
-    
-    setLoading(true);
-    setError(null);
-
-    try {
-      const { error: insertError } = await supabase
-        .from('newsletter_subscriptions')
-        .insert([{ email: email.trim().toLowerCase() }]);
-
-      if (insertError) {
-        // Handle unique constraint error specifically
-        if (insertError.code === '23505') {
-          setError("Este e-mail já está inscrito em nossa newsletter.");
-        } else {
-          throw insertError;
-        }
-      } else {
-        setSubmitted(true);
-      }
-    } catch (err) {
-      console.error("Newsletter error:", err);
-      setError("Ocorreu um erro ao processar sua inscrição. Tente novamente.");
-    } finally {
-      setLoading(false);
-    }
-  }, [email, loading]);
+    await subscribe(email);
+  }, [email, subscribe]);
 
   return (
     <motion.section
