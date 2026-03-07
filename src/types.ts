@@ -5,6 +5,12 @@ export interface ProductImage {
   image_url: string;
 }
 
+export interface Bonus {
+  title: string;
+  description: string;
+  icon?: string;
+}
+
 export interface Product {
   id: number;
   name: string;
@@ -21,6 +27,7 @@ export interface Product {
   checkout_url?: string;
   access_url?: string;
   share_url?: string;
+  bonuses?: Bonus[];
 }
 
 

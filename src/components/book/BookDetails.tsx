@@ -4,6 +4,8 @@ import { IconArrowRight, IconShield, IconMail, IconBook, IconStar } from "../Ico
 import { fadeUpVariants, stagger } from "./variants";
 import { useInteractions } from "../../hooks/useInteractions";
 
+import type { Bonus } from "../../types";
+
 interface BookDetailsType {
   id: string;
   category: string;
@@ -14,6 +16,7 @@ interface BookDetailsType {
   language: string;
   checkout_url?: string;
   access_url?: string;
+  bonuses?: Bonus[];
 }
 
 interface StatItemProps {
@@ -123,6 +126,41 @@ export function BookDetails({ book, formattedPrice, formattedDiscountPrice, hasD
         <StatItem label="Formato" value="Digital" />
         <StatItem label="Entrega" value="Imediata" />
       </motion.div>
+
+      {/* Bonuses Section */}
+      {book.bonuses && book.bonuses.length > 0 && (
+        <motion.div
+          variants={fadeUpVariants}
+          custom={0.22}
+          className="mb-8 flex flex-col gap-4"
+        >
+          <div className="flex items-center gap-3">
+            <span className="font-sans text-[10px] tracking-[0.25em] uppercase text-white/35 border-l-2 border-white/20 pl-3">
+              Bônus Inclusos
+            </span>
+            <div className="h-px bg-white/[0.08] flex-1" />
+          </div>
+          
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+            {book.bonuses.map((bonus, index) => (
+              <div 
+                key={index}
+                className="p-4 border border-white/[0.06] bg-white/[0.02] flex flex-col gap-1.5"
+              >
+                <div className="flex items-center gap-2">
+                  <div className="w-1.5 h-1.5 rounded-full bg-white/40" />
+                  <span className="font-sans text-[12px] font-bold text-white/90 uppercase tracking-wider">
+                    {bonus.title}
+                  </span>
+                </div>
+                <p className="font-sans text-[11px] leading-relaxed text-white/40">
+                  {bonus.description}
+                </p>
+              </div>
+            ))}
+          </div>
+        </motion.div>
+      )}
 
       <motion.div
         variants={fadeUpVariants}

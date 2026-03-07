@@ -14,8 +14,10 @@ import {
   IconTag,
   IconBook,
   IconX,
+  IconPlus,
+  IconInfo,
 } from "../Icons";
-import type { Product } from "../../types";
+import type { Product, Bonus } from "../../types";
 
 // ─── Types ────────────────────────────────────────────────────────────────────
 
@@ -39,6 +41,7 @@ interface FormData {
   checkout_url: string;
   access_url: string;
   share_url: string;
+  bonuses: Bonus[];
 }
 
 type SubmitStatus = "idle" | "loading" | "success" | "error";
@@ -63,6 +66,7 @@ function buildInitialFormData(product?: Product): FormData {
     checkout_url: product?.checkout_url ?? "",
     access_url: product?.access_url ?? "",
     share_url: product?.share_url ?? "",
+    bonuses: product?.bonuses ?? [],
   };
 }
 
@@ -221,6 +225,30 @@ export function ProductForm({ product, onSuccess }: ProductFormProps) {
     setFormData((prev) => ({ ...prev, image_urls: urls }));
   }, []);
 
+  // ── Bonus management ────────────────────────────────────────────────────
+  const addBonus = useCallback(() => {
+    setFormData((prev) => ({
+      ...prev,
+      bonuses: [...prev.bonuses, { title: "", description: "", icon: "" }],
+    }));
+  }, []);
+
+  const removeBonus = useCallback((index: number) => {
+    setFormData((prev) => ({
+      ...prev,
+      bonuses: prev.bonuses.filter((_, i) => i !== index),
+    }));
+  }, []);
+
+  const handleBonusChange = useCallback((index: number, field: keyof Bonus, value: string) => {
+    setFormData((prev) => ({
+      ...prev,
+      bonuses: prev.bonuses.map((bonus, i) =>
+        i === index ? { ...bonus, [field]: value } : bonus
+      ),
+    }));
+  }, []);
+
   // ── Dismiss banner ────────────────────────────────────────────────────────
   const dismissBanner = useCallback(() => {
     setSubmitStatus("idle");
@@ -239,6 +267,7 @@ export function ProductForm({ product, onSuccess }: ProductFormProps) {
         price: parseFloat(formData.price) || 0,
         discount_price: formData.discount_price ? parseFloat(formData.discount_price) : undefined,
         rating: parseFloat(formData.rating) || 0,
+        bonuses: formData.bonuses.filter(b => b.title.trim() !== "") // Filter out empty bonuses
       };
 
       let result: { error?: { message: string } | null } | null | undefined;
@@ -401,6 +430,76 @@ export function ProductForm({ product, onSuccess }: ProductFormProps) {
                   className="w-full bg-transparent py-4 px-4 font-sans text-[13px] text-white placeholder-white/20 outline-none"
                 />
               </Field>
+            </div>
+
+            {/* Bonuses Section */}
+            <motion.div variants={fadeUp} className="mt-6 flex items-center justify-between">
+              <span className="font-sans text-[10px] tracking-[0.25em] uppercase text-white/25 border-l-2 border-white/15 pl-3">
+                Bônus Exclusivos
+              </span>
+              <button
+                type="button"
+                onClick={addBonus}
+                className="font-sans text-[10px] tracking-widest uppercase text-white/40 hover:text-white transition-colors flex items-center gap-2"
+              >
+                <IconPlus size={12} /> Adicionar Bônus
+              </button>
+            </motion.div>
+
+            <div className="flex flex-col gap-4">
+              <AnimatePresence mode="popLayout">
+                {formData.bonuses.map((bonus, index) => (
+                  <motion.div
+                    key={index}
+                    initial={{ opacity: 0, x: -10 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    exit={{ opacity: 0, x: 10 }}
+                    className="p-4 border border-white/[0.07] bg-white/[0.02] flex flex-col gap-4 relative group"
+                  >
+                    <button
+                      type="button"
+                      onClick={() => removeBonus(index)}
+                      className="absolute top-4 right-4 text-white/20 hover:text-red-400 transition-colors opacity-0 group-hover:opacity-100"
+                    >
+                      <IconX size={14} />
+                    </button>
+
+                    <div className="grid grid-cols-1 gap-4">
+                      <div className="flex flex-col gap-2">
+                        <label className="font-sans text-[9px] tracking-[0.2em] uppercase text-white/30 font-medium">
+                          Título do Bônus
+                        </label>
+                        <input
+                          value={bonus.title}
+                          onChange={(e) => handleBonusChange(index, "title", e.target.value)}
+                          placeholder="Ex: Checklist de Design"
+                          className="w-full bg-transparent border-b border-white/[0.1] py-2 font-sans text-[12px] text-white placeholder-white/10 outline-none focus:border-white/30 transition-colors"
+                        />
+                      </div>
+
+                      <div className="flex flex-col gap-2">
+                        <label className="font-sans text-[9px] tracking-[0.2em] uppercase text-white/30 font-medium">
+                          Descrição do Bônus
+                        </label>
+                        <textarea
+                          value={bonus.description}
+                          onChange={(e) => handleBonusChange(index, "description", e.target.value)}
+                          placeholder="Uma breve descrição do que o usuário recebe..."
+                          rows={2}
+                          className="w-full bg-transparent border-b border-white/[0.1] py-2 font-sans text-[12px] text-white placeholder-white/10 outline-none resize-none focus:border-white/30 transition-colors"
+                        />
+                      </div>
+                    </div>
+                  </motion.div>
+                ))}
+              </AnimatePresence>
+              
+              {formData.bonuses.length === 0 && (
+                <div className="border border-dashed border-white/10 py-8 flex flex-col items-center justify-center gap-3">
+                  <IconInfo size={16} className="text-white/10" />
+                  <p className="font-sans text-[11px] text-white/20">Nenhum bônus adicionado ainda.</p>
+                </div>
+              )}
             </div>
 
             {/* Rating + Category */}

@@ -2,6 +2,8 @@
 import { useState } from 'react';
 import { supabase } from '../lib/supabaseClient';
 
+import type { Bonus } from '../types';
+
 // --- useCreateProduct ---
 export function useCreateProduct() {
   const [loading, setLoading] = useState(false);
@@ -22,6 +24,7 @@ export function useCreateProduct() {
     checkout_url?: string;
     access_url?: string;
     share_url?: string;
+    bonuses?: Bonus[];
   }) => {
     setLoading(true);
     setError(null);
@@ -65,6 +68,7 @@ export function useUpdateProduct() {
     checkout_url?: string;
     access_url?: string;
     share_url?: string;
+    bonuses?: Bonus[];
   }) => {
     setLoading(true);
     setError(null);
