@@ -6,6 +6,7 @@ import { BookPage } from "../pages/BookPage";
 import { AdminPage } from "../pages/AdminPage";
 import { LoginPage } from "../pages/LoginPage";
 import { ProfilePage } from "../pages/ProfilePage";
+import { CategoryPage } from "../pages/CategoryPage";
 import UnsubscribePage from "../pages/UnsubscribePage";
 import SplashScreen from "../components/SplashScreen";
 
@@ -37,6 +38,10 @@ const router = createBrowserRouter([
       {
         path: "/ebook/:bookId",
         element: <BookPage />,
+      },
+      {
+        path: "/categoria/:categorySlug",
+        element: <CategoryPage />,
       },
       {
         path: "/admin",

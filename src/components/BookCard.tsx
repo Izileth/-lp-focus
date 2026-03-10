@@ -1,6 +1,6 @@
 // src/components/BookCard.tsx
 import { motion, AnimatePresence } from "framer-motion";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 import type { Product } from "../types";
 import { cardVariants } from "../motionVariants";
@@ -133,10 +133,14 @@ export function BookCard({ book, index }: BookCardProps) {
         />
         
         {/* Subtle category watermark + Rating */}
-        <div className="absolute bottom-4 left-4 z-10 flex items-center gap-2 pointer-events-none">
-          <span className="font-sans text-[9px] tracking-[0.2em] uppercase text-white/40 bg-black/40 px-2 py-0.5 backdrop-blur-sm">
+        <div className="absolute bottom-4 right-2 z-10 flex items-center gap-2 pointer-events-none">
+          <Link
+            to={`/categoria/${encodeURIComponent(book.category)}`}
+            onClick={(e) => e.stopPropagation()}
+            className="font-sans text-[9px] tracking-[0.2em] uppercase text-white/40 bg-black/40 px-2 py-0.5 backdrop-blur-sm pointer-events-auto hover:text-white transition-colors"
+          >
             {book.category}
-          </span>
+          </Link>
           <span className="font-sans text-[9px] tracking-[0.1em] text-white/60 bg-black/40 px-2 py-0.5 backdrop-blur-sm flex items-center gap-1">
             <IconStar size={10} /> {book.rating}
           </span>
@@ -145,7 +149,13 @@ export function BookCard({ book, index }: BookCardProps) {
 
       <p className="font-sans text-[10px] tracking-[0.18em] uppercase text-white/40 mb-2 flex items-center gap-1.5">
         <span className="text-white/25"><IconBook /></span>
-        {book.category}
+        <Link 
+          to={`/categoria/${encodeURIComponent(book.category)}`}
+          onClick={(e) => e.stopPropagation()}
+          className="hover:text-white transition-colors"
+        >
+          {book.category}
+        </Link>
       </p>
       <h3 className="[font-family:'Playfair_Display',serif] text-[18px] font-bold leading-[1.25] mb-4 h-[2.5em] line-clamp-2">
         {book.name}
