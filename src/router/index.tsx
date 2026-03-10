@@ -1,4 +1,3 @@
-// src/router/index.tsx
 import { createBrowserRouter, RouterProvider, Outlet } from "react-router-dom";
 import { useState } from "react";
 import App from "../App";
@@ -8,7 +7,11 @@ import { LoginPage } from "../pages/LoginPage";
 import { ProfilePage } from "../pages/ProfilePage";
 import { CategoryPage } from "../pages/CategoryPage";
 import UnsubscribePage from "../pages/UnsubscribePage";
+import TermsPage from "../pages/TermsPage";
+import PrivacyPage from "../pages/PrivacyPage";
+import ContactPage from "../pages/ContactPage";
 import SplashScreen from "../components/SplashScreen";
+import ScrollToTop from "../components/ScrollToTop";
 
 function SplashLayout() {
   const [isLoading, setIsLoading] = useState<boolean>(() => {
@@ -24,7 +27,12 @@ function SplashLayout() {
     return <SplashScreen onLoadingComplete={handleLoadingComplete} />;
   }
 
-  return <Outlet />;
+  return (
+    <>
+      <ScrollToTop />
+      <Outlet />
+    </>
+  );
 }
 
 const router = createBrowserRouter([
@@ -58,6 +66,18 @@ const router = createBrowserRouter([
       {
         path: "/unsubscribe",
         element: <UnsubscribePage />,
+      },
+      {
+        path: "/termos",
+        element: <TermsPage />,
+      },
+      {
+        path: "/privacidade",
+        element: <PrivacyPage />,
+      },
+      {
+        path: "/contato",
+        element: <ContactPage />,
       },
     ],
   },

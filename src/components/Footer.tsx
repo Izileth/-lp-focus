@@ -1,4 +1,4 @@
-// src/components/Footer.tsx
+import { Link } from "react-router-dom";
 import { FOOT_LINKS } from "../constants";
 
 export function Footer() {
@@ -16,13 +16,13 @@ export function Footer() {
 
         <nav className="flex gap-7">
           {FOOT_LINKS.map((item) => (
-            <a
-              key={item}
-              href="#"
+            <Link
+              key={item.label}
+              to={item.path}
               className="font-sans text-[11px] tracking-[0.1em] uppercase text-white/30 no-underline hover:text-white transition-colors duration-200"
             >
-              {item}
-            </a>
+              {item.label}
+            </Link>
           ))}
         </nav>
       </div>
