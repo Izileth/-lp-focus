@@ -24,6 +24,7 @@ export function useCreateProduct() {
     checkout_url?: string;
     access_url?: string;
     share_url?: string;
+    video_url?: string;
     bonuses?: Bonus[];
   }) => {
     setLoading(true);
@@ -68,6 +69,7 @@ export function useUpdateProduct() {
     checkout_url?: string;
     access_url?: string;
     share_url?: string;
+    video_url?: string;
     bonuses?: Bonus[];
   }) => {
     setLoading(true);

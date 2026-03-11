@@ -4,7 +4,7 @@ import { useNavigate, Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 import type { Product } from "../types";
 import { cardVariants } from "../motionVariants";
-import { IconBook, IconArrowRight, IconStar, IconMoreHorizontal, IconX, IconGift } from "./Icons";
+import { IconBook, IconArrowRight, IconStar, IconMoreHorizontal, IconX, IconGift, IconVideo } from "./Icons";
 import { BookCarousel } from "./book/BookCarousel";
 import { useInteractions } from "../hooks/useInteractions";
 
@@ -36,7 +36,15 @@ export function BookCard({ book, index }: BookCardProps) {
       action: 'checkout_from_card'
     });
     
-    if (book.checkout_url) {
+    if (book.video_url) {
+      navigate('/video-promotion', { 
+        state: { 
+          videoUrl: book.video_url, 
+          checkoutUrl: book.checkout_url,
+          bookName: book.name
+        } 
+      });
+    } else if (book.checkout_url) {
       window.location.href = book.checkout_url;
     }
   };
@@ -145,6 +153,12 @@ export function BookCard({ book, index }: BookCardProps) {
             <IconStar size={10} /> {book.rating}
           </span>
         </div>
+
+        {book.video_url && (
+          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-10 w-12 h-12 bg-white/10 backdrop-blur-md border border-white/20 rounded-full flex items-center justify-center text-white/80 opacity-0 group-hover:opacity-100 transition-all duration-300 scale-90 group-hover:scale-100">
+            <IconVideo size={20} fill="currentColor" />
+          </div>
+        )}
       </div>
 
       <p className="font-sans text-[10px] tracking-[0.18em] uppercase text-white/40 mb-2 flex items-center gap-1.5">

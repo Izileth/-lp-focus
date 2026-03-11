@@ -41,6 +41,7 @@ interface FormData {
   checkout_url: string;
   access_url: string;
   share_url: string;
+  video_url: string;
   bonuses: Bonus[];
 }
 
@@ -66,6 +67,7 @@ function buildInitialFormData(product?: Product): FormData {
     checkout_url: product?.checkout_url ?? "",
     access_url: product?.access_url ?? "",
     share_url: product?.share_url ?? "",
+    video_url: product?.video_url ?? "",
     bonuses: product?.bonuses ?? [],
   };
 }
@@ -431,6 +433,16 @@ export function ProductForm({ product, onSuccess }: ProductFormProps) {
                 />
               </Field>
             </div>
+
+            <Field label="URL do Vídeo Profissional" hint="Link do YouTube, Vimeo ou MP4 direto.">
+              <input
+                name="video_url"
+                value={formData.video_url}
+                onChange={handleChange}
+                placeholder="https://www.youtube.com/watch?v=..."
+                className="w-full bg-transparent py-4 px-4 font-sans text-[13px] text-white placeholder-white/20 outline-none"
+              />
+            </Field>
 
             {/* Bonuses Section */}
             <motion.div variants={fadeUp} className="mt-6 flex items-center justify-between">

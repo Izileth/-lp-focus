@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { IconArrowRight, IconShield, IconMail, IconBook, IconStar } from "../Icons";
 import { fadeUpVariants, stagger } from "./variants";
 import { useInteractions } from "../../hooks/useInteractions";
@@ -16,6 +16,7 @@ interface BookDetailsType {
   language: string;
   checkout_url?: string;
   access_url?: string;
+  video_url?: string;
   bonuses?: Bonus[];
 }
 
@@ -58,12 +59,24 @@ interface BookDetailsProps {
 
 export function BookDetails({ book, formattedPrice, formattedDiscountPrice, hasDiscount }: BookDetailsProps) {
   const { trackInteraction } = useInteractions();
+  const navigate = useNavigate();
 
-  const handleCheckout = () => {
+  const handleCheckout = (e: React.MouseEvent) => {
     trackInteraction('cta_click', book.id, {
       name: book.name,
       action: 'checkout_from_details'
     });
+
+    if (book.video_url) {
+      e.preventDefault();
+      navigate('/video-promotion', { 
+        state: { 
+          videoUrl: book.video_url, 
+          checkoutUrl: book.checkout_url,
+          bookName: book.name
+        } 
+      });
+    }
   };
 
   return (
@@ -184,7 +197,7 @@ export function BookDetails({ book, formattedPrice, formattedDiscountPrice, hasD
         <div className="flex flex-col gap-2 w-full sm:w-auto">
           <motion.a
             href={book.checkout_url || "#"}
-            target="_blank"
+            target={book.video_url ? "_self" : "_blank"}
             rel="noopener noreferrer"
             onClick={handleCheckout}
             whileHover={{ scale: 1.03, y: -1 }}

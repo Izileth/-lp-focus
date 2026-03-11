@@ -2,6 +2,7 @@ import { createBrowserRouter, RouterProvider, Outlet } from "react-router-dom";
 import { useState } from "react";
 import App from "../App";
 import { BookPage } from "../pages/BookPage";
+import { VideoPromotionPage } from "../pages/VideoPromotionPage";
 import { AdminPage } from "../pages/AdminPage";
 import { LoginPage } from "../pages/LoginPage";
 import { ProfilePage } from "../pages/ProfilePage";
@@ -46,6 +47,10 @@ const router = createBrowserRouter([
       {
         path: "/ebook/:bookId",
         element: <BookPage />,
+      },
+      {
+        path: "/video-promotion",
+        element: <VideoPromotionPage />,
       },
       {
         path: "/categoria/:categorySlug",

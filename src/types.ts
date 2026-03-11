@@ -27,6 +27,7 @@ export interface Product {
   checkout_url?: string;
   access_url?: string;
   share_url?: string;
+  video_url?: string;
   bonuses?: Bonus[];
 }
 

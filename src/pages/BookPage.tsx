@@ -118,6 +118,47 @@ export function BookPage() {
               hasDiscount={hasDiscount}
             />
           </div>
+
+          {book.video_url && (
+            <div className="mt-24 md:mt-32">
+              <div className="flex flex-col items-center mb-12 text-center">
+                <span className="font-sans text-[11px] tracking-[0.3em] uppercase text-white/30 mb-4">
+                  Experiência Visual
+                </span>
+                <h2 
+                  className="text-3xl md:text-5xl font-bold text-white mb-6"
+                  style={{ fontFamily: "'Playfair Display', serif" }}
+                >
+                  Conheça o Conteúdo
+                </h2>
+                <div className="w-12 h-px bg-white/20" />
+              </div>
+
+              <div className="aspect-video w-full max-w-[1000px] mx-auto bg-white/[0.03] border border-white/[0.08] relative group overflow-hidden">
+                {book.video_url.includes('youtube.com') || book.video_url.includes('youtu.be') ? (
+                  <iframe
+                    src={`https://www.youtube.com/embed/${book.video_url.split('v=')[1] || book.video_url.split('/').pop()}`}
+                    className="w-full h-full"
+                    allowFullScreen
+                    title="Product Video"
+                  />
+                ) : book.video_url.includes('vimeo.com') ? (
+                  <iframe
+                    src={`https://player.vimeo.com/video/${book.video_url.split('/').pop()}`}
+                    className="w-full h-full"
+                    allowFullScreen
+                    title="Product Video"
+                  />
+                ) : (
+                  <video 
+                    src={book.video_url} 
+                    controls 
+                    className="w-full h-full object-cover"
+                  />
+                )}
+              </div>
+            </div>
+          )}
         </main>
 
         <BookFooter />
