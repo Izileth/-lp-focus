@@ -62,3 +62,12 @@ export const FOOT_LINKS = [
   { label: "Privacidade", path: "/privacidade" },
   { label: "Contato", path: "/contato" },
 ] as const;
+  
+
+export const videoPlaylist = [
+    "https://ik.imagekit.io/558cckkpv/Modus_focus_featured_5.mp4?updatedAt=1773333682481",
+    "https://ik.imagekit.io/558cckkpv/Modus_focus_featured_7.mp4?updatedAt=1773333689810",
+    "https://ik.imagekit.io/558cckkpv/Modus_focus_featured_2.mp4?tr=orig&updatedAt=1773333673948",
+    "https://ik.imagekit.io/558cckkpv/modus_focus_featured_video.mp4?updatedAt=1773333671949",
+    "https://ik.imagekit.io/558cckkpv/Modus_focus_featured_6.mp4?updatedAt=1773333661549"
+  ];

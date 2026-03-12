@@ -6,7 +6,7 @@ import { supabase } from "../lib/supabaseClient";
 import { IconArrowRight } from "./Icons";
 import { VideoBackground } from "./VideoBackground";
 import { ScrambleText } from "./ui/HeaderText";
-
+import { videoPlaylist } from "../constants";
 interface PublicStats {
   titles_count: number;
   avg_rating: number;
@@ -20,13 +20,8 @@ export function HeroSection() {
     readers_count: 3000,
   });
 
-  const videoPlaylist = [
-    "https://ik.imagekit.io/558cckkpv/Modus_focus_featured_5.mp4?updatedAt=1773333682481",
-    "https://ik.imagekit.io/558cckkpv/Modus_focus_featured_7.mp4?updatedAt=1773333689810",
-    "https://ik.imagekit.io/558cckkpv/Modus_focus_featured_2.mp4?tr=orig&updatedAt=1773333673948",
-    "https://ik.imagekit.io/558cckkpv/modus_focus_featured_video.mp4?updatedAt=1773333671949",
-    "https://ik.imagekit.io/558cckkpv/Modus_focus_featured_6.mp4?updatedAt=1773333661549"
-  ];
+
+
 
   useEffect(() => {
     async function fetchPublicStats() {
