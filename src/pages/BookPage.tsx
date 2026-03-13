@@ -1,12 +1,12 @@
 import { useParams, Link } from "react-router-dom";
-import { useState, useEffect } from "react";
+import { useState} from "react";
 import { useProduct } from "../hooks/useProduct";
 import { IconArrowLeft, IconShare } from "../components/Icons";
 import { Header } from "../components/Header";
 import { OfferCountdown } from "../components/OfferCountdown";
 import { MobileMenu } from "../components/MobileMenu";
 import { NotFound } from "../components/ui/NotFound";
-import { useInteractions } from "../hooks/useInteractions";
+import { LoadingState } from "../components/ui/StatesScreens";
 
 // ─── Sub-components ───────────────────────────────────────────────────────────
 import { BookCarousel } from "../components/book/BookCarousel";
@@ -20,8 +20,8 @@ export function BookPage() {
   const [menuOpen, setMenuOpen] = useState(false);
 
   if (loading) return (
-    <div className="min-h-screen bg-black flex items-center justify-center text-white/50 font-sans text-[11px] tracking-widest uppercase">
-      Carregando detalhes...
+    <div className="bg-black min-h-screen flex items-center justify-center">
+      <LoadingState message="Carregando detalhes do livro..." />
     </div>
   );
   

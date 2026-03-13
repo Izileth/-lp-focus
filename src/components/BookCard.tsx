@@ -1,12 +1,11 @@
 // src/components/BookCard.tsx
 import { motion, AnimatePresence } from "framer-motion";
 import { useNavigate, Link } from "react-router-dom";
-import { useEffect, useState } from "react";
+import {  useState } from "react";
 import type { Product } from "../types";
 import { cardVariants } from "../motionVariants";
 import { IconBook, IconArrowRight, IconStar, IconMoreHorizontal, IconX, IconGift, IconVideo, IconMail } from "./Icons";
 import { BookCarousel } from "./book/BookCarousel";
-import { useInteractions } from "../hooks/useInteractions";
 
 interface BookCardProps {
   book: Product;
@@ -15,7 +14,6 @@ interface BookCardProps {
 
 export function BookCard({ book, index }: BookCardProps) {
   const navigate = useNavigate();
-  const { trackInteraction } = useInteractions();
   const [showBonuses, setShowBonuses] = useState(false);
 
   const handleCardClick = () => {
