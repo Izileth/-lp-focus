@@ -12,6 +12,8 @@ import UnsubscribePage from "../pages/UnsubscribePage";
 import TermsPage from "../pages/TermsPage";
 import PrivacyPage from "../pages/PrivacyPage";
 import ContactPage from "../pages/ContactPage";
+import ArticlesPage from "../pages/ArticlesPage";
+import ArticleDetailPage from "../pages/ArticleDetailPage";
 import SplashScreen from "../components/SplashScreen";
 import ScrollToTop from "../components/ScrollToTop";
 
@@ -57,9 +59,17 @@ const router = createBrowserRouter([
         path: "/sobre",
         element: <App />,
       },
-        {
+      {
         path: "/contato",
         element: <App />,
+      },
+      {
+        path: "/artigos",
+        element: <ArticlesPage />,
+      },
+      {
+        path: "/artigo/:slug",
+        element: <ArticleDetailPage />,
       },
       {
         path: "/lp/:section/:source?/:campaign?/:adgroup?/:ad?",

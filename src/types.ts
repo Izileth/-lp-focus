@@ -66,3 +66,17 @@ export interface AdminStats {
   admins_count: number;
   interactions_count: number;
 }
+
+export interface Article {
+  id: string;
+  slug: string;
+  title: string;
+  excerpt: string;
+  content: string;
+  cover_image: string;
+  category: string;
+  author: string;
+  published_at: string;
+  reading_time: string;
+}
+

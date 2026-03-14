@@ -84,7 +84,7 @@ export function MobileMenu({ menuOpen, setMenuOpen }: MobileMenuProps) {
               </motion.div>
             )}
 
-            {NAV_LINKS.map((item) => (
+            {NAV_LINKS.filter(item => item !== "Artigos" || isAdmin).map((item) => (
               <motion.div key={item} variants={fadeUpVariants}>
                 <Link
                   to={item === "Ebooks" ? "/livros" : `/${item.toLowerCase()}`}

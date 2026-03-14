@@ -72,7 +72,7 @@ export function Header({ menuOpen, setMenuOpen }: HeaderProps) {
             Painel Admin
           </Link>
         )}
-        {NAV_LINKS.map((item) => (
+        {NAV_LINKS.filter(item => item !== "Artigos" || isAdmin).map((item) => (
           <Link
             key={item}
             to={item === "Ebooks" ? "/livros" : `/${item.toLowerCase()}`}
