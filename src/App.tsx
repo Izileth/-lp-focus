@@ -1,4 +1,5 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useLocation } from "react-router-dom";
 
 import { NoiseOverlay } from "./components/NoiseOverlay";
 import { MobileMenu } from "./components/MobileMenu";
@@ -15,6 +16,25 @@ import { Footer } from "./components/Footer";
 
 export default function App() {
   const [menuOpen, setMenuOpen] = useState<boolean>(false);
+  const { pathname } = useLocation();
+
+  useEffect(() => {
+    const pathToId: Record<string, string> = {
+      "/livros": "livros",
+      "/sobre": "sobre",
+      "/contato": "contato",
+    };
+
+    const sectionId = pathToId[pathname];
+    if (sectionId) {
+      const element = document.getElementById(sectionId);
+      if (element) {
+        element.scrollIntoView({ behavior: "smooth" });
+      }
+    } else if (pathname === "/" || pathname === "/home") {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+  }, [pathname]);
 
   return (
     <>

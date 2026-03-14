@@ -85,15 +85,15 @@ export function MobileMenu({ menuOpen, setMenuOpen }: MobileMenuProps) {
             )}
 
             {NAV_LINKS.map((item) => (
-              <motion.a
-                key={item}
-                variants={fadeUpVariants}
-                href={item === "Ebooks" ? "/#livros" : `/#${item.toLowerCase()}`}
-                onClick={() => setMenuOpen(false)}
-                className="[font-family:'Playfair_Display',serif] text-4xl text-white/60 no-underline hover:text-white transition-colors duration-200"
-              >
-                {item}
-              </motion.a>
+              <motion.div key={item} variants={fadeUpVariants}>
+                <Link
+                  to={item === "Ebooks" ? "/livros" : `/${item.toLowerCase()}`}
+                  onClick={() => setMenuOpen(false)}
+                  className="[font-family:'Playfair_Display',serif] text-4xl text-white/60 no-underline hover:text-white transition-colors duration-200 block"
+                >
+                  {item}
+                </Link>
+              </motion.div>
             ))}
 
             {!user ? (

@@ -46,6 +46,22 @@ const router = createBrowserRouter([
         element: <App />,
       },
       {
+        path: "/home",
+        element: <App />,
+      },
+      {
+        path: "/livros",
+        element: <App />,
+      },
+      {
+        path: "/sobre",
+        element: <App />,
+      },
+        {
+        path: "/contato",
+        element: <App />,
+      },
+      {
         path: "/lp/:section/:source?/:campaign?/:adgroup?/:ad?",
         element: <LandingPage />,
       },
@@ -86,7 +102,7 @@ const router = createBrowserRouter([
         element: <PrivacyPage />,
       },
       {
-        path: "/contato",
+        path: "/suporte",
         element: <ContactPage />,
       },
     ],

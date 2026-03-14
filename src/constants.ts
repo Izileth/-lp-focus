@@ -5,7 +5,7 @@ export const NAV_LINKS = ["Ebooks", "Sobre", "Contato"] as const;
 export const FOOT_LINKS = [
   { label: "Termos", path: "/termos" },
   { label: "Privacidade", path: "/privacidade" },
-  { label: "Contato", path: "/contato" },
+  { label: "Contato", path: "/suporte" },
 ] as const;
 
 export const videoPlaylist = [
