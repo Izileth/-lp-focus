@@ -10,23 +10,27 @@ import { OfferCountdown } from "../components/OfferCountdown";
 import { MobileMenu } from "../components/MobileMenu";
 import { NoiseOverlay } from "../components/NoiseOverlay";
 import { LoadingState, ErrorState } from "../components/ui/StatesScreens";
-import { IconPlus, IconArrowLeft } from "../components/Icons";
+import { IconPlus, IconArrowLeft, IconBook, IconFileText } from "../components/Icons";
 
 // ─── Admin Components ──────────────────────────────────────────────────────────
 import { ProductList } from "../components/admin/ProductList";
 import { ProductForm } from "../components/admin/ProductForm";
+import { ArticleList } from "../components/admin/ArticleList";
+import { ArticleForm } from "../components/admin/ArticleForm";
 import { AdminHeader } from "../components/admin/AdminHeader";
 import { AdminAccessDenied } from "../components/admin/AdminAccessDenied";
 import { slideRight } from "../components/admin/AdminVariants";
-import type { Product, AdminStats } from "../types";
+import type { AdminStats } from "../types";
 
 // ─── Types ────────────────────────────────────────────────────────────────────
 
+type EntityType = "products" | "articles";
 type View = "list" | "create" | "edit";
 
 interface ViewState {
-  current:  View;
-  product?: Product;
+  entity: EntityType;
+  current: View;
+  item?: any;
 }
 
 export function AdminPage() {
@@ -34,7 +38,7 @@ export function AdminPage() {
   const { user, loading: authLoading } = useAuth();
   const { isAdmin, loading: adminLoading, error: adminError } = useAdmin();
 
-  const [viewState, setViewState] = useState<ViewState>({ current: "list" });
+  const [viewState, setViewState] = useState<ViewState>({ entity: "products", current: "list" });
   const [refreshKey, setRefreshKey] = useState<number>(0);
   const [menuOpen, setMenuOpen] = useState(false);
   const [stats, setStats] = useState<AdminStats | null>(null);
@@ -65,22 +69,26 @@ export function AdminPage() {
   }, [user, authLoading, navigate]);
 
   // ── Handlers ──────────────────────────────────────────────────────────────
-  const handleEdit = useCallback((product: Product) => {
-    setViewState({ current: "edit", product });
+  const handleEdit = useCallback((item: any) => {
+    setViewState(prev => ({ ...prev, current: "edit", item }));
   }, []);
 
   const handleCreateNew = useCallback(() => {
-    setViewState({ current: "create", product: undefined });
+    setViewState(prev => ({ ...prev, current: "create", item: undefined }));
   }, []);
 
   const handleSuccess = useCallback(() => {
-    setViewState({ current: "list" });
+    setViewState(prev => ({ ...prev, current: "list", item: undefined }));
     setRefreshKey((k) => k + 1);
   }, []);
 
   const handleCancel = useCallback(() => {
-    setViewState({ current: "list" });
+    setViewState(prev => ({ ...prev, current: "list", item: undefined }));
   }, []);
+
+  const switchEntity = (entity: EntityType) => {
+    setViewState({ entity, current: "list", item: undefined });
+  };
 
   // ── Loading & Error States ────────────────────────────────────────────────
   if (authLoading || adminLoading) {
@@ -118,10 +126,34 @@ export function AdminPage() {
           isFormView={isFormView} 
         />
 
+        {/* Tab Switcher (only in list view) */}
+        {!isFormView && (
+          <div className="flex gap-8 mb-12 border-b border-white/[0.05]">
+            <button
+              onClick={() => switchEntity("products")}
+              className={`pb-4 font-sans text-[11px] tracking-[0.2em] uppercase transition-all relative ${viewState.entity === "products" ? "text-white" : "text-white/30 hover:text-white/50"}`}
+            >
+              <div className="flex items-center gap-2">
+                <IconBook size={14} /> Produtos
+              </div>
+              {viewState.entity === "products" && <motion.div layoutId="activeTab" className="absolute bottom-0 left-0 right-0 h-0.5 bg-white" />}
+            </button>
+            <button
+              onClick={() => switchEntity("articles")}
+              className={`pb-4 font-sans text-[11px] tracking-[0.2em] uppercase transition-all relative ${viewState.entity === "articles" ? "text-white" : "text-white/30 hover:text-white/50"}`}
+            >
+              <div className="flex items-center gap-2">
+                <IconFileText size={14} /> Artigos
+              </div>
+              {viewState.entity === "articles" && <motion.div layoutId="activeTab" className="absolute bottom-0 left-0 right-0 h-0.5 bg-white" />}
+            </button>
+          </div>
+        )}
+
         <AnimatePresence mode="wait">
           {viewState.current === "list" && (
             <motion.div
-              key="list"
+              key={`${viewState.entity}-list`}
               variants={slideRight}
               initial="hidden"
               animate="visible"
@@ -130,13 +162,13 @@ export function AdminPage() {
               <div className="flex items-center justify-between mb-6">
                 <div className="flex flex-col gap-1">
                   <span className="font-sans text-[10px] tracking-[0.22em] uppercase text-white/30">
-                    Produtos
+                    {viewState.entity === "products" ? "Catálogo" : "Journal"}
                   </span>
                   <h2
                     className="[font-family:'Playfair_Display',serif] font-bold"
                     style={{ fontSize: "clamp(18px,2.5vw,26px)" }}
                   >
-                    Catálogo atual
+                    {viewState.entity === "products" ? "Catálogo atual" : "Artigos do Blog"}
                   </h2>
                 </div>
 
@@ -148,23 +180,31 @@ export function AdminPage() {
                   className="bg-white text-black font-sans text-[11px] font-medium tracking-[0.12em] uppercase px-5 py-3 flex items-center gap-2 hover:bg-white/85 transition-colors"
                 >
                   <IconPlus size={14} />
-                  Novo produto
+                  {viewState.entity === "products" ? "Novo produto" : "Novo artigo"}
                 </motion.button>
               </div>
 
               <div className="h-px bg-white/[0.07] mb-8" />
 
-              <ProductList
-                key={refreshKey}
-                onEdit={handleEdit}
-                onSuccess={handleSuccess}
-              />
+              {viewState.entity === "products" ? (
+                <ProductList
+                  key={`products-${refreshKey}`}
+                  onEdit={handleEdit}
+                  onSuccess={handleSuccess}
+                />
+              ) : (
+                <ArticleList
+                  key={`articles-${refreshKey}`}
+                  onEdit={handleEdit}
+                  onSuccess={handleSuccess}
+                />
+              )}
             </motion.div>
           )}
 
           {isFormView && (
             <motion.div
-              key="form"
+              key={`${viewState.entity}-form`}
               variants={slideRight}
               initial="hidden"
               animate="visible"
@@ -181,19 +221,22 @@ export function AdminPage() {
                     <span className="transition-transform duration-200 group-hover:-translate-x-1">
                       <IconArrowLeft size={14} />
                     </span>
-                    Voltar ao catálogo
+                    Voltar para {viewState.entity === "products" ? "produtos" : "artigos"}
                   </motion.button>
 
                   <div className="flex flex-col gap-1">
                     <span className="font-sans text-[10px] tracking-[0.22em] uppercase text-white/30">
-                      {viewState.current === "create" ? "Novo produto" : "Editar produto"}
+                      {viewState.current === "create" 
+                        ? (viewState.entity === "products" ? "Novo produto" : "Novo artigo")
+                        : (viewState.entity === "products" ? "Editar produto" : "Editar artigo")
+                      }
                     </span>
                     <h2
                       className="[font-family:'Playfair_Display',serif] font-bold leading-[1.05]"
                       style={{ fontSize: "clamp(20px,3vw,32px)" }}
                     >
                       {viewState.current === "create" ? (
-                        <>Adicionar ao<br /><em className="not-italic text-white/60">catálogo.</em></>
+                        <>Adicionar ao<br /><em className="not-italic text-white/60">{viewState.entity === "products" ? "catálogo" : "journal"}.</em></>
                       ) : (
                         <>Atualizar<br /><em className="not-italic text-white/60">publicação.</em></>
                       )}
@@ -205,10 +248,17 @@ export function AdminPage() {
               <div className="h-px bg-white/[0.07] mb-8" />
 
               <div className="border border-white/[0.08] bg-white/[0.02] backdrop-blur-sm p-8 md:p-10">
-                <ProductForm
-                  product={viewState.product}
-                  onSuccess={handleSuccess}
-                />
+                {viewState.entity === "products" ? (
+                  <ProductForm
+                    product={viewState.item}
+                    onSuccess={handleSuccess}
+                  />
+                ) : (
+                  <ArticleForm
+                    article={viewState.item}
+                    onSuccess={handleSuccess}
+                  />
+                )}
               </div>
             </motion.div>
           )}

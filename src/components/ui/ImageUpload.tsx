@@ -19,6 +19,9 @@ interface ImageUploadProps {
   onUpload: (urls: string[]) => void;
   initialImages?: string[];
   maxImages?: number;
+  bucket?: string;
+  folder?: string;
+  label?: string;
 }
 
 interface UploadState {
@@ -64,10 +67,10 @@ function validateFile(file: File): string | null {
   return null;
 }
 
-function generateFilePath(file: File): string {
+function generateFilePath(file: File, folder: string): string {
   const ext = file.name.split(".").pop() ?? "jpg";
   const uid = `${Date.now()}-${Math.random().toString(36).slice(2, 8)}`;
-  return `products/${uid}.${ext}`;
+  return `${folder}/${uid}.${ext}`;
 }
 
 // ─── ImageThumb ───────────────────────────────────────────────────────────────
@@ -189,6 +192,9 @@ export function ImageUpload({
   onUpload,
   initialImages = [],
   maxImages = 5,
+  bucket = "product-images",
+  folder = "products",
+  label = "Imagens do produto",
 }: ImageUploadProps) {
   const [images, setImages] = useState<string[]>(initialImages);
   const [uploadState, setUploadState] = useState<UploadState>(INITIAL_UPLOAD_STATE);
@@ -245,16 +251,16 @@ export function ImageUpload({
       try {
         for (let i = 0; i < total; i++) {
           const file = fileArray[i];
-          const filePath = generateFilePath(file);
+          const filePath = generateFilePath(file, folder);
 
           const { error: uploadError } = await supabase.storage
-            .from("product-images")
+            .from(bucket)
             .upload(filePath, file, { upsert: false });
 
           if (uploadError) throw uploadError;
 
           const { data: { publicUrl } } = supabase.storage
-            .from("product-images")
+            .from(bucket)
             .getPublicUrl(filePath);
 
           newUrls.push(publicUrl);
@@ -285,7 +291,7 @@ export function ImageUpload({
         if (inputRef.current) inputRef.current.value = "";
       }
     },
-    [remaining, onUpload]
+    [remaining, onUpload, bucket, folder]
   );
 
   // ── File input handler ────────────────────────────────────────────────────
@@ -321,7 +327,7 @@ export function ImageUpload({
       {/* Label row */}
       <div className="flex items-center justify-between">
         <span className="font-sans text-[10px] tracking-[0.22em] uppercase text-white/40 font-medium">
-          Imagens do produto
+          {label}
         </span>
         <span className="font-sans text-[10px] tracking-[0.12em] text-white/20 tabular-nums">
           {images.length} / {maxImages}
