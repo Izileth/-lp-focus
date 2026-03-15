@@ -27,6 +27,7 @@ interface FormData {
   image_url: string;
   is_published: boolean;
   tags: string[];
+  content_format: 'markdown' | 'html';
 }
 
 const fadeUp: Variants = {
@@ -44,6 +45,7 @@ export function ArticleForm({ article, onSuccess }: ArticleFormProps) {
     image_url: article?.image_url ?? "",
     is_published: article?.is_published ?? false,
     tags: article?.tags ?? [],
+    content_format: (article as any)?.content_format ?? 'html',
   });
 
   const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
@@ -56,26 +58,51 @@ export function ArticleForm({ article, onSuccess }: ArticleFormProps) {
   const handleChange = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
     setFormData(prev => ({ ...prev, [name]: value }));
+    if (status === "error") setStatus("idle");
+  };
+
+  const validate = () => {
+    if (!formData.title.trim()) return "O título é obrigatório.";
+    if (formData.title.length < 5) return "O título deve ter pelo menos 5 caracteres.";
+    if (!formData.content.trim()) return "O conteúdo é obrigatório.";
+    if (formData.content.length < 20) return "O conteúdo está muito curto.";
+    if (!formData.category.trim()) return "A categoria é obrigatória.";
+    return null;
   };
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
+    
+    const validationError = validate();
+    if (validationError) {
+      setErrorMsg(validationError);
+      setStatus("error");
+      return;
+    }
+
     setStatus("loading");
     setErrorMsg(null);
 
-    const result = isEditing 
-      ? await updateArticle(article!.id, formData)
-      : await createArticle(formData);
+    try {
+      const result = isEditing 
+        ? await updateArticle(article!.id, formData)
+        : await createArticle(formData);
 
-    if (result.error) {
-      setErrorMsg(typeof result.error === 'string' ? result.error : (result.error as any).message);
+      if (result && result.error) {
+        console.error("Article Mutation Error:", result.error);
+        setErrorMsg(typeof result.error === 'string' ? result.error : (result.error as any).message);
+        setStatus("error");
+      } else {
+        setStatus("success");
+        setTimeout(() => {
+          setStatus("idle");
+          onSuccess();
+        }, 1500);
+      }
+    } catch (err: any) {
+      console.error("Unexpected Error:", err);
+      setErrorMsg(err.message || "Ocorreu um erro inesperado.");
       setStatus("error");
-    } else {
-      setStatus("success");
-      setTimeout(() => {
-        setStatus("idle");
-        onSuccess();
-      }, 1500);
     }
   };
 

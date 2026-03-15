@@ -15,6 +15,7 @@ export function useCreateArticle() {
     tags?: string[];
     is_published?: boolean;
     author_id?: string;
+    content_format?: string;
   }) => {
     setLoading(true);
     setError(null);
@@ -27,7 +28,8 @@ export function useCreateArticle() {
       p_category: articleData.category,
       p_tags: articleData.tags,
       p_is_published: articleData.is_published,
-      p_author_id: articleData.author_id
+      p_author_id: articleData.author_id,
+      p_content_format: articleData.content_format || 'html'
     });
 
     setLoading(false);
@@ -49,6 +51,7 @@ export function useUpdateArticle() {
     category: string;
     tags: string[];
     is_published: boolean;
+    content_format?: string;
   }) => {
     setLoading(true);
     setError(null);
@@ -61,7 +64,8 @@ export function useUpdateArticle() {
       p_image_url: articleData.image_url,
       p_category: articleData.category,
       p_tags: articleData.tags,
-      p_is_published: articleData.is_published
+      p_is_published: articleData.is_published,
+      p_content_format: articleData.content_format || 'html'
     });
 
     setLoading(false);
