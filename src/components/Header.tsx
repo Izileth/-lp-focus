@@ -52,7 +52,7 @@ export function Header({ menuOpen, setMenuOpen }: HeaderProps) {
           <img
             src={Logo}
             alt="Logo FOCUS"
-            className="h-8 w-8 object-contain"
+            className="h-6 w-6 object-contain"
           />
           CUS
         </span>

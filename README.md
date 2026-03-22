@@ -18,14 +18,20 @@ O **Focus Conhecimento** é uma vitrine digital dedicada à curadoria de conteú
   - **Contato:** Área dedicada para suporte e dúvidas.
 - **Efeitos Visuais:** Noise overlay para textura e gradientes sutis para profundidade.
 
+##  Documentação Completa
+
+Para informações detalhadas sobre a arquitetura, gerenciamento de administradores, formatação de artigos e rastreamento de anúncios, consulte o:
+👉 [**Guia Completo do Projeto (docs/PROJECT_GUIDE.md)**](./docs/PROJECT_GUIDE.md)
+
 ##  Tecnologias Utilizadas
 
-- **Core:** [React 18](https://reactjs.org/) + [TypeScript](https://www.typescriptlang.org/)
-- **Build Tool:** [Vite](https://vitejs.dev/)
-- **Estilização:** [Tailwind CSS](https://tailwindcss.com/)
-- **Animações:** [Framer Motion](https://www.framer.com/motion/)
+- **Core:** [React 19](https://react.dev/) + [TypeScript](https://www.typescriptlang.org/)
+- **Build Tool:** [Vite 7](https://vitejs.dev/)
+- **Estilização:** [Tailwind CSS 4](https://tailwindcss.com/)
+- **Animações:** [Motion](https://motion.dev/)
+- **Backend:** [Supabase](https://supabase.com/)
 - **Fontes:** Playfair Display (Serifa) e DM Sans (Sans-serif) via Google Fonts.
-- **Ícones:** Lucide React (ou componentes SVG customizados).
+- **Ícones:** Lucide React.
 
 ##  Como Executar
 

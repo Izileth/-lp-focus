@@ -1,5 +1,7 @@
 # 🎯 Guia de Teste de Rotas de Anúncios (Google Ads / Facebook Ads)
 
+[← Voltar para o Guia do Projeto](./PROJECT_GUIDE.md)
+
 Este guia explica como utilizar e testar as novas rotas amigáveis criadas para rastreamento de campanhas de tráfego pago.
 
 ## 🚀 Estrutura da Rota

@@ -1,6 +1,10 @@
 # Guia de Gerenciamento de Administradores (Supabase)
 
-Este documento descreve como promover usuários ao cargo de administrador para acessar o painel de controle (`/admin`). O sistema utiliza uma tabela dedicada chamada `admin_users` e uma função de segurança `is_admin()`.
+[← Voltar para o Guia do Projeto](./PROJECT_GUIDE.md)
+
+Este documento descreve como promover usuários ao cargo de administrador para acessar o painel de controle (`/admin`). Ser um administrador é essencial para gerenciar produtos, artigos e visualizar métricas de tráfego.
+
+O sistema utiliza uma tabela dedicada chamada `admin_users` e uma função de segurança `is_admin()`.
 
 ## 1. Localizando o ID do Usuário (UUID)
 
