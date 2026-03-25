@@ -4,6 +4,7 @@ import { useProduct } from "../hooks/useProduct";
 import { IconArrowLeft, IconShare } from "../components/Icons";
 import { Header } from "../components/Header";
 import { OfferCountdown } from "../components/OfferCountdown";
+import { PersonalizedOfferBanner } from "../components/PersonalizedOfferBanner";
 import { MobileMenu } from "../components/MobileMenu";
 import { NotFound } from "../components/ui/NotFound";
 import { LoadingState } from "../components/ui/StatesScreens";
@@ -13,6 +14,7 @@ import { BookCarousel } from "../components/book/BookCarousel";
 import { BookDetails } from "../components/book/BookDetails";
 import { BookFooter } from "../components/book/BookFooter";
 import { BookBackground } from "../components/book/BookBackground";
+import { SocialProofHeadline } from "../components/book/SocialProofHeadline";
 
 export function BookPage() {
   const { bookId } = useParams<{ bookId: string }>();
@@ -66,8 +68,11 @@ export function BookPage() {
       >
         <BookBackground />
         <Header menuOpen={menuOpen} setMenuOpen={setMenuOpen} />
+        <PersonalizedOfferBanner />
         <OfferCountdown />
         <MobileMenu menuOpen={menuOpen} setMenuOpen={setMenuOpen} />
+
+        <SocialProofHeadline />
 
         <main className="max-w-[1200px] mx-auto px-8 md:px-16 py-16 md:py-24">
           <div className="mb-12 flex items-center justify-between">

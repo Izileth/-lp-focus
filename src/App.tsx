@@ -5,6 +5,7 @@ import { NoiseOverlay } from "./components/NoiseOverlay";
 import { MobileMenu } from "./components/MobileMenu";
 import { Header } from "./components/Header";
 import { OfferCountdown } from "./components/OfferCountdown";
+import { PersonalizedOfferBanner } from "./components/PersonalizedOfferBanner";
 import { HeroSection } from "./components/HeroSection";
 import { FeaturesStrip } from "./components/FeaturesStrip";
 import { BooksSection } from "./components/BooksSection";
@@ -47,6 +48,7 @@ export default function App() {
         <MobileMenu menuOpen={menuOpen} setMenuOpen={setMenuOpen} />
         <Header menuOpen={menuOpen} setMenuOpen={setMenuOpen} />
         <OfferCountdown />
+        <PersonalizedOfferBanner />
         <main>
           <HeroSection />
           <FeaturesStrip />
