@@ -14,7 +14,7 @@ import { ContactSection } from "./components/ContactSection";
 import { CtaSection } from "./components/CtaSection";
 import NewsletterSection from "./components/NewsletterSection";
 import { Footer } from "./components/Footer";
-
+import { supabase } from "./lib/supabaseClient";
 export default function App() {
   const [menuOpen, setMenuOpen] = useState<boolean>(false);
   const { pathname } = useLocation();
