@@ -43,6 +43,10 @@ interface FormData {
   share_url: string;
   video_url: string;
   bonuses: Bonus[];
+  subtitle: string;
+  author_note: string;
+  author_note_limit: string;
+  is_featured: boolean;
 }
 
 type SubmitStatus = "idle" | "loading" | "success" | "error";
@@ -69,6 +73,10 @@ function buildInitialFormData(product?: Product): FormData {
     share_url: product?.share_url ?? "",
     video_url: product?.video_url ?? "",
     bonuses: product?.bonuses ?? [],
+    subtitle: product?.subtitle ?? "",
+    author_note: product?.author_note ?? "",
+    author_note_limit: product?.author_note_limit?.toString() ?? "500",
+    is_featured: product?.is_featured ?? false,
   };
 }
 
@@ -269,6 +277,7 @@ export function ProductForm({ product, onSuccess }: ProductFormProps) {
         price: parseFloat(formData.price) || 0,
         discount_price: formData.discount_price ? parseFloat(formData.discount_price) : undefined,
         rating: parseFloat(formData.rating) || 0,
+        author_note_limit: parseInt(formData.author_note_limit) || 500,
         bonuses: formData.bonuses.filter(b => b.title.trim() !== "") // Filter out empty bonuses
       };
 
@@ -328,6 +337,65 @@ export function ProductForm({ product, onSuccess }: ProductFormProps) {
                 className="w-full bg-transparent py-4 px-4 font-sans text-[13px] text-white placeholder-white/20 outline-none"
               />
             </Field>
+
+            {/* Subtitle */}
+            <Field label="Subtítulo" icon={<IconTag size={12} />}>
+              <input
+                name="subtitle"
+                value={formData.subtitle}
+                onChange={handleChange}
+                placeholder="Ex: O guia definitivo para o sucesso"
+                className="w-full bg-transparent py-4 px-4 font-sans text-[13px] text-white placeholder-white/20 outline-none"
+              />
+            </Field>
+
+            {/* Author Note */}
+            <Field 
+              label="Nota do Autor" 
+              icon={<IconFileText size={12} />} 
+              hint={`Limite de ${formData.author_note_limit} caracteres.`}
+            >
+              <textarea
+                name="author_note"
+                value={formData.author_note}
+                onChange={handleChange}
+                rows={3}
+                maxLength={parseInt(formData.author_note_limit)}
+                placeholder="Uma nota pessoal do autor sobre o livro..."
+                className="w-full bg-transparent py-4 px-4 font-sans text-[13px] text-white placeholder-white/20 outline-none resize-none leading-relaxed"
+              />
+              <div className="absolute bottom-2 right-4 text-[9px] text-white/20 font-sans">
+                {formData.author_note.length} / {formData.author_note_limit}
+              </div>
+            </Field>
+
+            <div className="grid grid-cols-2 gap-4">
+              <Field label="Limite da Nota" icon={<IconTag size={12} />}>
+                <input
+                  type="number"
+                  name="author_note_limit"
+                  value={formData.author_note_limit}
+                  onChange={handleChange}
+                  placeholder="500"
+                  className="w-full bg-transparent py-4 px-4 font-sans text-[13px] text-white placeholder-white/20 outline-none"
+                />
+              </Field>
+              <motion.div variants={fadeUp} className="flex flex-col gap-2">
+                <label className="font-sans text-[10px] tracking-[0.22em] uppercase text-white/40 font-medium">
+                  Destaque
+                </label>
+                <div className="flex items-center h-[53px] px-4 border border-white/[0.1]">
+                  <input
+                    type="checkbox"
+                    name="is_featured"
+                    checked={formData.is_featured}
+                    onChange={(e) => setFormData(prev => ({ ...prev, is_featured: e.target.checked }))}
+                    className="w-4 h-4 bg-transparent border-white/20 rounded-sm outline-none cursor-pointer"
+                  />
+                  <span className="ml-3 font-sans text-[11px] text-white/40">Produto em destaque</span>
+                </div>
+              </motion.div>
+            </div>
 
             {/* Description */}
             <Field label="Descrição" icon={<IconFileText size={12} />} required>

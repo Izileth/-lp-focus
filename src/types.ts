@@ -29,6 +29,10 @@ export interface Product {
   share_url?: string;
   video_url?: string;
   bonuses?: Bonus[];
+  subtitle?: string;
+  author_note?: string;
+  author_note_limit?: number;
+  is_featured?: boolean;
 }
 
 

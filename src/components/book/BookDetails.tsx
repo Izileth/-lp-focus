@@ -18,6 +18,8 @@ interface BookDetailsType {
   access_url?: string;
   video_url?: string;
   bonuses?: Bonus[];
+  subtitle?: string;
+  author_note?: string;
 }
 
 interface StatItemProps {
@@ -95,7 +97,7 @@ export function BookDetails({ book, formattedPrice, formattedDiscountPrice, hasD
       <motion.h1
         variants={fadeUpVariants}
         custom={0.05}
-        className="font-bold leading-[1.05] tracking-[-0.02em] mb-5"
+        className="font-bold leading-[1.05] tracking-[-0.02em] mb-3"
         style={{
           fontFamily: "'Playfair Display', serif",
           fontSize: "clamp(32px,4.5vw,58px)",
@@ -103,6 +105,17 @@ export function BookDetails({ book, formattedPrice, formattedDiscountPrice, hasD
       >
         {book.name}
       </motion.h1>
+
+      {book.subtitle && (
+        <motion.p
+          variants={fadeUpVariants}
+          custom={0.07}
+          className="font-serif italic text-white/40 mb-6"
+          style={{ fontSize: "clamp(18px,1.5vw,22px)" }}
+        >
+          {book.subtitle}
+        </motion.p>
+      )}
 
       <motion.div
         variants={fadeUpVariants}
@@ -172,6 +185,25 @@ export function BookDetails({ book, formattedPrice, formattedDiscountPrice, hasD
               </div>
             ))}
           </div>
+        </motion.div>
+      )}
+
+      {/* Author Note Section */}
+      {book.author_note && (
+        <motion.div
+          variants={fadeUpVariants}
+          custom={0.23}
+          className="mb-8 p-6 bg-white/[0.03] border-l-2 border-white/20 relative overflow-hidden group"
+        >
+          <div className="absolute top-0 right-0 p-4 opacity-[0.03] group-hover:opacity-[0.05] transition-opacity">
+            <IconBook size={80} />
+          </div>
+          <span className="font-sans text-[9px] tracking-[0.25em] uppercase text-white/25 block mb-3">
+            Nota do Autor
+          </span>
+          <p className="font-serif italic text-white/60 leading-relaxed text-[15px]">
+            "{book.author_note}"
+          </p>
         </motion.div>
       )}
 
