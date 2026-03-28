@@ -20,6 +20,17 @@ export default function App() {
   const { pathname } = useLocation();
 
   useEffect(() => {
+    const trackVisit = async () => {
+      const hasVisited = sessionStorage.getItem("visit_tracked");
+      if (!hasVisited && supabase) {
+        await supabase.rpc('track_site_visit');
+        sessionStorage.setItem("visit_tracked", "true");
+      }
+    };
+    trackVisit();
+  }, []);
+
+  useEffect(() => {
     const pathToId: Record<string, string> = {
       "/livros": "livros",
       "/sobre": "sobre",

@@ -55,8 +55,8 @@ export function AdminHeader({ stats, statsLoading, isFormView }: AdminHeaderProp
               />
               <AdminStatCard 
                 icon={<IconTrendingUp size={18} />} 
-                label="Interações" 
-                value={statsLoading ? "..." : (stats?.interactions_count?.toString() ?? "0")} 
+                label="Acessos" 
+                value={statsLoading ? "..." : (stats?.visits_count?.toString() ?? "0")} 
               />
               <AdminStatCard 
                 icon={<IconUser size={18} />} 
@@ -64,9 +64,9 @@ export function AdminHeader({ stats, statsLoading, isFormView }: AdminHeaderProp
                 value={statsLoading ? "..." : (stats?.users_count?.toString() ?? "0")} 
               />
               <AdminStatCard 
-                icon={<IconSettings size={18} />} 
-                label="Admins" 
-                value={statsLoading ? "..." : (stats?.admins_count?.toString() ?? "0")} 
+                icon={<IconBookOpen size={18} />} 
+                label="Artigos" 
+                value={statsLoading ? "..." : (stats?.articles_count?.toString() ?? "0")} 
               />
             </motion.div>
           </motion.div>

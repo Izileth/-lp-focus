@@ -65,6 +65,8 @@ export interface AdminStats {
   products_count: number;
   admins_count: number;
   interactions_count: number;
+  articles_count: number;
+  visits_count: number;
 }
 
 export interface Article {

@@ -16,14 +16,15 @@ export function useArticles() {
         return;
       }
 
-      const { data, error } = await supabase
+      const query = supabase
         .from('articles')
         .select(`
           *,
           profiles:author_id (name)
         `)
-        .eq('is_published', true)
         .order('published_at', { ascending: false });
+
+      const { data, error } = await query;
 
       if (error) {
         setError(error.message);

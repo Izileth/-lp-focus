@@ -15,7 +15,7 @@ import { BookDetails } from "../components/book/BookDetails";
 import { BookFooter } from "../components/book/BookFooter";
 import { BookBackground } from "../components/book/BookBackground";
 import { SocialProofHeadline } from "../components/book/SocialProofHeadline";
-
+import { SocialProofSection } from "../components/book/SocialProofSection";
 export function BookPage() {
   const { bookId } = useParams<{ bookId: string }>();
   const { product: book, loading, error } = useProduct(bookId);
@@ -172,6 +172,7 @@ export function BookPage() {
           {/* SOCIAL PROOF - FINAL */}
           <div className="mt-24 md:mt-32">
             <SocialProofHeadline />
+            <SocialProofSection />
           </div>
 
         </main>
