@@ -7,14 +7,17 @@ import { Header } from "./components/Header";
 import { OfferCountdown } from "./components/OfferCountdown";
 import { PersonalizedOfferBanner } from "./components/PersonalizedOfferBanner";
 import { HeroSection } from "./components/HeroSection";
+import { SocialProofCarousel } from "./components/SocialProofCarousel";
 import { FeaturesStrip } from "./components/FeaturesStrip";
 import { BooksSection } from "./components/BooksSection";
+import { EPSDPSection } from "./components/MethodSection";
 import { AboutSection } from "./components/AboutSection"; 
 import { ContactSection } from "./components/ContactSection"; 
 import { CtaSection } from "./components/CtaSection";
 import NewsletterSection from "./components/NewsletterSection";
 import { Footer } from "./components/Footer";
 import { supabase } from "./lib/supabaseClient";
+
 export default function App() {
   const [menuOpen, setMenuOpen] = useState<boolean>(false);
   const { pathname } = useLocation();
@@ -35,6 +38,7 @@ export default function App() {
       "/livros": "livros",
       "/sobre": "sobre",
       "/contato": "contato",
+      "/metodo": "metodo",
     };
 
     const sectionId = pathToId[pathname];
@@ -62,8 +66,10 @@ export default function App() {
         <PersonalizedOfferBanner />
         <main>
           <HeroSection />
+          <SocialProofCarousel />
           <FeaturesStrip />
           <BooksSection />
+          <EPSDPSection />
           <AboutSection /> 
           <ContactSection />
           <NewsletterSection />

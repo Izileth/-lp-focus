@@ -1,6 +1,6 @@
 // src/constants.ts
 
-export const NAV_LINKS = ["Ebooks", "Sobre", "Artigos", "Contato"] as const;
+export const NAV_LINKS = ["Ebooks", "Metodo", "Sobre", "Artigos", "Contato"] as const;
 
 export const FOOT_LINKS = [
   { label: "Termos", path: "/termos" },
