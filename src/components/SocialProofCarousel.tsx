@@ -51,7 +51,7 @@ const TESTIMONIALS: Testimonial[] = [
 
 export function SocialProofCarousel() {
   return (
-    <section className="py-20 overflow-hidden bg-white/[0.02]">
+    <section className="py-20 overflow-hidden bg-black">
       <motion.div
         variants={staggerContainer}
         initial="hidden"

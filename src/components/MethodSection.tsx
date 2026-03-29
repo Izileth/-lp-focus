@@ -159,7 +159,7 @@ export function EPSDPSection() {
             </StatsCard>
 
             {/* Strategy Card */}
-            <StatsCard title="Mente · Método · Momentum" subtitle="Tríade do alto desempenho">
+            <StatsCard title="Alma · Corpo · Mente" subtitle="Tríade do alto desempenho">
               <div className="flex flex-col gap-5">
                 <div className="h-px bg-white/[0.06]" />
                 <div className="flex flex-col gap-4">
