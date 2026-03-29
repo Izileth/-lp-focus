@@ -17,8 +17,8 @@ import { BookBackground } from "../components/book/BookBackground";
 import { SocialProofHeadline } from "../components/book/SocialProofHeadline";
 import { SocialProofSection } from "../components/book/SocialProofSection";
 export function BookPage() {
-  const { bookId } = useParams<{ bookId: string }>();
-  const { product: book, loading, error } = useProduct(bookId);
+  const { slug } = useParams<{ slug: string }>();
+  const { product: book, loading, error } = useProduct(slug);
   const [menuOpen, setMenuOpen] = useState(false);
 
   if (loading) return (

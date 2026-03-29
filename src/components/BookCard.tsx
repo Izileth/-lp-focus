@@ -17,11 +17,11 @@ export function BookCard({ book, index }: BookCardProps) {
   const [showBonuses, setShowBonuses] = useState(false);
 
   const handleCardClick = () => {
-    navigate(`/ebook/${book.id}`);
+    navigate(`/livros/${book.slug}`);
   };
 
   const handleNavigateBookId = () => {
-    navigate(`/ebook/${book.id}`, { state: { category: book.category } });
+    navigate(`/livros/${book.slug}`, { state: { category: book.category } });
   }
 
   const handleCheckout = () => {

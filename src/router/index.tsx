@@ -76,7 +76,7 @@ const router = createBrowserRouter([
         element: <LandingPage />,
       },
       {
-        path: "/ebook/:bookId",
+        path: "/livros/:slug",
         element: <BookPage />,
       },
       {
