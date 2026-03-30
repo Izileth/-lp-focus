@@ -1,26 +1,15 @@
 // src/pages/ArticlesPage.tsx
-import { useState } from "react";
 import { motion } from "framer-motion";
-import { Header } from "../components/Header";
-import { MobileMenu } from "../components/MobileMenu";
-import { Footer } from "../components/Footer";
-import { NoiseOverlay } from "../components/NoiseOverlay";
-import NewsletterSection from "../components/NewsletterSection";
 import { ArticleCard } from "../components/ArticleCard";
 import { fadeUpVariants, staggerContainer } from "../motionVariants";
 import { useArticles } from "../hooks/useArticles";
 import { IconLoader } from "../components/Icons";
 
 export default function ArticlesPage() {
-  const [menuOpen, setMenuOpen] = useState(false);
   const { articles, loading, error } = useArticles();
 
   return (
     <div className="bg-black text-white min-h-screen flex flex-col">
-      <NoiseOverlay />
-      <Header menuOpen={menuOpen} setMenuOpen={setMenuOpen} />
-      <MobileMenu menuOpen={menuOpen} setMenuOpen={setMenuOpen} />
-
       <main className="flex-grow pt-[140px]">
         {/* Hero Section */}
         <section className="px-10 pb-20 border-b border-white/[0.05]">
@@ -77,11 +66,7 @@ export default function ArticlesPage() {
             )}
           </div>
         </section>
-
-        <NewsletterSection />
       </main>
-
-      <Footer />
     </div>
   );
 }

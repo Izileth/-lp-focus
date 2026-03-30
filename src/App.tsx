@@ -1,19 +1,11 @@
 import { useState, useEffect } from "react";
-import { useLocation } from "react-router-dom";
+import { Outlet, useLocation } from "react-router-dom";
 
 import { NoiseOverlay } from "./components/NoiseOverlay";
 import { MobileMenu } from "./components/MobileMenu";
 import { Header } from "./components/Header";
-import { OfferCountdown } from "./components/OfferCountdown";
-import { PersonalizedOfferBanner } from "./components/PersonalizedOfferBanner";
-import { HeroSection } from "./components/HeroSection";
-import { SocialProofCarousel } from "./components/SocialProofCarousel";
-import { FeaturesStrip } from "./components/FeaturesStrip";
-import { BooksSection } from "./components/BooksSection";
-import { EPSDPSection } from "./components/MethodSection";
-import { AboutSection } from "./components/AboutSection"; 
-import { ContactSection } from "./components/ContactSection"; 
-import { CtaSection } from "./components/CtaSection";
+import { TopOfferCarousel } from "./components/TopOfferBanner";
+import { BottonOfferBanner } from "./components/BottonOfferBanner";
 import NewsletterSection from "./components/NewsletterSection";
 import { Footer } from "./components/Footer";
 import { supabase } from "./lib/supabaseClient";
@@ -33,24 +25,8 @@ export default function App() {
     trackVisit();
   }, []);
 
-  useEffect(() => {
-    const pathToId: Record<string, string> = {
-      "/livros": "livros",
-      "/sobre": "sobre",
-      "/contato": "contato",
-      "/metodo": "metodo",
-    };
-
-    const sectionId = pathToId[pathname];
-    if (sectionId) {
-      const element = document.getElementById(sectionId);
-      if (element) {
-        element.scrollIntoView({ behavior: "smooth" });
-      }
-    } else if (pathname === "/" || pathname === "/home") {
-      window.scrollTo({ top: 0, behavior: "smooth" });
-    }
-  }, [pathname]);
+  const isNoLayoutPage = pathname.startsWith('/login') || pathname.startsWith('/admin') || pathname.startsWith('/profile');
+  const isMinimalPage = pathname.startsWith('/suporte') || pathname.startsWith('/termos') || pathname.startsWith('/privacidade');
 
   return (
     <>
@@ -62,20 +38,14 @@ export default function App() {
         <NoiseOverlay />
         <MobileMenu menuOpen={menuOpen} setMenuOpen={setMenuOpen} />
         <Header menuOpen={menuOpen} setMenuOpen={setMenuOpen} />
-        <OfferCountdown />
-        <PersonalizedOfferBanner />
-        <main>
-          <HeroSection />
-          <SocialProofCarousel />
-          <FeaturesStrip />
-          <BooksSection />
-          <EPSDPSection />
-          <AboutSection /> 
-          <ContactSection />
-          <NewsletterSection />
-          <CtaSection />
-        </main>
-        <Footer />
+        
+        {!isNoLayoutPage && !isMinimalPage && <TopOfferCarousel />}
+        {!isNoLayoutPage && <BottonOfferBanner />}
+        
+        <Outlet />
+        
+        {!isNoLayoutPage && !isMinimalPage && <NewsletterSection />}
+        {!isNoLayoutPage && <Footer />}
       </div>
     </>
   );

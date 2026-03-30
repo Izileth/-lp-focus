@@ -1,13 +1,8 @@
 // src/pages/ArticleDetailPage.tsx
-import { useState, useEffect } from "react";
+import {  useEffect } from "react";
 import { useParams, Link } from "react-router-dom";
 import { motion } from "framer-motion";
-import { Header } from "../components/Header";
-import { MobileMenu } from "../components/MobileMenu";
-import { Footer } from "../components/Footer";
-import { NoiseOverlay } from "../components/NoiseOverlay";
 import { IconArrowLeft, IconClock, IconCalendar, IconUser, IconLoader } from "../components/Icons";
-import NewsletterSection from "../components/NewsletterSection";
 import { fadeUpVariants, staggerContainer } from "../motionVariants";
 import { useArticle } from "../hooks/useArticles";
 import { ShareButtons } from "../components/ShareButtons";
@@ -15,7 +10,6 @@ import { MarkdownRenderer } from "../components/ui/MarkdownRenderer";
 
 export default function ArticleDetailPage() {
   const { slug } = useParams<{ slug: string }>();
-  const [menuOpen, setMenuOpen] = useState(false);
   const { article, loading, error } = useArticle(slug);
 
   useEffect(() => {
@@ -52,10 +46,6 @@ export default function ArticleDetailPage() {
 
   return (
     <div className="bg-black text-white min-h-screen flex flex-col">
-      <NoiseOverlay />
-      <Header menuOpen={menuOpen} setMenuOpen={setMenuOpen} />
-      <MobileMenu menuOpen={menuOpen} setMenuOpen={setMenuOpen} />
-
       <main className="flex-grow pt-[140px]">
         <article className="max-w-[720px] mx-auto px-10">
           {/* Back Link */}
@@ -134,11 +124,7 @@ export default function ArticleDetailPage() {
 
           <div className="h-24" />
         </article>
-
-        <NewsletterSection />
       </main>
-
-      <Footer />
     </div>
   );
 }

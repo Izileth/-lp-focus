@@ -1,6 +1,7 @@
 import { createBrowserRouter, RouterProvider, Outlet } from "react-router-dom";
 import { useState } from "react";
 import App from "../App";
+import { HomePage } from "../pages/HomePage";
 import { BookPage } from "../pages/BookPage";
 import { LandingPage } from "../pages/LandingPage";
 import { VideoPromotionPage } from "../pages/VideoPromotionPage";
@@ -44,80 +45,85 @@ const router = createBrowserRouter([
     element: <SplashLayout />,
     children: [
       {
-        path: "/",
         element: <App />,
-      },
-      {
-        path: "/home",
-        element: <App />,
-      },
-      {
-        path: "/livros",
-        element: <App />,
-      },
-      {
-        path: "/metodo",
-        element: <App />,
-      },
-      {
-        path: "/sobre",
-        element: <App />,
-      },
-      {
-        path: "/contato",
-        element: <App />,
-      },
-      {
-        path: "/artigos",
-        element: <ArticlesPage />,
-      },
-      {
-        path: "/artigo/:slug",
-        element: <ArticleDetailPage />,
-      },
-      {
-        path: "/lp/:section/:source?/:campaign?/:adgroup?/:ad?",
-        element: <LandingPage />,
-      },
-      {
-        path: "/livros/:slug",
-        element: <BookPage />,
-      },
-      {
-        path: "/video-promotion",
-        element: <VideoPromotionPage />,
-      },
-      {
-        path: "/categoria/:categorySlug",
-        element: <CategoryPage />,
-      },
-      {
-        path: "/admin",
-        element: <AdminPage />,
-      },
-      {
-        path: "/login",
-        element: <LoginPage />,
-      },
-      {
-        path: "/profile",
-        element: <ProfilePage />,
+        children: [
+          {
+            path: "/",
+            element: <HomePage />,
+          },
+          {
+            path: "/home",
+            element: <HomePage />,
+          },
+          {
+            path: "/livros",
+            element: <HomePage />,
+          },
+          {
+            path: "/metodo",
+            element: <HomePage />,
+          },
+          {
+            path: "/sobre",
+            element: <HomePage />,
+          },
+          {
+            path: "/contato",
+            element: <HomePage />,
+          },
+          {
+            path: "/artigos",
+            element: <ArticlesPage />,
+          },
+          {
+            path: "/artigo/:slug",
+            element: <ArticleDetailPage />,
+          },
+          {
+            path: "/lp/:section/:source?/:campaign?/:adgroup?/:ad?",
+            element: <LandingPage />,
+          },
+          {
+            path: "/livros/:slug",
+            element: <BookPage />,
+          },
+          {
+            path: "/categoria/:categorySlug",
+            element: <CategoryPage />,
+          },
+          {
+            path: "/admin",
+            element: <AdminPage />,
+          },
+          {
+            path: "/login",
+            element: <LoginPage />,
+          },
+          {
+            path: "/profile",
+            element: <ProfilePage />,
+          },
+          {
+            path: "/termos",
+            element: <TermsPage />,
+          },
+          {
+            path: "/privacidade",
+            element: <PrivacyPage />,
+          },
+          {
+            path: "/suporte",
+            element: <ContactPage />,
+          },
+        ],
       },
       {
         path: "/unsubscribe",
         element: <UnsubscribePage />,
       },
       {
-        path: "/termos",
-        element: <TermsPage />,
-      },
-      {
-        path: "/privacidade",
-        element: <PrivacyPage />,
-      },
-      {
-        path: "/suporte",
-        element: <ContactPage />,
+        path: "/video-promotion",
+        element: <VideoPromotionPage />,
       },
     ],
   },

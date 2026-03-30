@@ -2,17 +2,17 @@
 import { useState, useEffect, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
+
+// ─── Hooks & Libs ───────────────────────────────────────────────────────────
 import { useAuth } from "../hooks/useAuth";
 import { useAdmin } from "../hooks/useAdmin";
 import { supabase } from "../lib/supabaseClient";
-import { Header } from "../components/Header";
-import { OfferCountdown } from "../components/OfferCountdown";
-import { MobileMenu } from "../components/MobileMenu";
-import { NoiseOverlay } from "../components/NoiseOverlay";
+
+// ─── Shared Components ──────────────────────────────────────────────────────
 import { LoadingState, ErrorState } from "../components/ui/StatesScreens";
 import { IconPlus, IconArrowLeft, IconBook, IconFileText } from "../components/Icons";
 
-// ─── Admin Components ──────────────────────────────────────────────────────────
+// ─── Admin Specific Components ──────────────────────────────────────────────
 import { ProductList } from "../components/admin/ProductList";
 import { ProductForm } from "../components/admin/ProductForm";
 import { ArticleList } from "../components/admin/ArticleList";
@@ -20,9 +20,9 @@ import { ArticleForm } from "../components/admin/ArticleForm";
 import { AdminHeader } from "../components/admin/AdminHeader";
 import { AdminAccessDenied } from "../components/admin/AdminAccessDenied";
 import { slideRight } from "../components/admin/AdminVariants";
-import type { AdminStats } from "../types";
 
 // ─── Types ────────────────────────────────────────────────────────────────────
+import type { AdminStats } from "../types";
 
 type EntityType = "products" | "articles";
 type View = "list" | "create" | "edit";
@@ -38,9 +38,9 @@ export function AdminPage() {
   const { user, loading: authLoading } = useAuth();
   const { isAdmin, loading: adminLoading, error: adminError } = useAdmin();
 
+  // ── State ─────────────────────────────────────────────────────────────────
   const [viewState, setViewState] = useState<ViewState>({ entity: "products", current: "list" });
   const [refreshKey, setRefreshKey] = useState<number>(0);
-  const [menuOpen, setMenuOpen] = useState(false);
   const [stats, setStats] = useState<AdminStats | null>(null);
   const [statsLoading, setStatsLoading] = useState(false);
 
@@ -90,7 +90,10 @@ export function AdminPage() {
     setViewState({ entity, current: "list", item: undefined });
   };
 
-  // ── Loading & Error States ────────────────────────────────────────────────
+  // ── Derived State ────────────────────────────────────────────────────────
+  const isFormView = viewState.current === "create" || viewState.current === "edit";
+
+  // ── Render States ────────────────────────────────────────────────────────
   if (authLoading || adminLoading) {
     return (
       <div className="min-h-screen bg-black">
@@ -108,22 +111,15 @@ export function AdminPage() {
   }
 
   if (!user) return null;
-  if (!isAdmin) return <AdminAccessDenied menuOpen={menuOpen} setMenuOpen={setMenuOpen} />;
-
-  const isFormView = viewState.current === "create" || viewState.current === "edit";
+  if (!isAdmin) return <AdminAccessDenied />;
 
   return (
-    <div className="min-h-screen bg-black text-white overflow-x-hidden selection:bg-white/20 pt-[104px]">
-      <NoiseOverlay />
-      <Header menuOpen={menuOpen} setMenuOpen={setMenuOpen} />
-      <OfferCountdown />
-      <MobileMenu menuOpen={menuOpen} setMenuOpen={setMenuOpen} />
-
+    <div className="min-h-screen bg-black text-white selection:bg-white/20 pt-[104px]">
       <div className="relative z-10 max-w-[1100px] mx-auto px-6 md:px-10 py-16">
-        <AdminHeader 
-          stats={stats} 
-          statsLoading={statsLoading} 
-          isFormView={isFormView} 
+        <AdminHeader
+          stats={stats}
+          statsLoading={statsLoading}
+          isFormView={isFormView}
         />
 
         {/* Tab Switcher (only in list view) */}
@@ -226,7 +222,7 @@ export function AdminPage() {
 
                   <div className="flex flex-col gap-1">
                     <span className="font-sans text-[10px] tracking-[0.22em] uppercase text-white/30">
-                      {viewState.current === "create" 
+                      {viewState.current === "create"
                         ? (viewState.entity === "products" ? "Novo produto" : "Novo artigo")
                         : (viewState.entity === "products" ? "Editar produto" : "Editar artigo")
                       }

@@ -1,38 +1,32 @@
 import { useParams, Link } from "react-router-dom";
-import { useState} from "react";
 import { useProduct } from "../hooks/useProduct";
 import { IconArrowLeft, IconShare } from "../components/Icons";
-import { Header } from "../components/Header";
-import { OfferCountdown } from "../components/OfferCountdown";
-import { PersonalizedOfferBanner } from "../components/PersonalizedOfferBanner";
-import { MobileMenu } from "../components/MobileMenu";
 import { NotFound } from "../components/ui/NotFound";
 import { LoadingState } from "../components/ui/StatesScreens";
 
 // ─── Sub-components ───────────────────────────────────────────────────────────
 import { BookCarousel } from "../components/book/BookCarousel";
 import { BookDetails } from "../components/book/BookDetails";
-import { BookFooter } from "../components/book/BookFooter";
 import { BookBackground } from "../components/book/BookBackground";
 import { SocialProofHeadline } from "../components/book/SocialProofHeadline";
 import { SocialProofSection } from "../components/book/SocialProofSection";
+
 export function BookPage() {
   const { slug } = useParams<{ slug: string }>();
   const { product: book, loading, error } = useProduct(slug);
-  const [menuOpen, setMenuOpen] = useState(false);
 
   if (loading) return (
     <div className="bg-black min-h-screen flex items-center justify-center">
       <LoadingState message="Carregando detalhes do livro..." />
     </div>
   );
-  
+
   if (error) return (
     <div className="min-h-screen bg-black flex items-center justify-center text-red-500/50 font-sans text-[11px] tracking-widest uppercase">
       Erro ao carregar: {error}
     </div>
   );
-  
+
   if (!book) return <NotFound />;
 
   const hasDiscount = Boolean(
@@ -48,9 +42,9 @@ export function BookPage() {
 
   const formattedDiscountPrice = book.discount_price
     ? new Intl.NumberFormat('pt-BR', {
-        style: 'currency',
-        currency: 'BRL'
-      }).format(book.discount_price)
+      style: 'currency',
+      currency: 'BRL'
+    }).format(book.discount_price)
     : null;
 
   const handleShare = () => {
@@ -68,17 +62,8 @@ export function BookPage() {
 
   return (
     <>
-      <link
-        rel="stylesheet"
-        href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=DM+Sans:wght@300;400;500&display=swap"
-      />
-
       <div className="bg-black min-h-screen text-white overflow-x-hidden pt-[104px]">
         <BookBackground />
-        <Header menuOpen={menuOpen} setMenuOpen={setMenuOpen} />
-        <PersonalizedOfferBanner />
-        <OfferCountdown />
-        <MobileMenu menuOpen={menuOpen} setMenuOpen={setMenuOpen} />
 
         <main className="max-w-[1200px] mx-auto px-8 md:px-16 py-16 md:py-24">
 
@@ -95,7 +80,7 @@ export function BookPage() {
             </Link>
 
             {book.share_url && (
-              <button 
+              <button
                 onClick={handleShare}
                 className="inline-flex items-center gap-2 font-sans text-[11px] tracking-[0.12em] uppercase text-white/45 hover:text-white transition"
               >
@@ -112,14 +97,14 @@ export function BookPage() {
 
           {/* HERO / PRODUTO */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-12 lg:gap-20 items-start">
-            <BookCarousel 
-              name={book.name} 
-              category={book.category} 
-              images={book.product_images} 
-              badge={book.badge} 
+            <BookCarousel
+              name={book.name}
+              category={book.category}
+              images={book.product_images}
+              badge={book.badge}
             />
-            
-            <BookDetails 
+
+            <BookDetails
               book={{ ...book, id: String(book.id) }}
               formattedPrice={formattedPrice}
               formattedDiscountPrice={formattedDiscountPrice}
@@ -159,9 +144,9 @@ export function BookPage() {
                     allowFullScreen
                   />
                 ) : (
-                  <video 
-                    src={book.video_url} 
-                    controls 
+                  <video
+                    src={book.video_url}
+                    controls
                     className="w-full h-full object-cover"
                   />
                 )}
@@ -175,8 +160,6 @@ export function BookPage() {
           </div>
 
         </main>
-
-        <BookFooter />
       </div>
     </>
   );

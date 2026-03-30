@@ -130,9 +130,9 @@ function LiveDot() {
   );
 }
 
-// ─── PersonalizedOfferBanner ──────────────────────────────────────────────────
+// ─── BottonOfferBanner ──────────────────────────────────────────────────────────
 
-export function PersonalizedOfferBanner() {
+export function BottonOfferBanner() {
   const targetRef  = useRef<Date>(getTarget());
   const [timeLeft,  setTimeLeft]  = useState<TimeLeft>(() => calcTimeLeft(targetRef.current));
   const [isVisible, setIsVisible] = useState<boolean>(false);

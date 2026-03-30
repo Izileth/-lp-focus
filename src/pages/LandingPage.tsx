@@ -1,12 +1,11 @@
 import { useEffect } from "react";
-import { useParams} from "react-router-dom";
-import App from "../App";
+import { useParams } from "react-router-dom";
+import { HomePage } from "./HomePage";
 import { useInteractions } from "../hooks/useInteractions";
 
 export function LandingPage() {
   const { section, source, campaign, adgroup, ad } = useParams();
   const { trackInteraction } = useInteractions();
- 
 
   useEffect(() => {
     // 1. Track the interaction with Google Ads parameters
@@ -20,7 +19,7 @@ export function LandingPage() {
 
     // 2. Handle scrolling to the specific section
     if (section) {
-      // Small delay to ensure App component is fully rendered
+      // Small delay to ensure HomePage component is fully rendered
       const timer = setTimeout(() => {
         const element = document.getElementById(section);
         if (element) {
@@ -50,6 +49,6 @@ export function LandingPage() {
     }
   }, [section, source, campaign, adgroup, ad, trackInteraction]);
 
-  // We render the App component which contains all sections
-  return <App />;
+  // We render the HomePage component which contains all sections
+  return <HomePage />;
 }

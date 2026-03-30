@@ -1,24 +1,12 @@
 import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
-import { NoiseOverlay } from "../NoiseOverlay";
-import { Header } from "../Header";
-import { MobileMenu } from "../MobileMenu";
 import { IconAlertCircle, IconArrowLeft } from "../Icons";
 import { stagger, fadeUp } from "./AdminVariants";
 
-interface AdminAccessDeniedProps {
-  menuOpen: boolean;
-  setMenuOpen: (o: boolean) => void;
-}
-
-export function AdminAccessDenied({ menuOpen, setMenuOpen }: AdminAccessDeniedProps) {
+export function AdminAccessDenied() {
   const navigate = useNavigate();
   return (
     <div className="relative flex flex-col min-h-screen bg-black overflow-hidden pt-16">
-      <NoiseOverlay />
-      <Header menuOpen={menuOpen} setMenuOpen={setMenuOpen} />
-      <MobileMenu menuOpen={menuOpen} setMenuOpen={setMenuOpen} />
-      
       <div className="flex-1 flex items-center justify-center">
         <span
           aria-hidden="true"

@@ -1,22 +1,11 @@
-import { useState } from "react";
 import { Link } from "react-router-dom";
-import { Header } from "../components/Header";
-import { MobileMenu } from "../components/MobileMenu";
-import { Footer } from "../components/Footer";
 import { IconArrowLeft, IconMail } from "../components/Icons";
-import { NoiseOverlay } from "../components/NoiseOverlay";
 import { motion } from "framer-motion";
 import { fadeUpVariants, staggerContainer } from "../motionVariants";
 
 export default function ContactPage() {
-  const [menuOpen, setMenuOpen] = useState(false);
-
   return (
     <div className="bg-black text-white min-h-screen flex flex-col">
-      <NoiseOverlay />
-      <Header menuOpen={menuOpen} setMenuOpen={setMenuOpen} />
-      <MobileMenu menuOpen={menuOpen} setMenuOpen={setMenuOpen} />
-
       <main className="flex-grow pt-[140px] pb-24 px-8 md:px-16 max-w-[1200px] mx-auto w-full">
         <Link
           to="/"
@@ -74,8 +63,6 @@ export default function ContactPage() {
           </motion.div>
         </div>
       </main>
-
-      <Footer />
     </div>
   );
 }
