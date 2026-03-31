@@ -166,7 +166,7 @@ export function MethodDiagnosisSection() {
                       </div>
                       <div className="h-px bg-white/[0.08] relative overflow-hidden">
                         <motion.div
-                          className="absolute inset-y-0 left-0 bg-white/50"
+                          className="absolute inset-y-0 left-0 bg-emerald-500/50"
                           initial={{ width: 0 }}
                           whileInView={{ width: `${d.value}%` }}
                           viewport={{ once: true }}

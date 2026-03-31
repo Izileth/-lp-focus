@@ -235,7 +235,7 @@ export function BookDetails({ book, formattedPrice, formattedDiscountPrice, hasD
             onClick={handleCheckout}
             whileHover={{ scale: 1.03, y: -1 }}
             whileTap={{ scale: 0.97 }}
-            className="w-full sm:w-auto bg-white text-black font-sans text-[13px] font-medium tracking-[0.1em] uppercase py-4 px-8 flex items-center justify-center gap-2 hover:bg-white/85 transition-colors duration-200"
+            className="w-full sm:w-auto3 bg-emerald-500 text-white font-sans text-[13px] font-medium tracking-[0.1em] uppercase py-4 px-8 flex items-center justify-center gap-2 hover:bg-white/85 transition-colors duration-200"
           >
             Adquirir Agora
             <IconArrowRight />

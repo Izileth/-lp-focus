@@ -35,7 +35,7 @@ export function BarChart() {
       <div className="flex items-center gap-4 justify-end">
         {[
           { label: "Antes", fill: "rgba(255,255,255,0.08)", stroke: "rgba(255,255,255,0.2)" },
-          { label: "Após E.P.S.D.P", fill: "rgba(255,255,255,0.65)", stroke: "rgba(255,255,255,0.45)" },
+          { label: "Após E.P.S.D.P", fill: "rgba(0, 188, 125, 1)", stroke: "rgba(0, 188, 125, 1)" },
         ].map((l) => (
           <div key={l.label} className="flex items-center gap-1.5">
             <svg width="12" height="8" aria-hidden="true">
@@ -78,9 +78,9 @@ export function BarChart() {
             <g key={item.label}>
               <motion.text
                 x={xAfter + barW / 2}
-                y={yAfter - 3}
-                fill="rgba(255,255,255,0.35)"
-                fontSize="7"
+                y={yAfter - 6}
+                fill="rgba(0, 188, 125, 1)"
+                fontSize="10"
                 textAnchor="middle"
                 fontFamily="DM Sans, sans-serif"
                 initial={{ opacity: 0 }}
@@ -102,7 +102,7 @@ export function BarChart() {
 
               <motion.rect
                 x={xAfter} width={barW}
-                fill="rgba(255,255,255,0.65)"
+                fill="rgba(0, 188, 125, 1)"
                 stroke="rgba(255,255,255,0.4)"
                 strokeWidth="0.5"
                 initial={{ y: DELTA_H + H, height: 0 }}
@@ -293,7 +293,7 @@ export function LineChart() {
 
         <motion.path
           d={pathD}
-          fill="none" stroke="rgba(255,255,255,0.65)" strokeWidth="1.5"
+          fill="none" stroke="rgba(0, 188, 125, 0.65)" strokeWidth="1.5"
           strokeLinecap="round" strokeLinejoin="round"
           initial={{ pathLength: 0, opacity: 0 }}
           animate={inView ? { pathLength: 1, opacity: 1 } : { pathLength: 0, opacity: 0 }}
@@ -302,7 +302,7 @@ export function LineChart() {
 
         <motion.circle
           cx={xs[xs.length - 1]} cy={ys[ys.length - 1]}
-          r="3" fill="white"
+          r="3" fill="rgba(0, 188, 125, 1)"
           initial={{ opacity: 0, scale: 0 }}
           animate={inView ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0 }}
           transition={{ delay: 1.4, duration: 0.35 }}
@@ -369,8 +369,8 @@ export function RadialChart() {
         ))}
         <motion.path
           d={dataPath(1)}
-          fill="rgba(255,255,255,0.07)"
-          stroke="rgba(255,255,255,0.45)"
+          fill="rgba(0, 188, 125, 0.2)"
+          stroke="rgba(0, 188, 125, 0.65)"
           strokeWidth="1"
           initial={{ scale: 0, originX: "50%", originY: "50%" }}
           animate={inView ? { scale: 1 } : { scale: 0 }}
@@ -397,7 +397,7 @@ export function RadialChart() {
           return (
             <motion.circle
               key={i} cx={x} cy={y} r="2"
-              fill="white"
+              fill="rgba(0, 188, 125, 1)"
               initial={{ opacity: 0, scale: 0 }}
               animate={inView ? { opacity: 0.7, scale: 1 } : { opacity: 0, scale: 0 }}
               transition={{ delay: 0.9 + i * 0.07, duration: 0.3 }}
@@ -455,7 +455,7 @@ export function SparklineChart() {
         <path d={areaD} fill="url(#lg-spark)" clipPath="url(#cp-spark)" />
         <motion.path
           d={pathD}
-          fill="none" stroke="rgba(255,255,255,0.5)" strokeWidth="1.2"
+          fill="none" stroke="rgba(0, 188, 125, 1)" strokeWidth="1.2"
           strokeLinecap="round" strokeLinejoin="round"
           initial={{ pathLength: 0, opacity: 0 }}
           animate={inView ? { pathLength: 1, opacity: 1 } : { pathLength: 0, opacity: 0 }}
@@ -471,7 +471,7 @@ export function SparklineChart() {
               transition={{ duration: 1.5, repeat: Infinity }}
               className="absolute inset-0 rounded-full bg-white/50"
             />
-            <span className="relative rounded-full h-1.5 w-1.5 bg-white/70" />
+            <span className="relative rounded-full h-1.5 w-1.5 bg-emerald-400" />
           </div>
           <span className="font-sans text-[8px] tracking-[0.1em] uppercase text-white/30">12 sem</span>
         </div>
