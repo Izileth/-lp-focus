@@ -129,6 +129,12 @@ export function BookCard({ book, index }: BookCardProps) {
           className="w-full h-full"
         />
 
+        {/* Badge Offer */}
+          <div className="absolute top-2 right-4 z-10 bg-emerald-500 text-white font-sans text-[9px] tracking-[0.15em] uppercase px-2 py-0.5">
+            30% OFF
+          </div>
+  
+
         {/* Subtle category watermark + Rating */}
         <div className="absolute bottom-4 right-2 z-10 flex items-center gap-2 pointer-events-none">
           <Link

@@ -160,7 +160,7 @@ const SplashScreen: React.FC<SplashScreenProps> = ({ onLoadingComplete }) => {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 0.75, duration: 0.7 }}
-              className="mt-6 tracking-[0.32em] uppercase text-white/22 text-center"
+              className="mt-6 tracking-[0.32em] uppercase text-white/80 text-center"
               style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 9 }}
             >
               Mentis Dominus
