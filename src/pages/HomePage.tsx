@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import { HeroSection } from "../components/HeroSection";
 import { SocialProofCarousel } from "../components/SocialProofCarousel";
+import { PlatformsStrip } from "../components/PlatformsStrip";
 import { FeaturesStrip } from "../components/FeaturesStrip";
 import { BooksSection } from "../components/BooksSection";
 import {
@@ -38,10 +39,11 @@ export function HomePage() {
   return (
     <main>
       <HeroSection />
-      <SocialProofCarousel />
+      <PlatformsStrip />
       <MethodEPSDPSection />
       <FeaturesStrip />
       <BooksSection />
+      <SocialProofCarousel />
       <MethodDiagnosisSection />
       <AboutSection />
       <MethodTriadeSection />

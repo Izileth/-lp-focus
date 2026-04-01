@@ -7,8 +7,8 @@ import type { Variants } from "framer-motion";
 // ─── Types ────────────────────────────────────────────────────────────────────
 
 interface TimeLeft {
-  days:    number;
-  hours:   number;
+  days: number;
+  hours: number;
   minutes: number;
   seconds: number;
 }
@@ -21,9 +21,11 @@ interface Slide {
   badge?:   string;
 }
 
-// ─── Slides config ────────────────────────────────────────────────────────────
+// ─── Config ───────────────────────────────────────────────────────────────────
 
 const DAYS_AHEAD = 3;
+const AUTOPLAY_INTERVAL = 5000;
+const SCROLL_THRESHOLD = 10; // px antes de ativar o fundo
 
 const SLIDES: Slide[] = [
   {
@@ -44,19 +46,17 @@ const SLIDES: Slide[] = [
     id:       "newsletter",
     type:     "promo",
     headline: "ACESSO ANTECIPADO",
-    copy:     "Inscreva-se e receba lançamentos com 48h de antecedência",
+    copy:     "Inscreva-se com 48h de antecedência",
     badge:    "EXCLUSIVO",
   },
   {
     id:       "membership",
     type:     "promo",
     headline: "PLANO ANUAL",
-    copy:     "Acesso ilimitado a toda a plataforma por R$29/mês",
+    copy:     "Acesso ilimitado por R$29/mês",
     badge:    "MAIS POPULAR",
   },
 ];
-
-const AUTOPLAY_INTERVAL = 5000;
 
 // ─── Helpers ──────────────────────────────────────────────────────────────────
 
@@ -78,28 +78,26 @@ function calcTimeLeft(target: Date): TimeLeft {
   };
 }
 
-function fmt(n: number): string {
+function fmt(n: number) {
   return n.toString().padStart(2, "0");
 }
 
-// ─── Motion Variants ──────────────────────────────────────────────────────────
-
-const bannerVariants: Variants = {
-  hidden:  { y: -20, opacity: 0 },
-  visible: { y: 0, opacity: 1, transition: { delay: 0.4, duration: 0.6, ease: [0.16, 1, 0.3, 1] } },
-  exit:    { y: -20, opacity: 0, transition: { duration: 0.3, ease: [0.7, 0, 1, 1] } },
-};
+// ─── Variants ─────────────────────────────────────────────────────────────────
 
 const slideVariants: Variants = {
-  enter: (dir: number) => ({ x: dir > 0 ? 60 : -60, opacity: 0 }),
-  center: { x: 0, opacity: 1, transition: { duration: 0.35, ease: [0.16, 1, 0.3, 1] } },
-  exit:  (dir: number) => ({ x: dir > 0 ? -60 : 60, opacity: 0, transition: { duration: 0.25, ease: [0.7, 0, 1, 1] } }),
+  enter:  (dir: number) => ({ x: dir > 0 ? 48 : -48, opacity: 0 }),
+  center: { x: 0, opacity: 1, transition: { duration: 0.3, ease: [0.16, 1, 0.3, 1] } },
+  exit:   (dir: number) => ({
+    x: dir > 0 ? -48 : 48,
+    opacity: 0,
+    transition: { duration: 0.2, ease: [0.7, 0, 1, 1] },
+  }),
 };
 
 const digitVariants: Variants = {
-  initial: { y: -10, opacity: 0 },
-  animate: { y: 0, opacity: 1, transition: { duration: 0.18, ease: "easeOut" } },
-  exit:    { y:  10, opacity: 0, transition: { duration: 0.12, ease: "easeIn"  } },
+  initial: { y: -8, opacity: 0 },
+  animate: { y: 0, opacity: 1, transition: { duration: 0.15, ease: "easeOut" } },
+  exit:    { y:  8, opacity: 0, transition: { duration: 0.1,  ease: "easeIn"  } },
 };
 
 // ─── CountdownUnit ────────────────────────────────────────────────────────────
@@ -109,7 +107,7 @@ function CountdownUnit({ value, label }: { value: string; label: string }) {
     <div className="flex items-baseline gap-1">
       <div
         className="relative overflow-hidden tabular-nums"
-        style={{ minWidth: "1.8ch" }}
+        style={{ minWidth: "1.6ch" }}
         aria-label={`${value} ${label}`}
       >
         <AnimatePresence mode="popLayout" initial={false}>
@@ -122,7 +120,7 @@ function CountdownUnit({ value, label }: { value: string; label: string }) {
             className="block font-black text-white leading-none"
             style={{
               fontFamily: "'Playfair Display', serif",
-              fontSize: "clamp(20px, 3.5vw, 28px)",
+              fontSize: "clamp(18px, 3vw, 24px)",
               letterSpacing: "-0.02em",
             }}
           >
@@ -130,9 +128,7 @@ function CountdownUnit({ value, label }: { value: string; label: string }) {
           </motion.span>
         </AnimatePresence>
       </div>
-      <span
-        className="font-sans text-[8px] tracking-[0.2em] uppercase text-white/40 mb-px"
-      >
+      <span className="text-[7px] tracking-[0.18em] uppercase text-white/30">
         {label}
       </span>
     </div>
@@ -142,12 +138,12 @@ function CountdownUnit({ value, label }: { value: string; label: string }) {
 function ColonSep() {
   return (
     <motion.span
-      animate={{ opacity: [0.15, 0.55, 0.15] }}
+      animate={{ opacity: [0.1, 0.4, 0.1] }}
       transition={{ duration: 1.1, repeat: Infinity, ease: "easeInOut" }}
-      className="font-black text-white/25 mx-1"
+      className="text-white/20 mx-1 font-black"
       style={{
         fontFamily: "'Playfair Display', serif",
-        fontSize: "clamp(16px, 2.5vw, 22px)",
+        fontSize: "clamp(14px, 2vw, 20px)",
         lineHeight: 1,
       }}
       aria-hidden="true"
@@ -160,30 +156,25 @@ function ColonSep() {
 // ─── SlideContent ─────────────────────────────────────────────────────────────
 
 function SlideContent({ slide, timeLeft }: { slide: Slide; timeLeft: TimeLeft }) {
+  const badge = slide.badge && (
+    <span className="hidden sm:inline-block text-[8px] font-black tracking-[0.22em] uppercase border border-white/10 text-white/35 px-2 py-[3px]">
+      {slide.badge}
+    </span>
+  );
+
+  const sep = <div className="hidden sm:block w-px h-4 bg-white/8 shrink-0" />;
+
   if (slide.type === "countdown") {
     return (
-      <div className="flex items-center gap-4 sm:gap-6">
-        {/* Badge */}
-        {slide.badge && (
-          <span
-            className="hidden sm:inline-block font-sans font-black text-[8px] tracking-[0.25em] uppercase border border-white/20 text-white/50 px-2 py-1 shrink-0"
-          >
-            {slide.badge}
-          </span>
-        )}
-
-        {/* Headline */}
+      <div className="flex items-center gap-4 sm:gap-5">
+        {badge}
         <span
-          className="font-sans font-black text-white/60 tracking-[0.25em] uppercase shrink-0"
-          style={{ fontSize: "clamp(8px, 1.2vw, 10px)" }}
+          className="font-black text-white/50 tracking-[0.22em] uppercase shrink-0"
+          style={{ fontSize: "clamp(7px, 1vw, 9px)" }}
         >
           {slide.headline}
         </span>
-
-        {/* Divider */}
-        <div className="hidden sm:block w-px h-5 bg-white/10 shrink-0" />
-
-        {/* Countdown */}
+        {sep}
         <div
           className="flex items-center"
           role="timer"
@@ -197,14 +188,8 @@ function SlideContent({ slide, timeLeft }: { slide: Slide; timeLeft: TimeLeft })
           <ColonSep />
           <CountdownUnit value={fmt(timeLeft.seconds)} label="s" />
         </div>
-
-        {/* Divider */}
-        <div className="hidden sm:block w-px h-5 bg-white/10 shrink-0" />
-
-        {/* Copy */}
-        <span
-          className="hidden sm:block font-sans text-[10px] tracking-[0.15em] uppercase text-white/45"
-        >
+        {sep}
+        <span className="hidden sm:block text-[10px] tracking-[0.14em] uppercase text-white/35">
           {slide.copy}
         </span>
       </div>
@@ -212,72 +197,63 @@ function SlideContent({ slide, timeLeft }: { slide: Slide; timeLeft: TimeLeft })
   }
 
   return (
-    <div className="flex items-center gap-4 sm:gap-6">
-      {/* Badge */}
-      {slide.badge && (
-        <span
-          className="hidden sm:inline-block font-sans font-black text-[8px] tracking-[0.25em] uppercase border border-white/20 text-white/50 px-2 py-1 shrink-0"
-        >
-          {slide.badge}
-        </span>
-      )}
-
-      {/* Headline */}
+    <div className="flex items-center gap-4 sm:gap-5">
+      {badge}
       <span
-        className="font-sans font-black text-white leading-none"
+        className="font-black text-white/85 leading-none"
         style={{
           fontFamily: "'Playfair Display', serif",
-          fontSize: "clamp(14px, 2.5vw, 20px)",
+          fontSize: "clamp(13px, 2.2vw, 18px)",
           letterSpacing: "-0.01em",
         }}
       >
         {slide.headline}
       </span>
-
-      {/* Divider */}
-      <div className="hidden sm:block w-px h-5 bg-white/10 shrink-0" />
-
-      {/* Copy */}
-      <span
-        className="font-sans text-[10px] sm:text-[11px] tracking-[0.15em] uppercase text-white/45"
-      >
+      {sep}
+      <span className="text-[10px] tracking-[0.14em] uppercase text-white/35">
         {slide.copy}
       </span>
     </div>
   );
 }
 
-// ─── OfferCarousel ─────────────────────────────────────────────────────────────
+// ─── OfferCarousel ────────────────────────────────────────────────────────────
 
 export function TopOfferCarousel() {
-  const targetRef                   = useRef<Date>(getTarget());
-  const [timeLeft,    setTimeLeft]  = useState<TimeLeft>(() => calcTimeLeft(getTarget()));
-  const [dismissed,   setDismissed] = useState(false);
-  const [current,     setCurrent]   = useState(0);
-  const [direction,   setDirection] = useState(1);
-  const [isPaused,    setIsPaused]  = useState(false);
-  const autoplayRef                 = useRef<ReturnType<typeof setInterval> | null>(null);
+  const targetRef                  = useRef<Date>(getTarget());
+  const autoplayRef                = useRef<ReturnType<typeof setInterval> | null>(null);
 
-  // Tick the countdown
-  const tick = useCallback(() => {
-    const next = calcTimeLeft(targetRef.current);
-    const expired =
-      next.days === 0 && next.hours === 0 && next.minutes === 0 && next.seconds === 0;
-    if (expired) {
-      const nd = getTarget();
-      targetRef.current = nd;
-      setTimeLeft(calcTimeLeft(nd));
-    } else {
-      setTimeLeft(next);
-    }
-  }, []);
+  const [timeLeft,  setTimeLeft]   = useState<TimeLeft>(() => calcTimeLeft(getTarget()));
+  const [dismissed, setDismissed]  = useState(false);
+  const [current,   setCurrent]    = useState(0);
+  const [direction, setDirection]  = useState(1);
+  const [isPaused,  setIsPaused]   = useState(false);
+
+  // ── Nova: detecta scroll para ativar o fundo ─────────────────────────────
+  const [scrolled, setScrolled] = useState(false);
 
   useEffect(() => {
-    const id = setInterval(tick, 1000);
-    return () => clearInterval(id);
-  }, [tick]);
+    const onScroll = () => setScrolled(window.scrollY > SCROLL_THRESHOLD);
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
 
-  // Autoplay
+  // ── Countdown ─────────────────────────────────────────────────────────────
+  useEffect(() => {
+    const id = setInterval(() => {
+      const next = calcTimeLeft(targetRef.current);
+      const expired = Object.values(next).every((v) => v === 0);
+      if (expired) {
+        targetRef.current = getTarget();
+        setTimeLeft(calcTimeLeft(targetRef.current));
+      } else {
+        setTimeLeft(next);
+      }
+    }, 1000);
+    return () => clearInterval(id);
+  }, []);
+
+  // ── Navegação ─────────────────────────────────────────────────────────────
   const goTo = useCallback((index: number, dir: number) => {
     setDirection(dir);
     setCurrent(index);
@@ -291,135 +267,124 @@ export function TopOfferCarousel() {
     goTo((current - 1 + SLIDES.length) % SLIDES.length, -1);
   }, [current, goTo]);
 
+  // ── Autoplay ──────────────────────────────────────────────────────────────
   useEffect(() => {
     if (isPaused || dismissed) return;
     autoplayRef.current = setInterval(next, AUTOPLAY_INTERVAL);
     return () => {
-      if (autoplayRef.current !== null) {
-        clearInterval(autoplayRef.current);
-      }
+      if (autoplayRef.current) clearInterval(autoplayRef.current);
     };
   }, [isPaused, dismissed, next]);
 
   if (dismissed) return null;
 
   return (
-    <AnimatePresence>
-      <motion.div
-        key="offer-carousel"
-        variants={bannerVariants}
-        initial="hidden"
-        animate="visible"
-        exit="exit"
-        role="banner"
-        aria-label="Promoções Mentis Dominus"
-        onMouseEnter={() => setIsPaused(true)}
-        onMouseLeave={() => setIsPaused(false)}
-        className="fixed top-16 left-0 right-0 z-[90] bg-black border-b border-white/[0.07]"
-        style={{ height: "5rem" }} // h-20 = 80px
-      >
-        {/* Noise overlay */}
-        <div
-          aria-hidden="true"
-          className="absolute inset-0 pointer-events-none opacity-[0.025]"
-          style={{
-            backgroundImage:
-              "url(\"data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E\")",
-          }}
+    <div
+      role="banner"
+      aria-label="Promoções Mentis Dominus"
+      onMouseEnter={() => setIsPaused(true)}
+      onMouseLeave={() => setIsPaused(false)}
+      className="fixed top-0 left-0 right-0 z-[90] h-12"
+      style={{
+        // Transparente no topo → escuro ao rolar
+        background:   scrolled ? "rgba(8, 8, 8, 0.88)" : "transparent",
+        backdropFilter: scrolled ? "blur(14px)" : "none",
+        WebkitBackdropFilter: scrolled ? "blur(14px)" : "none",
+        borderBottom: scrolled
+          ? "1px solid rgba(255,255,255,0.06)"
+          : "1px solid transparent",
+        transition: "background 0.4s ease, border-color 0.4s ease, backdrop-filter 0.4s ease",
+      }}
+    >
+      {/* Progress bar */}
+      {!isPaused && (
+        <motion.div
+          key={`prog-${current}`}
+          className="absolute bottom-0 left-0 h-px bg-white/15"
+          initial={{ width: "0%" }}
+          animate={{ width: "100%" }}
+          transition={{ duration: AUTOPLAY_INTERVAL / 1000, ease: "linear" }}
         />
+      )}
 
-        {/* Accent lines */}
-        <div aria-hidden="true" className="absolute left-0 inset-y-0 w-px bg-gradient-to-b from-transparent via-white/10 to-transparent" />
-        <div aria-hidden="true" className="absolute right-0 inset-y-0 w-px bg-gradient-to-b from-transparent via-white/10 to-transparent" />
+      {/* Layout */}
+      <div className="relative h-full flex items-center px-8 sm:px-12">
 
-        {/* Progress bar */}
-        {!isPaused && (
-          <motion.div
-            key={`progress-${current}`}
-            className="absolute bottom-0 left-0 h-px bg-white/20"
-            initial={{ width: "0%" }}
-            animate={{ width: "100%" }}
-            transition={{ duration: AUTOPLAY_INTERVAL / 1000, ease: "linear" }}
-          />
-        )}
+        {/* Prev */}
+        <motion.button
+          type="button"
+          onClick={prev}
+          whileHover={{ scale: 1.15 }}
+          whileTap={{ scale: 0.9 }}
+          aria-label="Slide anterior"
+          className="absolute left-3 text-white/25 hover:text-white/60 transition-colors"
+        >
+          <IconChevronLeft size={12} />
+        </motion.button>
 
-        {/* Layout: prev | content | dots | next | close */}
-        <div className="relative h-full flex items-center px-10 sm:px-14">
-
-          {/* Prev button */}
-          <motion.button
-            type="button"
-            onClick={prev}
-            whileHover={{ scale: 1.15 }}
-            whileTap={{ scale: 0.9 }}
-            aria-label="Slide anterior"
-            className="absolute left-3 sm:left-4 text-white/30 hover:text-white/70 transition-colors duration-150"
-          >
-            <IconChevronLeft size={13} />
-          </motion.button>
-
-          {/* Slide content — animated */}
-          <div className="flex-1 flex items-center justify-center overflow-hidden">
-            <AnimatePresence mode="wait" custom={direction}>
-              <motion.div
-                key={current}
-                custom={direction}
-                variants={slideVariants}
-                initial="enter"
-                animate="center"
-                exit="exit"
-                className="flex items-center justify-center w-full"
-              >
-                <SlideContent slide={SLIDES[current]} timeLeft={timeLeft} />
-              </motion.div>
-            </AnimatePresence>
-          </div>
-
-          {/* Dot indicators */}
-          <div className="absolute bottom-2.5 left-1/2 -translate-x-1/2 flex items-center gap-1.5">
-            {SLIDES.map((s, i) => (
-              <motion.button
-                key={s.id}
-                type="button"
-                onClick={() => goTo(i, i > current ? 1 : -1)}
-                whileHover={{ scale: 1.4 }}
-                aria-label={`Ir para slide ${i + 1}`}
-                aria-current={i === current ? "true" : undefined}
-                className="rounded-full transition-all duration-300"
-                style={{
-                  width:      i === current ? 14 : 4,
-                  height:     4,
-                  background: i === current ? "rgba(255,255,255,0.6)" : "rgba(255,255,255,0.18)",
-                }}
-              />
-            ))}
-          </div>
-
-          {/* Next button */}
-          <motion.button
-            type="button"
-            onClick={next}
-            whileHover={{ scale: 1.15 }}
-            whileTap={{ scale: 0.9 }}
-            aria-label="Próximo slide"
-            className="absolute right-8 sm:right-10 text-white/30 hover:text-white/70 transition-colors duration-150"
-          >
-            <IconChevronRight size={13} />
-          </motion.button>
-
-          {/* Dismiss */}
-          <motion.button
-            type="button"
-            onClick={() => setDismissed(true)}
-            whileHover={{ scale: 1.15 }}
-            whileTap={{ scale: 0.9 }}
-            aria-label="Fechar promoções"
-            className="absolute right-3 sm:right-4 text-white/25 hover:text-white/55 transition-colors duration-200"
-          >
-            <IconX size={11} />
-          </motion.button>
+        {/* Slide */}
+        <div className="flex-1 flex items-center justify-center overflow-hidden">
+          <AnimatePresence mode="wait" custom={direction}>
+            <motion.div
+              key={current}
+              custom={direction}
+              variants={slideVariants}
+              initial="enter"
+              animate="center"
+              exit="exit"
+              className="flex items-center justify-center w-full"
+            >
+              <SlideContent slide={SLIDES[current]} timeLeft={timeLeft} />
+            </motion.div>
+          </AnimatePresence>
         </div>
-      </motion.div>
-    </AnimatePresence>
+
+        {/* Dot indicators */}
+        <div className="absolute bottom-[22px] left-20 -translate-x-1/2 flex items-center gap-[5px]">
+          {SLIDES.map((s, i) => (
+            <motion.button
+              key={s.id}
+              type="button"
+              onClick={() => goTo(i, i > current ? 1 : -1)}
+              whileHover={{ scale: 1.4 }}
+              aria-label={`Ir para slide ${i + 1}`}
+              aria-current={i === current ? "true" : undefined}
+              className="rounded-full  transition-all duration-300"
+              style={{
+                width:      i === current ? 14 : 4,
+                height:     3,
+                background: i === current
+                  ? "rgba(255,255,255,0.55)"
+                  : "rgba(255,255,255,0.15)",
+              }}
+            />
+          ))}
+        </div>
+
+        {/* Next */}
+        <motion.button
+          type="button"
+          onClick={next}
+          whileHover={{ scale: 1.15 }}
+          whileTap={{ scale: 0.9 }}
+          aria-label="Próximo slide"
+          className="absolute right-8 sm:right-10 text-white/25 hover:text-white/60 transition-colors"
+        >
+          <IconChevronRight size={12} />
+        </motion.button>
+
+        {/* Close */}
+        <motion.button
+          type="button"
+          onClick={() => setDismissed(true)}
+          whileHover={{ scale: 1.15 }}
+          whileTap={{ scale: 0.9 }}
+          aria-label="Fechar promoções"
+          className="absolute right-3 text-white/20 hover:text-white/50 transition-colors"
+        >
+          <IconX size={10} />
+        </motion.button>
+      </div>
+    </div>
   );
 }

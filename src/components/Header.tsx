@@ -38,7 +38,7 @@ export function Header({ menuOpen, setMenuOpen }: HeaderProps) {
       animate={{ y: 0, opacity: 1 }}
       transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
       className={[
-        "fixed top-0 left-0 right-0 z-[100] h-16 flex items-center justify-between px-10",
+        "fixed top-12 left-0 right-0 z-[100] h-16 flex items-center justify-between px-10",
         "transition-[background,border-color,backdrop-filter] duration-500",
         scrolled
           ? "border-b border-white/[0.08] bg-black/90 backdrop-blur-xl"

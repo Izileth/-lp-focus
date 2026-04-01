@@ -344,6 +344,24 @@ export function IconFacebook({ size = 18, className }: IconProps) {
   );
 }
 
+export function IconInstagram({ size = 18, className }: IconProps) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}>
+      <rect x="2" y="2" width="20" height="20" rx="5" ry="5" />
+      <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
+      <line x1="17.5" y1="6.5" x2="17.51" y2="6.5" />
+    </svg>
+  );
+}
+
+export function IconTiktok({ size = 18, className }: IconProps) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 24 24" fill="currentColor" className={className}>
+      <path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.17-2.86-.6-4.12-1.31a8.15 8.15 0 0 1-1.89-1.41c-.07 3.22.03 6.45-.02 9.67-.12 1.86-.71 3.73-1.89 5.18-1.21 1.49-3.05 2.5-4.9 2.72-2 .22-4.11-.27-5.74-1.51-1.78-1.36-2.72-3.62-2.52-5.83.18-2.04 1.34-3.95 3.12-4.96 1.11-.63 2.39-.93 3.67-.93.07 1.42.02 2.85.03 4.27-.66-.02-1.33.09-1.94.35-.91.41-1.58 1.3-1.73 2.27-.14 1 .2 2.06.94 2.75 1.18 1.12 3.23 1.01 4.26-.24.47-.56.66-1.29.64-2.01V.02z" />
+    </svg>
+  );
+}
+
 export function IconWhatsapp({ size = 18, className }: IconProps) {
   return (
     <svg width={size} height={size} viewBox="0 0 24 24" fill="currentColor" className={className}>

@@ -2,36 +2,51 @@
 @plugin "@tailwindcss/typography";
 
 html {
-    background-color: #000000;
-    color: #ffffff;
-    scroll-behavior: smooth;
-    overflow-x: hidden;
-    overflow-y: scroll;
+  background-color: #000000;
+  color: #ffffff;
+  scroll-behavior: smooth;
+  overflow-x: hidden;
+  overflow-y: scroll;
 }
 
 /* Custom Journalistic font - Ensuring fallback */
 @layer base {
   .font-serif {
-    font-family: 'Playfair Display', serif;
+    font-family: "Playfair Display", serif;
   }
 }
 
 /* Base override for typography plugin to better match dark mode theme */
 .prose {
-    --tw-prose-body: rgba(255, 255, 255, 0.8);
-    --tw-prose-headings: #ffffff;
-    --tw-prose-lead: #ffffff;
-    --tw-prose-links: #ffffff;
-    --tw-prose-bold: #ffffff;
-    --tw-prose-counters: rgba(255, 255, 255, 0.5);
-    --tw-prose-bullets: rgba(255, 255, 255, 0.3);
-    --tw-prose-hr: rgba(255, 255, 255, 0.1);
-    --tw-prose-quotes: rgba(255, 255, 255, 0.6);
-    --tw-prose-quote-borders: rgba(255, 255, 255, 0.1);
-    --tw-prose-captions: rgba(255, 255, 255, 0.5);
-    --tw-prose-code: #ffffff;
-    --tw-prose-pre-code: #ffffff;
-    --tw-prose-pre-bg: rgba(255, 255, 255, 0.05);
-    --tw-prose-th-borders: rgba(255, 255, 255, 0.2);
-    --tw-prose-td-borders: rgba(255, 255, 255, 0.1);
+  --tw-prose-body: rgba(255, 255, 255, 0.8);
+  --tw-prose-headings: #ffffff;
+  --tw-prose-lead: #ffffff;
+  --tw-prose-links: #ffffff;
+  --tw-prose-bold: #ffffff;
+  --tw-prose-counters: rgba(255, 255, 255, 0.5);
+  --tw-prose-bullets: rgba(255, 255, 255, 0.3);
+  --tw-prose-hr: rgba(255, 255, 255, 0.1);
+  --tw-prose-quotes: rgba(255, 255, 255, 0.6);
+  --tw-prose-quote-borders: rgba(255, 255, 255, 0.1);
+  --tw-prose-captions: rgba(255, 255, 255, 0.5);
+  --tw-prose-code: #ffffff;
+  --tw-prose-pre-code: #ffffff;
+  --tw-prose-pre-bg: rgba(255, 255, 255, 0.05);
+  --tw-prose-th-borders: rgba(255, 255, 255, 0.2);
+  --tw-prose-td-borders: rgba(255, 255, 255, 0.1);
+}
+
+@keyframes scroll-platforms {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(calc(-280px * 3 - 2rem * 3));
+  }
+}
+.animate-scroll-platforms {
+  animation: scroll-platforms 25s linear infinite;
+}
+.animate-scroll-platforms:hover {
+  animation-play-state: paused;
 }
