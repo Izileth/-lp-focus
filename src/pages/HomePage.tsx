@@ -13,6 +13,7 @@ import {
 import { AboutSection } from "../components/AboutSection";
 import { ContactSection } from "../components/ContactSection";
 import { CtaSection } from "../components/CtaSection";
+import { WhatsAppBadge } from "../components/WhatsAppBadge";
 
 export function HomePage() {
   const { pathname } = useLocation();
@@ -49,6 +50,7 @@ export function HomePage() {
       <MethodTriadeSection />
       <ContactSection />
       <CtaSection />
+      <WhatsAppBadge />
     </main>
   );
 }

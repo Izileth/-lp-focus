@@ -18,7 +18,7 @@ const PLATFORMS: Platform[] = [
     name: "TikTok",
     handle: "@modus.focus",
     icon: IconTiktok,
-    link: "https://tiktok.com/@modus.focus",
+    link: "https://www.tiktok.com/@modus_focus",
     color: "group-hover:text-[#ff0050]"
   },
   {
@@ -26,7 +26,7 @@ const PLATFORMS: Platform[] = [
     name: "Instagram",
     handle: "@modus.focus",
     icon: IconInstagram,
-    link: "https://instagram.com/modus.focus",
+    link: "https://www.instagram.com/modus_focus_",
     color: "group-hover:text-[#E1306C]"
   },
   {
@@ -34,7 +34,7 @@ const PLATFORMS: Platform[] = [
     name: "WhatsApp",
     handle: "Comunidade",
     icon: IconWhatsapp,
-    link: "#",
+    link: "https://chat.whatsapp.com/D5araq1cWrS18jcaon0fnX",
     color: "group-hover:text-[#25D366]"
   }
 ];
