@@ -1,68 +1,72 @@
 // src/components/SocialFanBadge.tsx
 import { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { IconTiktok, IconInstagram, IconWhatsapp, IconArrowUpRight, IconYoutube} from "./Icons";
+import {
+  IconTiktok,
+  IconInstagram,
+  IconWhatsapp,
+  IconArrowUpRight,
+  IconYoutube,
+} from "./Icons";
 import type { Variants } from "framer-motion";
+
 // ─── Types ──────────────────────────────────────────────────────────────────
 
 interface SocialItem {
   id: string;
   label: string;
   href: string;
-  icon: React.ReactNode;
+  icon: React.ElementType; // 🔥 IMPORTANTE
   color: string;
 }
 
 // ─── Socials ────────────────────────────────────────────────────────────────
-
-
 
 const SOCIALS: SocialItem[] = [
   {
     id: "whatsapp",
     label: "",
     href: "https://chat.whatsapp.com/D5araq1cWrS18jcaon0fnX",
-    icon: <IconWhatsapp />,
+    icon: IconWhatsapp,
     color: "#25D366",
   },
   {
     id: "instagram",
     label: "",
-    href: "https://www.instagram.com/focus_billionaiire?igsh=Z2hlMjZxZ3RkNmht&utm_source=qr",
-    icon: <IconInstagram />,
+    href: "https://www.instagram.com/focus_billionaiire",
+    icon: IconInstagram,
     color: "#E1306C",
   },
   {
     id: "tiktok",
     label: "",
-    href: "https://www.tiktok.com/@potencial_marco_zero?_r=1&_t=ZS-95DGkpALbMG",
-    icon: <IconTiktok />,
-    color: "#fff",
+    href: "https://www.tiktok.com/@potencial_marco_zero",
+    icon: IconTiktok,
+    color: "#ff0050"
   },
   {
     id: "youtube",
     label: "",
-    href: "https://youtu.be/KkKlfAb3TSI?si=T7uMqaVcSp_svRq2",
-    icon: <IconYoutube />,
+    href: "https://youtu.be/KkKlfAb3TSI",
+    icon: IconYoutube,
     color: "#ee3226",
   },
-
 ];
 
-// ─── Posições do leque ──────────────────────────────────────────────────────
+// ─── Posições ───────────────────────────────────────────────────────────────
 
 const FAN_POSITIONS_MOBILE = [
-  { x: 0,  y: -70 },
+  { x: 0, y: -70 },
   { x: 28, y: -55 },
   { x: 55, y: -30 },
-  { x: 75, y: -5 },   // 👈 NOVO
+  { x: 75, y: -5 },
 ];
 
 const FAN_POSITIONS_DESKTOP = [
-  { x: 0,   y: -95 },
-  { x: 45,  y: -75 },
-  { x: 90,  y: -45 },
-  { x: 130, y: -10 }, // 👈 NOVO
+  { x: 0, y: -95 },
+  { x: 45, y: -75 },
+  { x: 90, y: -45 },
+  { x: 130, y: -10 },
 ];
 
 // ─── Variants ───────────────────────────────────────────────────────────────
@@ -156,39 +160,35 @@ export function SocialFanBadge() {
           initial="closed"
           animate={isOpen ? "open" : "closed"}
           variants={itemVariants}
-          whileHover={{
-            scale: 1.08,
-            y: -3,
-          }}
+          whileHover={{ scale: 1.08, y: -3 }}
           whileTap={{ scale: 0.92 }}
+
           className="
-          group
-          absolute bottom-0 left-0
-          flex items-center justify-center
-          w-11 h-11 sm:w-12 sm:h-12
-          rounded-md
-          bg-black/60 backdrop-blur-xl
-          border border-white/10
-          shadow-[0_4px_20px_rgba(0,0,0,0.3)]
-          transition-all duration-300
-        "
-          style={{
-            pointerEvents: isOpen ? "all" : "none",
-          }}
-        >
-          {/* Ícone */}
-          <div
-            className="
+            group
+            absolute bottom-0 left-0
             flex items-center justify-center
-            text-white/60
-            group-hover:text-white
+            w-11 h-11 sm:w-12 sm:h-12
+            rounded-md
+            bg-black/60 backdrop-blur-xl
+            border border-white/10
+            shadow-[0_4px_20px_rgba(0,0,0,0.3)]
             transition-all duration-300
           "
-          >
-            {social.icon}
+          style={{ pointerEvents: isOpen ? "all" : "none", backgroundColor: `${social.color}70` }}
+        >
+          {/* Ícone com cor dinâmica */}
+          <div className="flex items-center justify-center">
+            <social.icon
+              size={20}
+              style={{
+                color: social.color,
+                filter: `drop-shadow(0 0 6px ${social.color})`,
+              }}
+              className="transition-all duration-300 group-hover:scale-110 group-hover:brightness-125"
+            />
           </div>
 
-          {/* Glow sutil no hover */}
+          {/* Glow no hover */}
           <div
             className="absolute inset-0 rounded-md opacity-0 group-hover:opacity-100 transition duration-300"
             style={{
@@ -205,12 +205,12 @@ export function SocialFanBadge() {
                 exit={{ opacity: 0, x: -8 }}
                 transition={{ duration: 0.2, delay: i * 0.05 }}
                 className="
-                absolute left-14
-                text-[10px]
-                uppercase tracking-[0.18em]
-                text-white/50
-                whitespace-nowrap
-              "
+                  absolute left-14
+                  text-[10px]
+                  uppercase tracking-[0.18em]
+                  text-white/50
+                  whitespace-nowrap
+                "
               >
                 {social.label}
               </motion.span>
@@ -219,30 +219,38 @@ export function SocialFanBadge() {
         </motion.a>
       ))}
 
-      {/* Trigger */}
+      {/* Botão principal */}
       <motion.button
         onClick={() => setIsOpen((v) => !v)}
+        animate={{
+          scale: [1, 1.08, 1],
+          y: [34, -4, 24],
+        }}
+        transition={{
+          duration: 1.4,
+          repeat: Infinity,
+          ease: "easeInOut",
+        }}
         whileTap={{ scale: 0.9 }}
         className="
-        relative z-10
-        flex items-center justify-center
-        w-12 h-12 sm:w-14 sm:h-14
-        rounded-md
-        bg-black/70 backdrop-blur-xl
-        border border-white/10
-        shadow-[0_6px_30px_rgba(0,0,0,0.4)]
-        transition-all duration-300
-        hover:border-white/20
-      "
+          relative z-10
+          flex items-center justify-center
+          w-12 h-12 sm:w-14 sm:h-14
+          rounded-md
+          bg-black/70 backdrop-blur-xl
+          border border-white/10
+          shadow-[0_6px_30px_rgba(0,0,0,0.4)]
+          transition-all duration-300
+          hover:border-white/20
+        "
       >
         <motion.div
           animate={isOpen ? { rotate: 45 } : { rotate: 0 }}
           transition={{ duration: 0.25 }}
-          className="flex items-center justify-center"
         >
           <IconArrowUpRight
             size={16}
-            className="text-white/60 group-hover:text-white transition"
+            className="text-white/60 transition"
           />
         </motion.div>
       </motion.button>

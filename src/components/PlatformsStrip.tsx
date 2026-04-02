@@ -19,7 +19,7 @@ const PLATFORMS: Platform[] = [
     handle: "@modus.focus",
     icon: IconTiktok,
     link: "https://www.tiktok.com/@modus_focus",
-    color: "group-hover:text-[#ff0050]"
+    color: "#ff0050"
   },
   {
     id: 2,
@@ -27,7 +27,7 @@ const PLATFORMS: Platform[] = [
     handle: "@modus.focus",
     icon: IconInstagram,
     link: "https://www.instagram.com/modus_focus_",
-    color: "group-hover:text-[#E1306C]"
+    color: "#E1306C"
   },
   {
     id: 3,
@@ -35,21 +35,21 @@ const PLATFORMS: Platform[] = [
     handle: "Comunidade",
     icon: IconWhatsapp,
     link: "https://chat.whatsapp.com/D5araq1cWrS18jcaon0fnX",
-    color: "group-hover:text-[#25D366]"
+    color: "#25D366"
   },
   {
     id: 4,
     name: "YouTube",
     handle: "Comunidade",
-    icon: IconYoutube,  
+    icon: IconYoutube,
     link: "https://youtu.be/KkKlfAb3TSI?si=T7uMqaVcSp_svRq2",
-    color: "group-hover:text-[#ee3226]"
+    color: "#ee3226"
   }
 ];
 
 export function PlatformsStrip() {
   return (
-    <section className="py-12 overflow-hidden bg-black ">
+    <section className="py-12 overflow-hidden bg-black">
       <motion.div
         variants={staggerContainer}
         initial="hidden"
@@ -59,25 +59,44 @@ export function PlatformsStrip() {
       >
         <div className="relative">
           <div className="flex gap-8 animate-scroll-platforms">
-            {[...PLATFORMS, ...PLATFORMS, ...PLATFORMS, ...PLATFORMS].map((p, idx) => (
+            {[...PLATFORMS, ...PLATFORMS].map((p, idx) => (
               <a
                 key={`${p.id}-${idx}`}
                 href={p.link}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="group min-w-[280px] flex items-center justify-between p-6 bg-transparent border border-transparent hover:border-white/10 transition-all duration-300 rounded-sm"
+                className="group min-w-[280px] flex items-center justify-between p-6 rounded-sm transition-all duration-300 hover:bg-white/5"
               >
                 <div className="flex items-center gap-4">
-                  <div className={`p-3 bg-white/5 rounded-sm transition-colors duration-300 ${p.color}`}>
-                    <p.icon size={20} />
+                  
+              
+                  <div
+                    className="p-3 rounded-sm transition-all duration-300"
+                    style={{
+                      backgroundColor: `${p.color}50` // leve transparência
+                    }}
+                  >
+                    <p.icon
+                      size={20}
+                      style={{ color: p.color }}
+                      className="transition-all duration-300 group-hover:scale-110"
+                    />
                   </div>
+
                   <div>
-                    <h5 className="text-[12px] font-bold text-white/90 uppercase tracking-wider">{p.name}</h5>
-                    <p className="text-[10px] text-white/30 uppercase tracking-[0.1em]">{p.handle}</p>
+                    <h5 className="text-[12px] font-bold text-white/90 uppercase tracking-wider">
+                      {p.name}
+                    </h5>
+                    <p className="text-[10px] text-white/30 uppercase tracking-[0.1em]">
+                      {p.handle}
+                    </p>
                   </div>
                 </div>
 
-                <IconArrowUpRight size={14} className="text-white/20 group-hover:text-white/60 transition-colors" />
+                <IconArrowUpRight
+                  size={14}
+                  className="text-white/20 group-hover:text-white/60 transition-colors"
+                />
               </a>
             ))}
           </div>
