@@ -75,11 +75,11 @@ export function Header({ menuOpen, setMenuOpen }: HeaderProps) {
         )}
         {NAV_LINKS.map((item) => (
           <Link
-            key={item}
-            to={item === "Ebooks" ? "/livros" : `/${item.toLowerCase()}`}
+            key={item.label}
+            to={item.path}
             className="font-sans text-[13px] tracking-[0.12em] uppercase text-white/55 no-underline hover:text-white transition-colors duration-200"
           >
-            {item}
+            {item.label}
           </Link>
         ))}
 

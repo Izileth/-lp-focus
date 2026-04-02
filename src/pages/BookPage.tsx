@@ -4,6 +4,10 @@ import { IconArrowLeft, IconShare } from "../components/Icons";
 import { NotFound } from "../components/ui/NotFound";
 import { LoadingState } from "../components/ui/StatesScreens";
 
+// ─── Offer Banner ────────────────────────────────────────────────────────────────────
+
+import { BottonOfferBanner } from "../components/BottonOfferBanner";
+
 // ─── Sub-components ───────────────────────────────────────────────────────────
 import { BookCarousel } from "../components/book/BookCarousel";
 import { BookDetails } from "../components/book/BookDetails";
@@ -161,6 +165,8 @@ export function BookPage() {
 
         </main>
       </div>
+      
+      <BottonOfferBanner />
     </>
   );
 }

@@ -85,13 +85,13 @@ export function MobileMenu({ menuOpen, setMenuOpen }: MobileMenuProps) {
             )}
 
             {NAV_LINKS.map((item) => (
-              <motion.div key={item} variants={fadeUpVariants}>
+              <motion.div key={item.label} variants={fadeUpVariants}>
                 <Link
-                  to={item === "Ebooks" ? "/livros" : `/${item.toLowerCase()}`}
+                  to={item.path}
                   onClick={() => setMenuOpen(false)}
                   className="[font-family:'Playfair_Display',serif] text-4xl text-white/60 no-underline hover:text-white transition-colors duration-200 block"
                 >
-                  {item}
+                  {item.label}
                 </Link>
               </motion.div>
             ))}

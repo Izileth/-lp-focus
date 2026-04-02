@@ -5,7 +5,6 @@ import { NoiseOverlay } from "./components/NoiseOverlay";
 import { MobileMenu } from "./components/MobileMenu";
 import { Header } from "./components/Header";
 import { TopOfferCarousel } from "./components/TopOfferBanner";
-import { BottonOfferBanner } from "./components/BottonOfferBanner";
 import NewsletterSection from "./components/NewsletterSection";
 import { Footer } from "./components/Footer";
 import { supabase } from "./lib/supabaseClient";
@@ -40,7 +39,7 @@ export default function App() {
         <MobileMenu menuOpen={menuOpen} setMenuOpen={setMenuOpen} />
         <Header menuOpen={menuOpen} setMenuOpen={setMenuOpen} />
 
-        {!isNoLayoutPage && <BottonOfferBanner />}
+       
 
         <Outlet />
 

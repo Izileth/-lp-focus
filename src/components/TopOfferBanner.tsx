@@ -349,7 +349,7 @@ export function TopOfferCarousel() {
               whileHover={{ scale: 1.4 }}
               aria-label={`Ir para slide ${i + 1}`}
               aria-current={i === current ? "true" : undefined}
-              className="rounded-full  transition-all duration-300"
+              className="rounded-full opacity-0 md:opacity-100  transition-all duration-300"
               style={{
                 width:      i === current ? 14 : 4,
                 height:     3,
