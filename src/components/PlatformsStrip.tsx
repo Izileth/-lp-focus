@@ -1,6 +1,6 @@
 // src/components/PlatformsStrip.tsx
 import { motion } from "framer-motion";
-import { IconTiktok, IconInstagram, IconWhatsapp, IconArrowUpRight } from "./Icons";
+import { IconTiktok, IconInstagram, IconWhatsapp, IconArrowUpRight, IconYoutube } from "./Icons";
 import { staggerContainer } from "../motionVariants";
 
 interface Platform {
@@ -36,6 +36,14 @@ const PLATFORMS: Platform[] = [
     icon: IconWhatsapp,
     link: "https://chat.whatsapp.com/D5araq1cWrS18jcaon0fnX",
     color: "group-hover:text-[#25D366]"
+  },
+  {
+    id: 4,
+    name: "YouTube",
+    handle: "Comunidade",
+    icon: IconYoutube,  
+    link: "https://youtu.be/KkKlfAb3TSI?si=T7uMqaVcSp_svRq2",
+    color: "group-hover:text-[#ee3226]"
   }
 ];
 
@@ -68,7 +76,7 @@ export function PlatformsStrip() {
                     <p className="text-[10px] text-white/30 uppercase tracking-[0.1em]">{p.handle}</p>
                   </div>
                 </div>
-                
+
                 <IconArrowUpRight size={14} className="text-white/20 group-hover:text-white/60 transition-colors" />
               </a>
             ))}

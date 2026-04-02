@@ -23,3 +23,5 @@ export const videoPlaylist = [
   "https://res.cloudinary.com/dc811ugno/video/upload/v1773441168/Modus_focus_featured_10_dzg8ds.mp4"
 
 ];
+
+

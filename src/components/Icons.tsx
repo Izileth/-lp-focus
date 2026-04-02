@@ -379,6 +379,15 @@ export function IconVideo({ size = 18, strokeWidth = 1.5, className }: IconProps
   );
 }
 
+export function IconYoutube({ size = 18, className }: IconProps) {  
+  return (
+    <svg width={size} height={size} viewBox="0 0 24 24" fill="currentColor" className={className}>
+      <path d="M22.54 6.42a2.78 2.78 0 0 0-1.95-1.95C18.88 4 12 4 12 4s-6.88 0-8.59.47A2.78 2.78 0 0 0 1.46 6.42C1 8.13 1 12 1 12s0 3.87.46 5.58a2.78 2.78 0 0 0 1.95 1.95C5.12 20 12 20 12 20s6.88 0 8.59-.47a2.78 2.78 0 0 0 1.95-1.95c.46-1.71.46-5.58.46-5.58  s0-3.87-.46-5.58z" />      
+      <path d="M9.3 8.71V3.09L15.93 9.72l-6.63 6.63z" />
+    </svg>
+  );  
+}
+
 export function IconLink({ size = 18, strokeWidth = 1.5, className }: IconProps) {
   return (
     <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={strokeWidth} strokeLinecap="round" strokeLinejoin="round" className={className}>

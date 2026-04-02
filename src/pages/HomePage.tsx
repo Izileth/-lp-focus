@@ -11,7 +11,6 @@ import {
   MethodTriadeSection
 } from "../components/MethodSection";
 import { AboutSection } from "../components/AboutSection";
-import { ContactSection } from "../components/ContactSection";
 import { CtaSection } from "../components/CtaSection";
 import { SocialFanBadge } from "../components/FlanSocialBadges";
 
@@ -48,7 +47,6 @@ export function HomePage() {
       <MethodDiagnosisSection />
       <AboutSection />
       <MethodTriadeSection />
-      <ContactSection />
       <CtaSection />
       <SocialFanBadge />
     </main>

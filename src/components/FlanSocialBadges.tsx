@@ -1,7 +1,7 @@
 // src/components/SocialFanBadge.tsx
 import { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { IconTiktok, IconInstagram, IconWhatsapp, IconArrowUpRight, IconEye } from "./Icons";
+import { IconTiktok, IconInstagram, IconWhatsapp, IconArrowUpRight, IconYoutube} from "./Icons";
 import type { Variants } from "framer-motion";
 // ─── Types ──────────────────────────────────────────────────────────────────
 
@@ -28,22 +28,22 @@ const SOCIALS: SocialItem[] = [
   {
     id: "instagram",
     label: "",
-    href: "https://instagram.com/",
+    href: "https://www.instagram.com/focus_billionaiire?igsh=Z2hlMjZxZ3RkNmht&utm_source=qr",
     icon: <IconInstagram />,
     color: "#E1306C",
   },
   {
     id: "tiktok",
     label: "",
-    href: "https://tiktok.com/",
+    href: "https://www.tiktok.com/@potencial_marco_zero?_r=1&_t=ZS-95DGkpALbMG",
     icon: <IconTiktok />,
     color: "#fff",
   },
   {
     id: "youtube",
     label: "",
-    href: "https://youtube.com/",
-    icon: <IconEye />,
+    href: "https://youtu.be/KkKlfAb3TSI?si=T7uMqaVcSp_svRq2",
+    icon: <IconYoutube />,
     color: "#ee3226",
   },
 
