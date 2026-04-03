@@ -73,7 +73,7 @@ function TriadeItem({ t, index }: { t: typeof TRIADE[0], index: number }) {
 
 function StatsCard({ title, subtitle, badge, children, className = "" }: { title: string, subtitle: string, badge?: React.ReactNode, children: React.ReactNode, className?: string }) {
   return (
-    <div className={`border border-white/[0.08] bg-white/[0.02] p-6 flex flex-col gap-6 ${className}`}>
+    <div className={`border rounded-2xl border-white/[0.08] bg-white/[0.02] p-6 flex flex-col gap-6 ${className}`}>
       <div className="flex items-start justify-between gap-4">
         <div className="flex flex-col gap-1">
           <span className="font-sans text-[10px] tracking-[0.22em] uppercase text-white/30">{subtitle}</span>
@@ -96,7 +96,7 @@ function StatsCard({ title, subtitle, badge, children, className = "" }: { title
 
 export function MethodEPSDPSection() {
   return (
-    <section id="metodo" className="relative border-t border-white/[0.06] py-24 md:py-32 overflow-hidden bg-black">
+    <section id="metodo" className="relative border-t  border-white/[0.06] py-24 md:py-32 overflow-hidden bg-black">
       <div aria-hidden="true" className="absolute inset-0 pointer-events-none opacity-[0.025]"
         style={{ backgroundImage: "url(\"data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E\")" }}
       />
@@ -106,7 +106,7 @@ export function MethodEPSDPSection() {
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true, amount: 0.06 }}
-        className="max-w-[1200px] mx-auto px-8 md:px-16"
+        className="max-w-[1300px] mx-auto px-8 md:px-14"
       >
         <SectionHeader 
           subtitle="A Metodologia"
@@ -125,7 +125,7 @@ export function MethodEPSDPSection() {
             <StatsCard title="Mensuração de performance" subtitle="Impacto nos pilares" badge="+310%">
               <div className="flex flex-col gap-7">
                 <BarChart />
-                <div className="h-px bg-white/[0.06]" />
+                <div className="h-px   bg-white/[0.06]" />
                 <LineChart />
               </div>
             </StatsCard>
@@ -144,7 +144,7 @@ export function MethodDiagnosisSection() {
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true, amount: 0.06 }}
-        className="max-w-[1200px] mx-auto px-8 md:px-16"
+        className="max-w-[1300px] mx-auto px-8 md:px-14"
       >
         <SectionHeader 
           subtitle="Análise Sistêmica"
@@ -200,7 +200,7 @@ export function MethodTriadeSection() {
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true, amount: 0.06 }}
-        className="max-w-[1200px] mx-auto px-8 md:px-16"
+        className="max-w-[1300px] mx-auto px-8 md:px-14"
       >
         <SectionHeader 
           subtitle="A Trindade da Alta Performance"

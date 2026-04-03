@@ -30,7 +30,7 @@ export function BarChart() {
   const barGap = 4;
 
   return (
-    <div className="flex flex-col gap-3">
+    <div className="flex flex-col gap-3 ">
       {/* Legend */}
       <div className="flex items-center gap-4 justify-end">
         {[

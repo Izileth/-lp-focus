@@ -62,12 +62,12 @@ export function SocialProofCarousel() {
 
 
         {/* Carousel Container */}
-        <div className="relative">
+        <div className="relative  ">
           <div className="flex gap-6 animate-scroll">
             {[...TESTIMONIALS, ...TESTIMONIALS].map((t, idx) => (
               <div
                 key={`${t.id}-${idx}`}
-                className="min-w-[320px] md:min-w-[400px] p-8 bg-black border border-white/5 rounded-sm flex flex-col gap-6"
+                className="min-w-[320px] md:min-w-[400px] p-8 bg-black border border-white/5 rounded-2xl flex flex-col gap-6"
               >
                 <div className="flex gap-1">
                   {[...Array(t.rating)].map((_, i) => (

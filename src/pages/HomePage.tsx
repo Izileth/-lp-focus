@@ -46,10 +46,10 @@ export function HomePage() {
       <FeaturesStrip />
       <BooksSection />
       <SocialProofCarousel />
-      <MethodDiagnosisSection />
+      <QuizSection />
       <AboutSection />
       <MethodTriadeSection />
-      <QuizSection />
+      <MethodDiagnosisSection />
       <CtaSection />
       <SocialFanBadge />
     </main>

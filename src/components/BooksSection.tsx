@@ -62,7 +62,7 @@ export function BooksSection() {
         >
           <button
             onClick={() => navigate('/')}
-            className="text-[11px] uppercase tracking-[0.15em] px-6 py-2.5 transition-all duration-300 flex items-center gap-2 bg-white text-black font-bold"
+            className="text-[11px] uppercase tracking-[0.15em] px-6 py-2.5 rounded-sm transition-all duration-300 flex items-center gap-2 bg-white text-black font-bold"
           >
             Ver Todos <IconArrowRight size={12} />
           </button>
@@ -71,7 +71,7 @@ export function BooksSection() {
             <button
               key={cat}
               onClick={() => navigate(`/categoria/${encodeURIComponent(cat)}`)}
-              className="text-[11px] uppercase tracking-[0.15em] px-6 py-2.5 transition-all duration-300 bg-white/5 text-white/40 hover:bg-white/10 hover:text-white"
+              className="text-[11px] uppercase tracking-[0.15em] px-6 py-2.5 rounded-sm transition-all duration-300 bg-white/5 text-white/40 hover:bg-white/10 hover:text-white"
             >
               {cat}
             </button>

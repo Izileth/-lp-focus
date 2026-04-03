@@ -54,7 +54,7 @@ export function BookCard({ book, index }: BookCardProps) {
       whileInView="visible"
       viewport={{ once: true, amount: 0.15 }}
       whileHover={{ y: -6, borderColor: "rgba(255,255,255,0.28)" }}
-      className="relative border border-white/[0.08] bg-[#000] p-8 cursor-pointer group overflow-hidden"
+      className="relative border rounded-2xl border-white/[0.08] bg-[#000] p-8 cursor-pointer group overflow-hidden"
       style={{ transition: "border-color 0.25s" }}
       onClick={handleCardClick}
     >
