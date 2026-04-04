@@ -92,7 +92,7 @@ export function IconChevronUp({ size = 16, strokeWidth = 1.8, className }: IconP
 export function IconMenu({ size = 22, strokeWidth = 1.8, className }: IconProps) {
   return (
     <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={strokeWidth} strokeLinecap="round" className={className}>
-      <line x1="3" y1="6"  x2="21" y2="6"  />
+      <line x1="3" y1="6" x2="21" y2="6" />
       <line x1="3" y1="12" x2="21" y2="12" />
       <line x1="3" y1="18" x2="21" y2="18" />
     </svg>
@@ -102,8 +102,8 @@ export function IconMenu({ size = 22, strokeWidth = 1.8, className }: IconProps)
 export function IconX({ size = 22, strokeWidth = 1.8, className }: IconProps) {
   return (
     <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={strokeWidth} strokeLinecap="round" className={className}>
-      <line x1="18" y1="6"  x2="6"  y2="18" />
-      <line x1="6"  y1="6"  x2="18" y2="18" />
+      <line x1="18" y1="6" x2="6" y2="18" />
+      <line x1="6" y1="6" x2="18" y2="18" />
     </svg>
   );
 }
@@ -427,8 +427,8 @@ export function IconHeart({ size = 18, strokeWidth = 1.5, className }: IconProps
 export function IconEdit({ size = 18, strokeWidth = 1.5, className }: IconProps) {
   return (
     <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={strokeWidth} strokeLinecap="round" strokeLinejoin="round" className={className}>
-      <path d="M17 3a2.85 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z"/>
-      <path d="m15 5 4 4"/>
+      <path d="M17 3a2.85 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z" />
+      <path d="m15 5 4 4" />
     </svg>
   );
 }
@@ -611,11 +611,11 @@ export function IconLayers({ size = 18, strokeWidth = 1.5, className }: IconProp
 export function IconLoader({ size = 18, strokeWidth = 1.5, className }: IconProps) {
   return (
     <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={strokeWidth} strokeLinecap="round" strokeLinejoin="round" className={`animate-spin ${className ?? ""}`}>
-      <line x1="12" y1="2"  x2="12" y2="6"  />
+      <line x1="12" y1="2" x2="12" y2="6" />
       <line x1="12" y1="18" x2="12" y2="22" />
-      <line x1="4.93" y1="4.93"  x2="7.76" y2="7.76"  />
+      <line x1="4.93" y1="4.93" x2="7.76" y2="7.76" />
       <line x1="16.24" y1="16.24" x2="19.07" y2="19.07" />
-      <line x1="2"  y1="12" x2="6"  y2="12" />
+      <line x1="2" y1="12" x2="6" y2="12" />
       <line x1="18" y1="12" x2="22" y2="12" />
       <line x1="4.93" y1="19.07" x2="7.76" y2="16.24" />
       <line x1="16.24" y1="7.76" x2="19.07" y2="4.93" />
@@ -651,12 +651,40 @@ export function IconActivity({ size = 18, strokeWidth = 1.5, className }: IconPr
 }
 
 
-export function   IconRefresh({ size = 18, strokeWidth = 1.5, className }: IconProps) {
+export function IconRefresh({ size = 18, strokeWidth = 1.5, className }: IconProps) {
   return (
     <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={strokeWidth} strokeLinecap="round" strokeLinejoin="round" className={className}>
-      <polyline points="23 4 23 10 17 10" /> 
+      <polyline points="23 4 23 10 17 10" />
       <polyline points="1 20 1 14 7 14" />
       <path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 1 20.49 15" />
+    </svg>
+  );
+}
+
+export function IconSpotify({ size = 18, className }: IconProps) {
+  return (
+    <svg
+      width={size}
+      height={size}
+      viewBox="0 0 24 24"
+      fill="none"
+      className={className}
+    >
+      <path
+        fill="currentColor"
+        d="M12 0C5.37 0 0 5.37 0 12c0 6.63 5.37 12 12 12s12-5.37 
+        12-12c0-6.63-5.37-12-12-12zm5.52 17.34a.75.75 0 0 
+        1-1.03.25c-2.82-1.72-6.38-2.11-10.56-1.16a.75.75 
+        0 1 1-.33-1.47c4.57-1.04 8.52-.6 11.7 
+        1.32.35.21.46.67.22 1.06zm1.47-3.27a.94.94 0 
+        0 1-1.29.31c-3.23-1.98-8.16-2.55-11.98-1.38a.94.94 
+        0 0 1-.55-1.79c4.36-1.34 9.77-.69 
+        13.49 1.55.45.27.59.85.33 
+        1.31zm.13-3.4c-3.87-2.3-10.26-2.51-13.95-1.4a1.13 
+        1.13 0 1 1-.65-2.16c4.24-1.29 11.28-1.04 
+        15.76 1.61a1.13 1.13 0 0 1-1.16 
+        1.95z"
+      />
     </svg>
   );
 }

@@ -1,7 +1,7 @@
 // src/components/SocialFanBadge.tsx
 import { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { IconTiktok, IconInstagram, IconWhatsapp, IconArrowUpRight, IconYoutube } from "./Icons";
+import { IconTiktok, IconInstagram, IconWhatsapp, IconArrowUpRight, IconYoutube, IconSpotify } from "./Icons";
 import type { Variants } from "framer-motion";
 // ─── Types ──────────────────────────────────────────────────────────────────
 
@@ -46,16 +46,24 @@ const SOCIALS: SocialItem[] = [
     icon: <IconYoutube />,
     color: "#ee3226",
   },
+  {
+    id: "spotify",
+    label: "",
+    href: "https://open.spotify.com/show/5SCBFJvE26nTbY7WqE29tZ?si=TblIGi2hSFWKRy4GMjk-Kg",
+    icon: <IconSpotify/>,
+    color: "#1DB954",
+  },
 
 ];
 
 // ─── Posições do leque ──────────────────────────────────────────────────────
 
 const FAN_POSITIONS_MOBILE = [
-  { x: 0, y: -95 },
-  { x: 40, y: -80 },
-  { x: 80, y: -50 },
-  { x: 115, y: -15 },
+  { x: 0, y: -100 },
+  { x: 35, y: -95 },
+  { x: 70, y: -75 },
+  { x: 105, y: -45 },
+  { x: 140, y: -5 },
 ];
 
 const FAN_POSITIONS_DESKTOP = [
@@ -63,6 +71,7 @@ const FAN_POSITIONS_DESKTOP = [
   { x: 70, y: -180 },
   { x: 150, y: -180 },
   { x: 230, y: -120 },
+  { x: 290, y: -50 },
 ];
 // ─── Variants ───────────────────────────────────────────────────────────────
 

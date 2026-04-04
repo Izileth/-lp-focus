@@ -1,6 +1,6 @@
 // src/components/PlatformsStrip.tsx
 import { motion } from "framer-motion";
-import { IconTiktok, IconInstagram, IconWhatsapp, IconArrowUpRight, IconYoutube } from "./Icons";
+import { IconTiktok, IconInstagram, IconWhatsapp, IconArrowUpRight, IconYoutube, IconSpotify } from "./Icons";
 import { staggerContainer } from "../motionVariants";
 
 interface Platform {
@@ -44,7 +44,15 @@ const PLATFORMS: Platform[] = [
     icon: IconYoutube,  
     link: "https://youtu.be/KkKlfAb3TSI?si=T7uMqaVcSp_svRq2",
     color: "group-hover:text-[#ee3226]"
-  }
+  },
+  {
+    id: 5,
+    name: "Spotify",
+    handle: "Comunidade",
+    icon: IconSpotify,  
+    link: "https://open.spotify.com/show/5SCBFJvE26nTbY7WqE29tZ?si=TblIGi2hSFWKRy4GMjk-Kg",
+    color: "group-hover:text-[#1DB954]"
+  },
 ];
 
 export function PlatformsStrip() {
