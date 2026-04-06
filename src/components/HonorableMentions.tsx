@@ -35,7 +35,7 @@ const PEOPLE: Person[] = [
     name: "Tony",
     namePt2: "Montana",
     role: "Scarface",
-    imageUrl: "https://images.unsplash.com/photo-1533738363-b7f9aef128ce?w=1400&q=85&fit=crop",
+    imageUrl: "https://wnotjxleeltjysdlplkc.supabase.co/storage/v1/object/public/article-images/covers/1775160158631-l0syyb.png",
     bgColor: "rgba(60,8,18,0.78)",
     icon: <IconShield size={16} />,
     quotes: [
@@ -51,7 +51,7 @@ const PEOPLE: Person[] = [
     name: "Jordan",
     namePt2: "Belfort",
     role: "The Wolf of Wall Street",
-    imageUrl: "https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?w=1400&q=85&fit=crop",
+      imageUrl: "https://wnotjxleeltjysdlplkc.supabase.co/storage/v1/object/public/article-images/covers/1775160158631-l0syyb.png",
     bgColor: "rgba(8,18,44,0.78)",
     icon: <IconTrendingUp size={16} />,
     quotes: [
@@ -67,7 +67,7 @@ const PEOPLE: Person[] = [
     name: "Tyler",
     namePt2: "Durden",
     role: "Fight Club",
-    imageUrl: "https://images.unsplash.com/photo-1517649763962-0c623066013b?w=1400&q=85&fit=crop",
+    imageUrl: "https://wnotjxleeltjysdlplkc.supabase.co/storage/v1/object/public/article-images/covers/1775160158631-l0syyb.png",
     bgColor: "rgba(22,8,36,0.78)",
     icon: <IconZap size={16} />,
     quotes: [
@@ -83,7 +83,7 @@ const PEOPLE: Person[] = [
     name: "Grandes",
     namePt2: "Generais",
     role: "Kingdom",
-    imageUrl: "https://images.unsplash.com/photo-1508009603885-50cf7c8dd0d5?w=1400&q=85&fit=crop",
+    imageUrl: "https://wnotjxleeltjysdlplkc.supabase.co/storage/v1/object/public/article-images/covers/1775160158631-l0syyb.png",
     bgColor: "rgba(10,18,2,0.78)",
     icon: <IconAward size={16} />,
     quotes: [
@@ -99,7 +99,7 @@ const PEOPLE: Person[] = [
     name: "Elon",
     namePt2: "Musk",
     role: "Inovação Tecnológica",
-    imageUrl: "https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=1400&q=85&fit=crop",
+    imageUrl: "https://wnotjxleeltjysdlplkc.supabase.co/storage/v1/object/public/article-images/covers/1775160158631-l0syyb.png",
     bgColor: "rgba(0,18,32,0.78)",
     icon: <IconZap size={16} />,
     quotes: [
@@ -115,7 +115,7 @@ const PEOPLE: Person[] = [
     name: "Warren",
     namePt2: "Buffett",
     role: "Estratégia Financeira",
-    imageUrl: "https://images.unsplash.com/photo-1611532736597-de2d4265fba3?w=1400&q=85&fit=crop",
+    imageUrl: "https://wnotjxleeltjysdlplkc.supabase.co/storage/v1/object/public/article-images/covers/1775160158631-l0syyb.png",
     bgColor: "rgba(18,16,0,0.78)",
     icon: <IconCheckCircle size={16} />,
     quotes: [
@@ -131,7 +131,7 @@ const PEOPLE: Person[] = [
     name: "Steve",
     namePt2: "Jobs",
     role: "Visão Criativa",
-    imageUrl: "https://images.unsplash.com/photo-1519389950473-47ba0277781c?w=1400&q=85&fit=crop",
+    imageUrl: "https://wnotjxleeltjysdlplkc.supabase.co/storage/v1/object/public/article-images/covers/1775160158631-l0syyb.png",
     bgColor: "rgba(0,16,16,0.78)",
     icon: <IconUser size={16} />,
     quotes: [

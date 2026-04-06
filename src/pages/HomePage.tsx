@@ -51,7 +51,7 @@ export function HomePage() {
       <QuizSection />
       <AboutSection />
       <CtaSection />
-      <AggressiveBanner url="/livros" />
+      <AggressiveBanner/>
       <SocialFanBadge />
     </main>
   );

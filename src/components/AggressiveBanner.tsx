@@ -1,7 +1,6 @@
 import { motion } from "framer-motion";
 
 interface AggressiveBannerProps {
-  url: string;
   imageUrl?: string;
   title?: string;
   subtitle?: string;
@@ -18,7 +17,7 @@ export function AggressiveBanner({
         <motion.img
           initial={{ scale: 1.1 }}
           whileInView={{ scale: 1 }}
-          transition={{ duration: 1.5, ease: "easeOut" }}
+          transition={{ duration: 0.5, ease: "easeOut" }}
           src={imageUrl}
           alt="Banner Background"
           className="w-full h-full object-cover grayscale opacity-50 group-hover:grayscale-0 group-hover:scale-105 transition-all duration-1000"
@@ -28,8 +27,8 @@ export function AggressiveBanner({
       </div>
 
       {/* Decorative Elements */}
-      <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-emerald-500/50 to-transparent" />
-      <div className="absolute bottom-0 left-0 w-full h-px bg-gradient-to-r from-emerald-500/50 to-transparent" />
+      <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-emerald-500/0 to-transparent" />
+      <div className="absolute bottom-0 left-0 w-full h-px bg-gradient-to-r from-emerald-500/0 to-transparent" />
     
       {/* Large Decorative Text Background */}
       <div className="absolute bottom-[-10%] right-[-5%] pointer-events-none select-none">
