@@ -13,6 +13,7 @@ import { QuizSection } from "../components/QuizSection";
 import { CtaSection } from "../components/CtaSection";
 import { SocialFanBadge } from "../components/FlanSocialBadges";
 import { HonorableMentionsSection } from "../components/HonorableMentions";
+import { AggressiveBanner } from "../components/AggressiveBanner";
 
 export function HomePage() {
   const { pathname } = useLocation();
@@ -50,6 +51,7 @@ export function HomePage() {
       <QuizSection />
       <AboutSection />
       <CtaSection />
+      <AggressiveBanner url="/livros" />
       <SocialFanBadge />
     </main>
   );
