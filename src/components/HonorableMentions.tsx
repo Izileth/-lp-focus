@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import type { Variants } from "framer-motion";
+import type { Variants, TargetAndTransition } from "framer-motion";
 import {
   IconShield,
   IconTrendingUp,
@@ -15,15 +15,15 @@ import {
 // ─── Types ────────────────────────────────────────────────────────────────────
 
 interface Person {
-  index:    string;
-  name:     string;
-  namePt2:  string;
-  role:     string;
-  quotes:   string[];
-  lesson:   string;
-  icon:     React.ReactNode;
+  index: string;
+  name: string;
+  namePt2: string;
+  role: string;
+  quotes: string[];
+  lesson: string;
+  icon: React.ReactNode;
   imageUrl: string;
-  bgColor:  string; // rgba — ex: "rgba(60,8,18,0.78)"
+  bgColor: string; // rgba — ex: "rgba(60,8,18,0.78)"
 }
 
 // ─── Data ─────────────────────────────────────────────────────────────────────
@@ -31,13 +31,13 @@ interface Person {
 
 const PEOPLE: Person[] = [
   {
-    index:    "01",
-    name:     "Tony",
-    namePt2:  "Montana",
-    role:     "Scarface",
+    index: "01",
+    name: "Tony",
+    namePt2: "Montana",
+    role: "Scarface",
     imageUrl: "https://images.unsplash.com/photo-1533738363-b7f9aef128ce?w=1400&q=85&fit=crop",
-    bgColor:  "rgba(60,8,18,0.78)",
-    icon:     <IconShield size={16} />,
+    bgColor: "rgba(60,8,18,0.78)",
+    icon: <IconShield size={16} />,
     quotes: [
       "Tudo que tenho neste mundo são minhas palavras e minha coragem.",
       "Os olhos, cara — eles nunca mentem.",
@@ -47,13 +47,13 @@ const PEOPLE: Person[] = [
       "Honra, inteligência e visão são as verdadeiras armas que levam alguém do nada ao topo.",
   },
   {
-    index:    "02",
-    name:     "Jordan",
-    namePt2:  "Belfort",
-    role:     "The Wolf of Wall Street",
+    index: "02",
+    name: "Jordan",
+    namePt2: "Belfort",
+    role: "The Wolf of Wall Street",
     imageUrl: "https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?w=1400&q=85&fit=crop",
-    bgColor:  "rgba(8,18,44,0.78)",
-    icon:     <IconTrendingUp size={16} />,
+    bgColor: "rgba(8,18,44,0.78)",
+    icon: <IconTrendingUp size={16} />,
     quotes: [
       "A única coisa entre você e seu objetivo é a história que continua se contando.",
       "Aja como um homem rico e confiante, e você se tornará um.",
@@ -63,13 +63,13 @@ const PEOPLE: Person[] = [
       "Dominar a mente, vendas e persuasão permite mudar completamente sua realidade.",
   },
   {
-    index:    "03",
-    name:     "Tyler",
-    namePt2:  "Durden",
-    role:     "Fight Club",
+    index: "03",
+    name: "Tyler",
+    namePt2: "Durden",
+    role: "Fight Club",
     imageUrl: "https://images.unsplash.com/photo-1517649763962-0c623066013b?w=1400&q=85&fit=crop",
-    bgColor:  "rgba(22,8,36,0.78)",
-    icon:     <IconZap size={16} />,
+    bgColor: "rgba(22,8,36,0.78)",
+    icon: <IconZap size={16} />,
     quotes: [
       "Só depois de perdermos tudo é que somos livres para qualquer coisa.",
       "As coisas que você possui acabam possuindo você.",
@@ -79,13 +79,13 @@ const PEOPLE: Person[] = [
       "Quebrar padrões mentais impostos pela sociedade liberta a mente para criar novos caminhos.",
   },
   {
-    index:    "04",
-    name:     "Grandes",
-    namePt2:  "Generais",
-    role:     "Kingdom",
+    index: "04",
+    name: "Grandes",
+    namePt2: "Generais",
+    role: "Kingdom",
     imageUrl: "https://images.unsplash.com/photo-1508009603885-50cf7c8dd0d5?w=1400&q=85&fit=crop",
-    bgColor:  "rgba(10,18,2,0.78)",
-    icon:     <IconAward size={16} />,
+    bgColor: "rgba(10,18,2,0.78)",
+    icon: <IconAward size={16} />,
     quotes: [
       "Um grande general vence a guerra antes da batalha começar.",
       "A força ganha batalhas, mas a estratégia conquista reinos.",
@@ -95,13 +95,13 @@ const PEOPLE: Person[] = [
       "Conhecimento estratégico e antecipação sempre superam a força bruta.",
   },
   {
-    index:    "05",
-    name:     "Elon",
-    namePt2:  "Musk",
-    role:     "Inovação Tecnológica",
+    index: "05",
+    name: "Elon",
+    namePt2: "Musk",
+    role: "Inovação Tecnológica",
     imageUrl: "https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=1400&q=85&fit=crop",
-    bgColor:  "rgba(0,18,32,0.78)",
-    icon:     <IconZap size={16} />,
+    bgColor: "rgba(0,18,32,0.78)",
+    icon: <IconZap size={16} />,
     quotes: [
       "Quando algo é importante o suficiente, você faz mesmo contra as probabilidades.",
       "Você precisa abraçar a mudança se a alternativa for o desastre.",
@@ -111,13 +111,13 @@ const PEOPLE: Person[] = [
       "Pensar profundamente e aprender constantemente é o que permite quebrar limites.",
   },
   {
-    index:    "06",
-    name:     "Warren",
-    namePt2:  "Buffett",
-    role:     "Estratégia Financeira",
+    index: "06",
+    name: "Warren",
+    namePt2: "Buffett",
+    role: "Estratégia Financeira",
     imageUrl: "https://images.unsplash.com/photo-1611532736597-de2d4265fba3?w=1400&q=85&fit=crop",
-    bgColor:  "rgba(18,16,0,0.78)",
-    icon:     <IconCheckCircle size={16} />,
+    bgColor: "rgba(18,16,0,0.78)",
+    icon: <IconCheckCircle size={16} />,
     quotes: [
       "Quanto mais você aprende, mais você ganha.",
       "O melhor investimento que pode fazer é em você mesmo.",
@@ -127,13 +127,13 @@ const PEOPLE: Person[] = [
       "Conhecimento financeiro e aprendizado contínuo são a base para riqueza perene.",
   },
   {
-    index:    "07",
-    name:     "Steve",
-    namePt2:  "Jobs",
-    role:     "Visão Criativa",
+    index: "07",
+    name: "Steve",
+    namePt2: "Jobs",
+    role: "Visão Criativa",
     imageUrl: "https://images.unsplash.com/photo-1519389950473-47ba0277781c?w=1400&q=85&fit=crop",
-    bgColor:  "rgba(0,16,16,0.78)",
-    icon:     <IconUser size={16} />,
+    bgColor: "rgba(0,16,16,0.78)",
+    icon: <IconUser size={16} />,
     quotes: [
       "Continue com fome, continue tolo.",
       "A inovação distingue um líder de um seguidor.",
@@ -154,41 +154,54 @@ function pad(n: number) {
 
 // ─── Motion Variants ──────────────────────────────────────────────────────────
 
-const slideEnterRight: Variants = {
+
+const slideExitLeft: TargetAndTransition = {
+  opacity: 0,
+  x: -36,
+  transition: {
+    duration: 0.35,
+    ease: [0.7, 0, 1, 1] as [number, number, number, number],
+  },
+};
+
+const slideExitRight: TargetAndTransition = {
+  opacity: 0,
+  x: 36,
+  transition: {
+    duration: 0.35,
+    ease: [0.7, 0, 1, 1] as [number, number, number, number],
+  },
+};
+
+const slideEnterRight = {
   initial: { opacity: 0, x: 52 },
 };
-const slideEnterLeft: Variants = {
+const slideEnterLeft = {
   initial: { opacity: 0, x: -52 },
 };
+
+
 
 const slideAnimate: Variants = {
   animate: {
     opacity: 1,
     x: 0,
-    transition: { duration: 0.55, ease: [0.16, 1, 0.3, 1] },
+    transition: {
+      duration: 0.55,
+      ease: [0.16, 1, 0.3, 1] as [number, number, number, number],
+    },
   },
 };
 
-const slideExitLeft = {
-  opacity: 0,
-  x: -36,
-  transition: { duration: 0.35, ease: [0.7, 0, 1, 1] as number[] },
-};
-
-const slideExitRight = {
-  opacity: 0,
-  x: 36,
-  transition: { duration: 0.35, ease: [0.7, 0, 1, 1] as number[] },
-};
 
 const contentStagger: Variants = {
-  hidden:   {},
-  visible:  { transition: { staggerChildren: 0.06, delayChildren: 0.14 } },
+  hidden: {},
+  visible: { transition: { staggerChildren: 0.06, delayChildren: 0.14 } },
 };
 
 const fadeUp: Variants = {
-  hidden:   { opacity: 0, y: 22 },
-  visible:  { opacity: 1, y: 0, transition: { duration: 0.6, ease: [0.16, 1, 0.3, 1] } },
+  hidden: { opacity: 0, y: 22 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: [0.16, 1, 0.3, 1] } },
 };
 
 // ─── SlideBg — imagem + Ken Burns + overlays ─────────────────────────────────
@@ -200,12 +213,12 @@ function SlideBg({ person, isActive }: { person: Person; isActive: boolean }) {
       {/* Wrapper Ken Burns — 110% para dar margem ao zoom sem cortar */}
       <div
         style={{
-          position:   "absolute",
-          width:      "110%",
-          height:     "110%",
-          top:        "-5%",
-          left:       "-5%",
-          animation:  isActive ? "kenBurns 14s ease-in-out infinite" : "none",
+          position: "absolute",
+          width: "110%",
+          height: "110%",
+          top: "-5%",
+          left: "-5%",
+          animation: isActive ? "kenBurns 14s ease-in-out infinite" : "none",
           willChange: "transform",
         }}
       >
@@ -223,7 +236,7 @@ function SlideBg({ person, isActive }: { person: Person; isActive: boolean }) {
       <div
         className="absolute inset-0"
         style={{
-          background:   person.bgColor,
+          background: person.bgColor,
           mixBlendMode: "multiply",
         }}
       />
@@ -256,9 +269,9 @@ function SlideView({
   direction,
   isActive,
 }: {
-  person:    Person;
+  person: Person;
   direction: 1 | -1;
-  isActive:  boolean;
+  isActive: boolean;
 }) {
   const enterInitial = direction > 0
     ? slideEnterRight.initial
@@ -273,9 +286,14 @@ function SlideView({
       style={{
         padding: "clamp(28px,6vw,72px) clamp(24px,7vw,96px)",
       }}
-      initial={enterInitial as object}
-      animate={slideAnimate.animate as object}
+
+      initial={enterInitial}
+      animate="animate"
       exit={exitTarget}
+      variants={{
+        initial: enterInitial,
+        animate: slideAnimate.animate,
+      }}
     >
       {/* Background com imagem + Ken Burns */}
       <SlideBg person={person} isActive={isActive} />
@@ -285,14 +303,14 @@ function SlideView({
         aria-hidden="true"
         className="absolute select-none pointer-events-none leading-none"
         style={{
-          fontFamily:  "'Playfair Display', serif",
-          fontWeight:  900,
-          fontSize:    "clamp(100px,20vw,260px)",
-          color:       "rgba(255,255,255,0.032)",
+          fontFamily: "'Playfair Display', serif",
+          fontWeight: 900,
+          fontSize: "clamp(100px,20vw,260px)",
+          color: "rgba(255,255,255,0.032)",
           letterSpacing: "-0.04em",
-          zIndex:      2,
-          bottom:      -10,
-          right:       "clamp(-10px,-2vw,20px)",
+          zIndex: 2,
+          bottom: -10,
+          right: "clamp(-10px,-2vw,20px)",
         }}
       >
         {person.index}
@@ -311,18 +329,18 @@ function SlideView({
           variants={fadeUp}
           className="flex items-center gap-3 mb-5"
           style={{
-            fontSize:      11,
+            fontSize: 11,
             letterSpacing: "0.28em",
             textTransform: "uppercase",
-            color:         "rgba(255,255,255,0.28)",
+            color: "rgba(255,255,255,0.28)",
           }}
         >
           <span
             style={{
-              width:      28,
-              height:     1,
+              width: 28,
+              height: 1,
               background: "rgba(255,255,255,0.22)",
-              display:    "block",
+              display: "block",
               flexShrink: 0,
             }}
           />
@@ -333,12 +351,12 @@ function SlideView({
         <motion.p
           variants={fadeUp}
           style={{
-            fontSize:      "clamp(10px,1.2vw,12px)",
+            fontSize: "clamp(10px,1.2vw,12px)",
             letterSpacing: "0.3em",
             textTransform: "uppercase",
-            color:         "rgba(255,255,255,0.42)",
-            fontWeight:    700,
-            marginBottom:  14,
+            color: "rgba(255,255,255,0.42)",
+            fontWeight: 700,
+            marginBottom: 14,
           }}
         >
           {person.role}
@@ -348,14 +366,14 @@ function SlideView({
         <motion.h3
           variants={fadeUp}
           style={{
-            fontFamily:    "'Playfair Display', serif",
-            fontSize:      "clamp(44px,9vw,110px)",
-            fontWeight:    900,
-            lineHeight:    0.95,
+            fontFamily: "'Playfair Display', serif",
+            fontSize: "clamp(44px,9vw,110px)",
+            fontWeight: 900,
+            lineHeight: 0.95,
             letterSpacing: "-0.03em",
-            color:         "#fff",
-            marginBottom:  28,
-            wordBreak:     "break-word",
+            color: "#fff",
+            marginBottom: 28,
+            wordBreak: "break-word",
           }}
         >
           {person.name}
@@ -370,7 +388,7 @@ function SlideView({
           variants={fadeUp}
           className="flex flex-col gap-3 mb-7"
           style={{
-            borderLeft:  "1px solid rgba(255,255,255,0.14)",
+            borderLeft: "1px solid rgba(255,255,255,0.14)",
             paddingLeft: 20,
           }}
         >
@@ -379,10 +397,10 @@ function SlideView({
               key={qi}
               style={{
                 fontFamily: "'Playfair Display', serif",
-                fontStyle:  "italic",
-                fontSize:   "clamp(13px,1.7vw,17px)",
+                fontStyle: "italic",
+                fontSize: "clamp(13px,1.7vw,17px)",
                 lineHeight: 1.65,
-                color:      qi === 0
+                color: qi === 0
                   ? "rgba(255,255,255,0.88)"
                   : "rgba(255,255,255,0.44)",
               }}
@@ -400,15 +418,15 @@ function SlideView({
         >
           <div
             style={{
-              width:          36,
-              height:         36,
-              flexShrink:     0,
-              border:         "1px solid rgba(255,255,255,0.12)",
-              display:        "flex",
-              alignItems:     "center",
+              width: 36,
+              height: 36,
+              flexShrink: 0,
+              border: "1px solid rgba(255,255,255,0.12)",
+              display: "flex",
+              alignItems: "center",
               justifyContent: "center",
-              color:          "rgba(255,255,255,0.38)",
-              marginTop:      2,
+              color: "rgba(255,255,255,0.38)",
+              marginTop: 2,
             }}
           >
             {person.icon}
@@ -416,20 +434,20 @@ function SlideView({
           <div className="flex flex-col gap-1">
             <span
               style={{
-                fontSize:      9,
+                fontSize: 9,
                 letterSpacing: "0.28em",
                 textTransform: "uppercase",
-                color:         "rgba(255,255,255,0.2)",
-                display:       "block",
+                color: "rgba(255,255,255,0.2)",
+                display: "block",
               }}
             >
               A lição
             </span>
             <p
               style={{
-                fontSize:   "clamp(12px,1.3vw,14px)",
+                fontSize: "clamp(12px,1.3vw,14px)",
                 lineHeight: 1.75,
-                color:      "rgba(255,255,255,0.38)",
+                color: "rgba(255,255,255,0.38)",
                 fontWeight: 300,
               }}
             >
@@ -445,10 +463,10 @@ function SlideView({
 // ─── HonorableMentionsSection ─────────────────────────────────────────────────
 
 export function HonorableMentionsSection() {
-  const [current,   setCurrent]   = useState(0);
+  const [current, setCurrent] = useState(0);
   const [direction, setDirection] = useState<1 | -1>(1);
-  const timerRef                  = useRef<ReturnType<typeof setTimeout> | null>(null);
-  const touchStartX               = useRef(0);
+  const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const touchStartX = useRef(0);
 
   const goTo = useCallback((next: number, dir: 1 | -1) => {
     const idx = ((next % PEOPLE.length) + PEOPLE.length) % PEOPLE.length;
@@ -458,8 +476,9 @@ export function HonorableMentionsSection() {
     timerRef.current = setTimeout(() => goTo(idx + 1, 1), AUTOPLAY_MS);
   }, []);
 
+  // Declare the functions before using them
   const prev = useCallback(() => goTo(current - 1, -1), [current, goTo]);
-  const next = useCallback(() => goTo(current + 1,  1), [current, goTo]);
+  const next = useCallback(() => goTo(current + 1, 1), [current, goTo]);
 
   // Autoplay inicial
   useEffect(() => {
@@ -473,7 +492,7 @@ export function HonorableMentionsSection() {
   useEffect(() => {
     const handler = (e: KeyboardEvent) => {
       if (e.key === "ArrowRight") next();
-      if (e.key === "ArrowLeft")  prev();
+      if (e.key === "ArrowLeft") prev();
     };
     window.addEventListener("keydown", handler);
     return () => window.removeEventListener("keydown", handler);
@@ -499,20 +518,20 @@ export function HonorableMentionsSection() {
       <div
         className="relative bg-black"
         style={{
-          zIndex:  5,
+          zIndex: 5,
           padding: "clamp(36px,6vw,80px) clamp(24px,7vw,96px) 0",
         }}
       >
         <span
           style={{
-            display:       "block",
-            fontSize:      10,
+            display: "block",
+            fontSize: 10,
             letterSpacing: "0.28em",
             textTransform: "uppercase",
-            color:         "rgba(255,255,255,0.28)",
-            borderLeft:    "2px solid rgba(255,255,255,0.18)",
-            paddingLeft:   12,
-            marginBottom:  20,
+            color: "rgba(255,255,255,0.28)",
+            borderLeft: "2px solid rgba(255,255,255,0.18)",
+            paddingLeft: 12,
+            marginBottom: 20,
           }}
         >
           Hall da Fama
@@ -520,13 +539,13 @@ export function HonorableMentionsSection() {
 
         <h2
           style={{
-            fontFamily:    "'Playfair Display', serif",
-            fontSize:      "clamp(36px,6vw,80px)",
-            fontWeight:    900,
-            lineHeight:    1.0,
+            fontFamily: "'Playfair Display', serif",
+            fontSize: "clamp(36px,6vw,80px)",
+            fontWeight: 900,
+            lineHeight: 1.0,
             letterSpacing: "-0.03em",
-            color:         "#fff",
-            marginBottom:  20,
+            color: "#fff",
+            marginBottom: 20,
           }}
         >
           Mentes que
@@ -540,11 +559,11 @@ export function HonorableMentionsSection() {
 
         <p
           style={{
-            fontSize:     "clamp(13px,1.4vw,15px)",
-            color:        "rgba(255,255,255,0.35)",
-            lineHeight:   1.8,
-            fontWeight:   300,
-            maxWidth:     480,
+            fontSize: "clamp(13px,1.4vw,15px)",
+            color: "rgba(255,255,255,0.35)",
+            lineHeight: 1.8,
+            fontWeight: 300,
+            maxWidth: 480,
             marginBottom: 32,
           }}
         >
@@ -559,7 +578,7 @@ export function HonorableMentionsSection() {
       <div
         className="relative overflow-hidden"
         style={{
-          height:    "min(100svh, 860px)",
+          height: "min(100svh, 860px)",
           minHeight: 580,
         }}
         role="region"
@@ -583,7 +602,7 @@ export function HonorableMentionsSection() {
           className="absolute bottom-0 left-0 h-px"
           style={{
             background: "rgba(255,255,255,0.22)",
-            zIndex:     10,
+            zIndex: 10,
           }}
           initial={{ width: "0%" }}
           animate={{ width: "100%" }}
@@ -595,7 +614,7 @@ export function HonorableMentionsSection() {
       <div
         className="relative flex items-center justify-between bg-black border-t border-white/[0.06]"
         style={{
-          zIndex:  10,
+          zIndex: 10,
           padding: "20px clamp(24px,7vw,96px)",
         }}
       >
@@ -609,18 +628,18 @@ export function HonorableMentionsSection() {
               aria-current={i === current ? "true" : undefined}
               onClick={() => goTo(i, i > current ? 1 : -1)}
               animate={{
-                width:           i === current ? 24 : 6,
+                width: i === current ? 24 : 6,
                 backgroundColor: i === current
                   ? "rgba(255,255,255,0.72)"
                   : "rgba(255,255,255,0.18)",
               }}
               transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
               style={{
-                height:       2,
+                height: 2,
                 borderRadius: 1,
-                cursor:       "pointer",
-                border:       "none",
-                padding:      0,
+                cursor: "pointer",
+                border: "none",
+                padding: 0,
               }}
             />
           ))}
@@ -629,9 +648,9 @@ export function HonorableMentionsSection() {
         {/* Contador */}
         <span
           style={{
-            fontSize:      11,
+            fontSize: 11,
             letterSpacing: "0.2em",
-            color:         "rgba(255,255,255,0.2)",
+            color: "rgba(255,255,255,0.2)",
           }}
         >
           {pad(current + 1)} / {pad(PEOPLE.length)}
@@ -641,8 +660,8 @@ export function HonorableMentionsSection() {
         <div className="flex items-center gap-2">
           {(
             [
-              { fn: prev, Icon: IconChevronLeft,  label: "Anterior" },
-              { fn: next, Icon: IconChevronRight, label: "Próximo"  },
+              { fn: prev, Icon: IconChevronLeft, label: "Anterior" },
+              { fn: next, Icon: IconChevronRight, label: "Próximo" },
             ] as const
           ).map(({ fn, Icon, label }) => (
             <motion.button
@@ -653,15 +672,15 @@ export function HonorableMentionsSection() {
               whileHover={{ borderColor: "rgba(255,255,255,0.28)", color: "#fff" }}
               whileTap={{ scale: 0.9 }}
               style={{
-                width:          40,
-                height:         40,
-                border:         "1px solid rgba(255,255,255,0.1)",
-                background:     "none",
-                color:          "rgba(255,255,255,0.4)",
-                display:        "flex",
-                alignItems:     "center",
+                width: 40,
+                height: 40,
+                border: "1px solid rgba(255,255,255,0.1)",
+                background: "none",
+                color: "rgba(255,255,255,0.4)",
+                display: "flex",
+                alignItems: "center",
                 justifyContent: "center",
-                cursor:         "pointer",
+                cursor: "pointer",
               }}
             >
               <Icon size={14} />

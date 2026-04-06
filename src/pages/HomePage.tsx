@@ -46,8 +46,8 @@ export function HomePage() {
       <MethodEPSDPSection />
       <FeaturesStrip />
       <BooksSection />
-      <HonorableMentionsSection />
       <SocialProofCarousel />
+      <HonorableMentionsSection />
       <QuizSection />
       <AboutSection />
       <CtaSection />

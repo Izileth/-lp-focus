@@ -6,7 +6,7 @@ export function Footer() {
     <footer className="px-10 py-12 border-t border-white/[0.05]">
       <div className="max-w-[1200px] mx-auto flex justify-between items-center flex-wrap gap-6">
         <div className="flex items-baseline gap-2">
-          <span className="[font-family:'Playfair_Display',serif] text-[18px] font-bold">FOCUS</span>
+          <span className="[font-family:'Playfair_Display',serif] text-[18px] font-bold"> Modus FOCUS</span>
           <span className="font-sans text-[11px] tracking-[0.2em] uppercase text-white/25">| Conhecimento</span>
         </div>
 
