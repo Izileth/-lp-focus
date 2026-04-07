@@ -15,6 +15,8 @@ import { SocialFanBadge } from "../components/FlanSocialBadges";
 import { HonorableMentionsSection } from "../components/HonorableMentions";
 import { AggressiveBanner } from "../components/AggressiveBanner";
 
+import { FreeAccessSection } from "../components/ArticleProofBasement";
+
 export function HomePage() {
   const { pathname } = useLocation();
 
@@ -44,14 +46,15 @@ export function HomePage() {
       <HeroSection />
       <PlatformsStrip />
       <MethodEPSDPSection />
+      <HonorableMentionsSection />
       <FeaturesStrip />
       <BooksSection />
+      <FreeAccessSection />
       <SocialProofCarousel />
-      <HonorableMentionsSection />
       <QuizSection />
       <AboutSection />
       <CtaSection />
-      <AggressiveBanner/>
+      <AggressiveBanner />
       <SocialFanBadge />
     </main>
   );

@@ -282,11 +282,7 @@ function SlideView({
   return (
     <motion.div
       key={person.index}
-      className="absolute inset-0 flex flex-col justify-end"
-      style={{
-        padding: "clamp(28px,6vw,72px) clamp(24px,7vw,96px)",
-      }}
-
+      className="absolute inset-0 flex flex-col justify-end pb-[clamp(28px,6vw,72px)]"
       initial={enterInitial}
       animate="animate"
       exit={exitTarget}
@@ -316,146 +312,147 @@ function SlideView({
         {person.index}
       </span>
 
-      {/* Conteúdo com stagger */}
-      <motion.div
-        className="relative max-w-[800px]"
-        style={{ zIndex: 3 }}
-        variants={contentStagger}
-        initial="hidden"
-        animate="visible"
-      >
-        {/* Índice */}
+      {/* Conteúdo centralizado */}
+      <div className="max-w-[1200px] mx-auto w-full px-10 relative z-10">
         <motion.div
-          variants={fadeUp}
-          className="flex items-center gap-3 mb-5"
-          style={{
-            fontSize: 11,
-            letterSpacing: "0.28em",
-            textTransform: "uppercase",
-            color: "rgba(255,255,255,0.28)",
-          }}
+          className="relative max-w-[800px]"
+          variants={contentStagger}
+          initial="hidden"
+          animate="visible"
         >
-          <span
+          {/* Índice */}
+          <motion.div
+            variants={fadeUp}
+            className="flex items-center gap-3 mb-5"
             style={{
-              width: 28,
-              height: 1,
-              background: "rgba(255,255,255,0.22)",
-              display: "block",
-              flexShrink: 0,
-            }}
-          />
-          {person.index} / {pad(PEOPLE.length)}
-        </motion.div>
-
-        {/* Role */}
-        <motion.p
-          variants={fadeUp}
-          style={{
-            fontSize: "clamp(10px,1.2vw,12px)",
-            letterSpacing: "0.3em",
-            textTransform: "uppercase",
-            color: "rgba(255,255,255,0.42)",
-            fontWeight: 700,
-            marginBottom: 14,
-          }}
-        >
-          {person.role}
-        </motion.p>
-
-        {/* Nome */}
-        <motion.h3
-          variants={fadeUp}
-          style={{
-            fontFamily: "'Playfair Display', serif",
-            fontSize: "clamp(44px,9vw,110px)",
-            fontWeight: 900,
-            lineHeight: 0.95,
-            letterSpacing: "-0.03em",
-            color: "#fff",
-            marginBottom: 28,
-            wordBreak: "break-word",
-          }}
-        >
-          {person.name}
-          <br />
-          <em style={{ fontStyle: "italic", color: "rgba(255,255,255,0.32)" }}>
-            {person.namePt2}
-          </em>
-        </motion.h3>
-
-        {/* Citações */}
-        <motion.div
-          variants={fadeUp}
-          className="flex flex-col gap-3 mb-7"
-          style={{
-            borderLeft: "1px solid rgba(255,255,255,0.14)",
-            paddingLeft: 20,
-          }}
-        >
-          {person.quotes.map((q, qi) => (
-            <p
-              key={qi}
-              style={{
-                fontFamily: "'Playfair Display', serif",
-                fontStyle: "italic",
-                fontSize: "clamp(13px,1.7vw,17px)",
-                lineHeight: 1.65,
-                color: qi === 0
-                  ? "rgba(255,255,255,0.88)"
-                  : "rgba(255,255,255,0.44)",
-              }}
-            >
-              "{q}"
-            </p>
-          ))}
-        </motion.div>
-
-        {/* Lição */}
-        <motion.div
-          variants={fadeUp}
-          className="flex items-start gap-4"
-          style={{ maxWidth: 500 }}
-        >
-          <div
-            style={{
-              width: 36,
-              height: 36,
-              flexShrink: 0,
-              border: "1px solid rgba(255,255,255,0.12)",
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              color: "rgba(255,255,255,0.38)",
-              marginTop: 2,
+              fontSize: 11,
+              letterSpacing: "0.28em",
+              textTransform: "uppercase",
+              color: "rgba(255,255,255,0.28)",
             }}
           >
-            {person.icon}
-          </div>
-          <div className="flex flex-col gap-1">
             <span
               style={{
-                fontSize: 9,
-                letterSpacing: "0.28em",
-                textTransform: "uppercase",
-                color: "rgba(255,255,255,0.2)",
+                width: 28,
+                height: 1,
+                background: "rgba(255,255,255,0.22)",
                 display: "block",
+                flexShrink: 0,
               }}
-            >
-              A lição
-            </span>
-            <p
+            />
+            {person.index} / {pad(PEOPLE.length)}
+          </motion.div>
+
+          {/* Role */}
+          <motion.p
+            variants={fadeUp}
+            style={{
+              fontSize: "clamp(10px,1.2vw,12px)",
+              letterSpacing: "0.3em",
+              textTransform: "uppercase",
+              color: "rgba(255,255,255,0.42)",
+              fontWeight: 700,
+              marginBottom: 14,
+            }}
+          >
+            {person.role}
+          </motion.p>
+
+          {/* Nome */}
+          <motion.h3
+            variants={fadeUp}
+            style={{
+              fontFamily: "'Playfair Display', serif",
+              fontSize: "clamp(44px,9vw,110px)",
+              fontWeight: 900,
+              lineHeight: 0.95,
+              letterSpacing: "-0.03em",
+              color: "#fff",
+              marginBottom: 28,
+              wordBreak: "break-word",
+            }}
+          >
+            {person.name}
+            <br />
+            <em style={{ fontStyle: "italic", color: "rgba(255,255,255,0.32)" }}>
+              {person.namePt2}
+            </em>
+          </motion.h3>
+
+          {/* Citações */}
+          <motion.div
+            variants={fadeUp}
+            className="flex flex-col gap-3 mb-7"
+            style={{
+              borderLeft: "1px solid rgba(255,255,255,0.14)",
+              paddingLeft: 20,
+            }}
+          >
+            {person.quotes.map((q, qi) => (
+              <p
+                key={qi}
+                style={{
+                  fontFamily: "'Playfair Display', serif",
+                  fontStyle: "italic",
+                  fontSize: "clamp(13px,1.7vw,17px)",
+                  lineHeight: 1.65,
+                  color: qi === 0
+                    ? "rgba(255,255,255,0.88)"
+                    : "rgba(255,255,255,0.44)",
+                }}
+              >
+                "{q}"
+              </p>
+            ))}
+          </motion.div>
+
+          {/* Lição */}
+          <motion.div
+            variants={fadeUp}
+            className="flex items-start gap-4"
+            style={{ maxWidth: 500 }}
+          >
+            <div
               style={{
-                fontSize: "clamp(12px,1.3vw,14px)",
-                lineHeight: 1.75,
+                width: 36,
+                height: 36,
+                flexShrink: 0,
+                border: "1px solid rgba(255,255,255,0.12)",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
                 color: "rgba(255,255,255,0.38)",
-                fontWeight: 300,
+                marginTop: 2,
               }}
             >
-              {person.lesson}
-            </p>
-          </div>
+              {person.icon}
+            </div>
+            <div className="flex flex-col gap-1">
+              <span
+                style={{
+                  fontSize: 9,
+                  letterSpacing: "0.28em",
+                  textTransform: "uppercase",
+                  color: "rgba(255,255,255,0.2)",
+                  display: "block",
+                }}
+              >
+                A lição
+              </span>
+              <p
+                style={{
+                  fontSize: "clamp(12px,1.3vw,14px)",
+                  lineHeight: 1.75,
+                  color: "rgba(255,255,255,0.38)",
+                  fontWeight: 300,
+                }}
+              >
+                {person.lesson}
+              </p>
+            </div>
+          </motion.div>
         </motion.div>
-      </motion.div>
+      </div>
     </motion.div>
   );
 }
@@ -516,62 +513,60 @@ export function HonorableMentionsSection() {
     >
       {/* ── Cabeçalho da seção ──────────────────────────────────────────── */}
       <div
-        className="relative bg-black"
-        style={{
-          zIndex: 5,
-          padding: "clamp(36px,6vw,80px) clamp(24px,7vw,96px) 0",
-        }}
+        className="relative bg-black z-[5] pt-[clamp(36px,6vw,80px)]"
       >
-        <span
-          style={{
-            display: "block",
-            fontSize: 10,
-            letterSpacing: "0.28em",
-            textTransform: "uppercase",
-            color: "rgba(255,255,255,0.28)",
-            borderLeft: "2px solid rgba(255,255,255,0.18)",
-            paddingLeft: 12,
-            marginBottom: 20,
-          }}
-        >
-          Hall da Fama
-        </span>
+        <div className="max-w-[1200px] mx-auto w-full px-10">
+          <span
+            style={{
+              display: "block",
+              fontSize: 10,
+              letterSpacing: "0.28em",
+              textTransform: "uppercase",
+              color: "rgba(255,255,255,0.28)",
+              borderLeft: "2px solid rgba(255,255,255,0.18)",
+              paddingLeft: 12,
+              marginBottom: 20,
+            }}
+          >
+            Hall da Fama
+          </span>
 
-        <h2
-          style={{
-            fontFamily: "'Playfair Display', serif",
-            fontSize: "clamp(36px,6vw,80px)",
-            fontWeight: 900,
-            lineHeight: 1.0,
-            letterSpacing: "-0.03em",
-            color: "#fff",
-            marginBottom: 20,
-          }}
-        >
-          Mentes que
-          <br />
-          <em style={{ fontStyle: "normal", color: "rgba(255,255,255,0.28)" }}>
-            Dominaram
-          </em>
-          <br />
-          o Jogo.
-        </h2>
+          <h2
+            style={{
+              fontFamily: "'Playfair Display', serif",
+              fontSize: "clamp(36px,6vw,80px)",
+              fontWeight: 900,
+              lineHeight: 1.0,
+              letterSpacing: "-0.03em",
+              color: "#fff",
+              marginBottom: 20,
+            }}
+          >
+            Mentes que
+            <br />
+            <em style={{ fontStyle: "normal", color: "rgba(255,255,255,0.28)" }}>
+              Dominaram
+            </em>
+            <br />
+            o Jogo.
+          </h2>
 
-        <p
-          style={{
-            fontSize: "clamp(13px,1.4vw,15px)",
-            color: "rgba(255,255,255,0.35)",
-            lineHeight: 1.8,
-            fontWeight: 300,
-            maxWidth: 480,
-            marginBottom: 32,
-          }}
-        >
-          Honramos aqueles que entenderam que o conhecimento, a estratégia e a
-          força mental são os únicos ativos que ninguém pode tirar de você.
-        </p>
+          <p
+            style={{
+              fontSize: "clamp(13px,1.4vw,15px)",
+              color: "rgba(255,255,255,0.35)",
+              lineHeight: 1.8,
+              fontWeight: 300,
+              maxWidth: 480,
+              marginBottom: 32,
+            }}
+          >
+            Honramos aqueles que entenderam que o conhecimento, a estratégia e a
+            força mental são os únicos ativos que ninguém pode tirar de você.
+          </p>
 
-        <div style={{ height: 1, background: "rgba(255,255,255,0.06)" }} />
+          <div style={{ height: 1, background: "rgba(255,255,255,0.06)" }} />
+        </div>
       </div>
 
       {/* ── Viewport do carousel ─────────────────────────────────────────── */}
@@ -612,80 +607,78 @@ export function HonorableMentionsSection() {
 
       {/* ── Barra de controles ────────────────────────────────────────────── */}
       <div
-        className="relative flex items-center justify-between bg-black border-t border-white/[0.06]"
-        style={{
-          zIndex: 10,
-          padding: "20px clamp(24px,7vw,96px)",
-        }}
+        className="relative bg-black border-t border-white/[0.06] z-10 py-5"
       >
-        {/* Dots */}
-        <div className="flex items-center gap-2">
-          {PEOPLE.map((_, i) => (
-            <motion.button
-              key={i}
-              type="button"
-              aria-label={`Ir para slide ${i + 1}`}
-              aria-current={i === current ? "true" : undefined}
-              onClick={() => goTo(i, i > current ? 1 : -1)}
-              animate={{
-                width: i === current ? 24 : 6,
-                backgroundColor: i === current
-                  ? "rgba(255,255,255,0.72)"
-                  : "rgba(255,255,255,0.18)",
-              }}
-              transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
-              style={{
-                height: 2,
-                borderRadius: 1,
-                cursor: "pointer",
-                border: "none",
-                padding: 0,
-              }}
-            />
-          ))}
-        </div>
+        <div className="max-w-[1200px] mx-auto w-full px-10 flex items-center justify-between">
+          {/* Dots */}
+          <div className="flex items-center gap-2">
+            {PEOPLE.map((_, i) => (
+              <motion.button
+                key={i}
+                type="button"
+                aria-label={`Ir para slide ${i + 1}`}
+                aria-current={i === current ? "true" : undefined}
+                onClick={() => goTo(i, i > current ? 1 : -1)}
+                animate={{
+                  width: i === current ? 24 : 6,
+                  backgroundColor: i === current
+                    ? "rgba(255,255,255,0.72)"
+                    : "rgba(255,255,255,0.18)",
+                }}
+                transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
+                style={{
+                  height: 2,
+                  borderRadius: 1,
+                  cursor: "pointer",
+                  border: "none",
+                  padding: 0,
+                }}
+              />
+            ))}
+          </div>
 
-        {/* Contador */}
-        <span
-          style={{
-            fontSize: 11,
-            letterSpacing: "0.2em",
-            color: "rgba(255,255,255,0.2)",
-          }}
-        >
-          {pad(current + 1)} / {pad(PEOPLE.length)}
-        </span>
+          {/* Contador */}
+          <span
+            style={{
+              fontSize: 11,
+              letterSpacing: "0.2em",
+              color: "rgba(255,255,255,0.2)",
+            }}
+          >
+            {pad(current + 1)} / {pad(PEOPLE.length)}
+          </span>
 
-        {/* Setas */}
-        <div className="flex items-center gap-2">
-          {(
-            [
-              { fn: prev, Icon: IconChevronLeft, label: "Anterior" },
-              { fn: next, Icon: IconChevronRight, label: "Próximo" },
-            ] as const
-          ).map(({ fn, Icon, label }) => (
-            <motion.button
-              key={label}
-              type="button"
-              aria-label={label}
-              onClick={fn}
-              whileHover={{ borderColor: "rgba(255,255,255,0.28)", color: "#fff" }}
-              whileTap={{ scale: 0.9 }}
-              style={{
-                width: 40,
-                height: 40,
-                border: "1px solid rgba(255,255,255,0.1)",
-                background: "none",
-                color: "rgba(255,255,255,0.4)",
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                cursor: "pointer",
-              }}
-            >
-              <Icon size={14} />
-            </motion.button>
-          ))}
+          {/* Setas */}
+          <div className="flex items-center gap-2">
+            {(
+              [
+                { fn: prev, Icon: IconChevronLeft, label: "Anterior" },
+                { fn: next, Icon: IconChevronRight, label: "Próximo" },
+              ] as const
+            ).map(({ fn, Icon, label }) => (
+              <motion.button
+                key={label}
+                type="button"
+                aria-label={label}
+                onClick={fn}
+                whileHover={{ borderColor: "rgba(255,255,255,0.28)", color: "#fff" }}
+                whileTap={{ scale: 0.9 }}
+                style={{
+                  width: 40,
+                  height: 40,
+                  border: "1px solid rgba(255,255,255,0.1)",
+                  background: "none",
+                  color: "rgba(255,255,255,0.4)",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  cursor: "pointer",
+                }}
+              >
+                <Icon size={14} />
+              </motion.button>
+            ))}
+          </div>
         </div>
       </div>
 

@@ -4,7 +4,7 @@ import { fadeUpVariants, staggerContainer } from "../motionVariants";
 
 export function FreeAccessSection() {
     return (
-        <section className="px-10 pb-[100px]">
+        <section className="px-10 mt-20 pb-[100px]">
             <div className="max-w-[900px] mx-auto">
                 <motion.div
                     variants={staggerContainer}
@@ -42,6 +42,15 @@ export function FreeAccessSection() {
                         gratuita, com o mesmo nível de profundidade e curadoria aplicado aos
                         nossos materiais premium.
                     </motion.p>
+
+                    <motion.span
+                    
+                        variants={fadeUpVariants}
+                        className="text-white/50 text-sm italic"
+                    >
+                        * Sem necessidade de cadastro ou pagamento - 100% gratuito, para sempre.
+                        
+                    </motion.span>
 
                     {/* CTA editorial */}
                     <motion.a

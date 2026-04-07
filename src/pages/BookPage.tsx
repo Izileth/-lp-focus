@@ -14,6 +14,7 @@ import { BookDetails } from "../components/book/BookDetails";
 import { BookBackground } from "../components/book/BookBackground";
 import { SocialProofHeadline } from "../components/book/SocialProofHeadline";
 import { SocialProofSection } from "../components/book/SocialProofSection";
+import { FAQSection } from "../components/FAQSection";
 
 export function BookPage() {
   const { slug } = useParams<{ slug: string }>();
@@ -163,9 +164,13 @@ export function BookPage() {
             <SocialProofSection />
           </div>
 
+          {/* FINAL */}
+          <div className="mt-24 w-full md:mt-32">
+            <FAQSection />
+          </div>
+
         </main>
       </div>
-      
       <BottonOfferBanner />
     </>
   );
