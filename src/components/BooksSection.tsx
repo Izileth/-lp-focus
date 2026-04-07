@@ -17,7 +17,7 @@ export function BooksSection() {
   }
 
   if (error) {
-    return <ErrorState error={error}/>;
+    return <ErrorState error={error} />;
   }
 
   // Get unique categories
@@ -54,7 +54,7 @@ export function BooksSection() {
         </motion.div>
 
         {/* Filter Bar */}
-        <motion.div 
+        <motion.div
           initial={{ opacity: 0, y: 10 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
@@ -78,7 +78,7 @@ export function BooksSection() {
           ))}
         </motion.div>
 
-        <motion.div 
+        <motion.div
           layout
           className="grid gap-4 [grid-template-columns:repeat(auto-fill,minmax(260px,1fr))]"
         >
@@ -102,23 +102,23 @@ export function BooksSection() {
                 initial={{ opacity: 0, scale: 0.9 }}
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ duration: 0.3, delay: products.length * 0.05 }}
-                className="relative border border-white/[0.08] bg-white/[0.02] p-8 flex flex-col justify-center items-center text-center group overflow-hidden h-full min-h-[400px]"
+                className="relative border rounded-2xl border-white/[0.08] bg-white/[0.02] p-8 flex flex-col justify-center items-center text-center group overflow-hidden h-full min-h-[400px]"
               >
-                 <div className="mb-6 w-12 h-12 border border-white/10 flex items-center justify-center text-white/40 group-hover:text-white group-hover:border-white/30 transition-all duration-500">
-                    <IconMail size={20} />
-                 </div>
-                 <h3 className="[font-family:'Playfair_Display',serif] text-[20px] font-bold leading-tight mb-4">
-                    Fique por dentro<br/><em className="not-italic text-white/50">das novidades</em>
-                 </h3>
-                 <p className="font-sans text-[12px] text-white/30 mb-8 leading-relaxed max-w-[200px]">
-                    Receba notificações de novos ebooks e conteúdos exclusivos diretamente no seu e-mail.
-                 </p>
-                 <button
-                    onClick={() => document.getElementById('newsletter')?.scrollIntoView({ behavior: 'smooth' })}
-                    className="font-sans text-[10px] tracking-[0.2em] uppercase text-white border-b border-white/20 pb-1 hover:border-white transition-all"
-                 >
-                    Inscrever-se agora
-                 </button>
+                <div className="mb-6 w-12 h-12 border border-white/10 flex items-center justify-center text-white/40 group-hover:text-white group-hover:border-white/30 transition-all duration-500">
+                  <IconMail size={20} />
+                </div>
+                <h3 className="[font-family:'Playfair_Display',serif] text-[20px] font-bold leading-tight mb-4">
+                  Fique por dentro<br /><em className="not-italic text-white/50">das novidades</em>
+                </h3>
+                <p className="font-sans text-[12px] text-white/30 mb-8 leading-relaxed max-w-[200px]">
+                  Receba notificações de novos ebooks e conteúdos exclusivos diretamente no seu e-mail.
+                </p>
+                <button
+                  onClick={() => document.getElementById('newsletter')?.scrollIntoView({ behavior: 'smooth' })}
+                  className="font-sans text-[10px] tracking-[0.2em] uppercase text-white border-b border-white/20 pb-1 hover:border-white transition-all"
+                >
+                  Inscrever-se agora
+                </button>
               </motion.div>
             )}
           </AnimatePresence>

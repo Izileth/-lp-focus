@@ -37,6 +37,24 @@ export default function ArticlesPage() {
               >
                 Explorações profundas sobre conhecimento, produtividade e desenvolvimento pessoal para mentes inquietas.
               </motion.p>
+
+              <div className="flex flex-col gap-0 mt-2">
+
+                <motion.span
+                  variants={fadeUpVariants}
+                  className="font-sans text-emerald-400 text-base md:text-lg max-w-[600px] leading-relaxed"
+                >
+                  100% Gratuito
+                </motion.span>
+
+                <motion.span
+                  variants={fadeUpVariants}
+                  className="font-sans text-white/50 text-base md:text-lg max-w-[600px] leading-relaxed"
+                >
+                  Centenas de pessoas já deram o primeiro passo apenas em nossos manifestos.
+                </motion.span>
+              </div>
+
             </motion.div>
           </div>
         </section>
@@ -66,7 +84,7 @@ export default function ArticlesPage() {
             )}
           </div>
         </section>
-        
+
         <section>
           <FreeAccessSection />
         </section>
