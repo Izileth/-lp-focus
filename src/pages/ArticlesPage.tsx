@@ -4,7 +4,7 @@ import { ArticleCard } from "../components/ArticleCard";
 import { fadeUpVariants, staggerContainer } from "../motionVariants";
 import { useArticles } from "../hooks/useArticles";
 import { IconLoader } from "../components/Icons";
-import { ContactSection } from "../components/ContactSection";
+import { FreeAccessSection } from "../components/ArticleProofBasement";
 export default function ArticlesPage() {
   const { articles, loading, error } = useArticles();
 
@@ -66,8 +66,9 @@ export default function ArticlesPage() {
             )}
           </div>
         </section>
+        
         <section>
-          <ContactSection />
+          <FreeAccessSection />
         </section>
       </main>
     </div>

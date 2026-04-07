@@ -35,8 +35,8 @@ const PEOPLE: Person[] = [
     name: "Tony",
     namePt2: "Montana",
     role: "Scarface",
-    imageUrl: "https://wnotjxleeltjysdlplkc.supabase.co/storage/v1/object/public/article-images/covers/1775160158631-l0syyb.png",
-    bgColor: "rgba(60,8,18,0.78)",
+    imageUrl: "https://i.pinimg.com/1200x/3c/f1/39/3cf139fc0b58e066480055ceab36b874.jpg",
+    bgColor: "rgba(0,0,0,0.78)",
     icon: <IconShield size={16} />,
     quotes: [
       "Tudo que tenho neste mundo são minhas palavras e minha coragem.",
@@ -51,8 +51,8 @@ const PEOPLE: Person[] = [
     name: "Jordan",
     namePt2: "Belfort",
     role: "The Wolf of Wall Street",
-      imageUrl: "https://wnotjxleeltjysdlplkc.supabase.co/storage/v1/object/public/article-images/covers/1775160158631-l0syyb.png",
-    bgColor: "rgba(8,18,44,0.78)",
+    imageUrl: "https://i.pinimg.com/736x/56/97/7a/56977aa9cd96399eb077343fd50809b7.jpg",
+    bgColor: "rgba(0,0,0,0.78)",
     icon: <IconTrendingUp size={16} />,
     quotes: [
       "A única coisa entre você e seu objetivo é a história que continua se contando.",
@@ -67,8 +67,8 @@ const PEOPLE: Person[] = [
     name: "Tyler",
     namePt2: "Durden",
     role: "Fight Club",
-    imageUrl: "https://wnotjxleeltjysdlplkc.supabase.co/storage/v1/object/public/article-images/covers/1775160158631-l0syyb.png",
-    bgColor: "rgba(22,8,36,0.78)",
+    imageUrl: "https://i.pinimg.com/736x/fa/36/fa/fa36fa90b71a1af573894bbb9059da16.jpg",
+    bgColor: "rgba(0,0,0,0.78)",
     icon: <IconZap size={16} />,
     quotes: [
       "Só depois de perdermos tudo é que somos livres para qualquer coisa.",
@@ -83,8 +83,8 @@ const PEOPLE: Person[] = [
     name: "Grandes",
     namePt2: "Generais",
     role: "Kingdom",
-    imageUrl: "https://wnotjxleeltjysdlplkc.supabase.co/storage/v1/object/public/article-images/covers/1775160158631-l0syyb.png",
-    bgColor: "rgba(10,18,2,0.78)",
+    imageUrl: "https://i.pinimg.com/736x/32/57/ac/3257acbf0783ea85488f49e5014c3269.jpg",
+    bgColor: "rgba(0,0,0,0.78)",
     icon: <IconAward size={16} />,
     quotes: [
       "Um grande general vence a guerra antes da batalha começar.",
@@ -99,8 +99,8 @@ const PEOPLE: Person[] = [
     name: "Elon",
     namePt2: "Musk",
     role: "Inovação Tecnológica",
-    imageUrl: "https://wnotjxleeltjysdlplkc.supabase.co/storage/v1/object/public/article-images/covers/1775160158631-l0syyb.png",
-    bgColor: "rgba(0,18,32,0.78)",
+    imageUrl: "https://i.pinimg.com/736x/b0/59/03/b05903f17bb1ef267dfc37781bdf512b.jpg",
+    bgColor: "rgba(0,0,0,0.78)",
     icon: <IconZap size={16} />,
     quotes: [
       "Quando algo é importante o suficiente, você faz mesmo contra as probabilidades.",
@@ -115,8 +115,8 @@ const PEOPLE: Person[] = [
     name: "Warren",
     namePt2: "Buffett",
     role: "Estratégia Financeira",
-    imageUrl: "https://wnotjxleeltjysdlplkc.supabase.co/storage/v1/object/public/article-images/covers/1775160158631-l0syyb.png",
-    bgColor: "rgba(18,16,0,0.78)",
+    imageUrl: "https://i.pinimg.com/1200x/2d/0a/2c/2d0a2ce3aef737df026e0ef98bf20999.jpg",
+    bgColor: "rgba(0,0,0,0.78)",
     icon: <IconCheckCircle size={16} />,
     quotes: [
       "Quanto mais você aprende, mais você ganha.",
@@ -131,8 +131,8 @@ const PEOPLE: Person[] = [
     name: "Steve",
     namePt2: "Jobs",
     role: "Visão Criativa",
-    imageUrl: "https://wnotjxleeltjysdlplkc.supabase.co/storage/v1/object/public/article-images/covers/1775160158631-l0syyb.png",
-    bgColor: "rgba(0,16,16,0.78)",
+    imageUrl: "https://i.pinimg.com/1200x/52/ca/c5/52cac59a19ab3247fe6bb0a25c46daac.jpg",
+    bgColor: "rgba(0,0,0,0.78)",
     icon: <IconUser size={16} />,
     quotes: [
       "Continue com fome, continue tolo.",
@@ -226,7 +226,7 @@ function SlideBg({ person, isActive }: { person: Person; isActive: boolean }) {
           src={person.imageUrl}
           alt=""
           aria-hidden="true"
-          className="w-full h-full object-cover object-top"
+          className="w-full h-full object-cover object-top grayscale-100"
           loading="eager"
           decoding="async"
         />
