@@ -12,7 +12,7 @@ import { AboutSection } from "../components/AboutSection";
 import { QuizSection } from "../components/QuizSection";
 import { CtaSection } from "../components/CtaSection";
 import { SocialFanBadge } from "../components/FlanSocialBadges";
-import { HonorableMentionsSection } from "../components/HonorableMentions";
+//import { HonorableMentionsSection } from "../components/HonorableMentions";
 import { AggressiveBanner } from "../components/AggressiveBanner";
 import { FAQSection } from "../components/FAQSection";
 
@@ -49,8 +49,8 @@ export function HomePage() {
       <BooksSection />
       <SocialProofCarousel />
       <QuizSection />
-      <FAQSection />
       <AboutSection />
+      <FAQSection />
       <CtaSection />
       <AggressiveBanner />
       <SocialFanBadge />
