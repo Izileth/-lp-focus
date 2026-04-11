@@ -171,7 +171,7 @@ export function BookCard({ book, index }: BookCardProps) {
             <IconStar 
               key={i} 
               size={10} 
-              className={i < Math.floor(book.rating || 5) ? "text-emerald-500" : "text-white/10"} 
+              className={i < Math.floor(book.rating || 5) ? "text-amber-500" : "text-white/10"} 
             />
           ))}
         </div>

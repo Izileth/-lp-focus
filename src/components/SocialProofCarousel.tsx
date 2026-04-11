@@ -71,7 +71,7 @@ export function SocialProofCarousel() {
               >
                 <div className="flex gap-1">
                   {[...Array(t.rating)].map((_, i) => (
-                    <IconStar key={i} size={10} className="text-white/80" />
+                    <IconStar key={i} size={10} className="text-amber-500" />
                   ))}
                 </div>
                 
@@ -87,7 +87,7 @@ export function SocialProofCarousel() {
                     {t.name.split(' ').map(n => n[0]).join('')}
                   </div>
                   <div>
-                    <h5 className="text-[12px] flex flex-row justify-center py-0 my-0 font-bold text-white/90 uppercase tracking-wider flex items-center">
+                    <h5 className="text-[12px]  py-0 my-0 font-bold text-white/90 uppercase tracking-wider flex items-center">
                       {t.name} <IconVerified className="mb-1" size={14} />
                     </h5>
                     <p className="text-[10px] text-white/30 uppercase tracking-[0.1em]">{t.role}</p>

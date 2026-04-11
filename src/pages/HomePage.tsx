@@ -49,9 +49,8 @@ export function HomePage() {
       <BooksSection />
       <SocialProofCarousel />
       <QuizSection />
-        <FAQSection />
+      <FAQSection />
       <AboutSection />
-      <HonorableMentionsSection />
       <CtaSection />
       <AggressiveBanner />
       <SocialFanBadge />

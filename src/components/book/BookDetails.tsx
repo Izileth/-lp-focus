@@ -108,7 +108,7 @@ export function BookDetails({ book, formattedPrice, formattedDiscountPrice, hasD
       >
         <div className="flex gap-0.5 text-white/70">
           {Array.from({ length: 5 }).map((_, i) => (
-            <IconStar key={i} className={i < Math.floor(book.rating) ? "text-white/70" : "text-white/20"} />
+            <IconStar key={i} className={i < Math.floor(book.rating) ? "text-amber-500" : "text-white/20"} />
           ))}
         </div>
         <span className="font-sans text-[11px] text-white/35 tracking-wide">

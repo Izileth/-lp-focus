@@ -31,8 +31,8 @@ export function AggressiveBanner({
       <div className="absolute bottom-0 left-0 w-full h-px bg-gradient-to-r from-emerald-500/0 to-transparent" />
     
       {/* Large Decorative Text Background */}
-      <div className="absolute bottom-[-10%] right-[-5%] pointer-events-none select-none">
-        <span className="text-[20vw] font-black text-white/[0.03] leading-none uppercase italic">
+      <div className="absolute bottom-[-10%] [font-family:'Playfair_Display',serif] font-black right-[-5%] pointer-events-none select-none">
+        <span className="text-[20vw] font-black text-white/[0.03] leading-none uppercase">
           FOCUS
         </span>
       </div>
