@@ -41,7 +41,7 @@ export function DirectCheckoutPage() {
 
     try {
       await paymentsApi.processPayment({
-        productId: product.id,
+        productId: product.id.toString(),
         amount: product.discount_price || product.price,
         customerName: formData.name,
         customerEmail: formData.email,
@@ -51,6 +51,7 @@ export function DirectCheckoutPage() {
     } catch (error) {
       alert("Erro no pagamento. Tente novamente.");
       setStep("form");
+      console.error(error);
     } finally {
       setLoading(false);
     }
@@ -78,7 +79,7 @@ export function DirectCheckoutPage() {
           <div className="bg-white/[0.03] border border-white/10 p-8 rounded-2xl flex gap-6 items-center">
              <div className="w-24 aspect-[3/4] bg-white/5 rounded-lg overflow-hidden flex-shrink-0">
                 {product.product_images?.[0] && (
-                  <img src={product.product_images[0]} alt={product.name} className="w-full h-full object-cover" />
+                  <img src={product.product_images[0]?.image_url} alt={product.name} className="w-full h-full object-cover" />
                 )}
              </div>
              <div>
