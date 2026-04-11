@@ -30,7 +30,7 @@ export function CtaSection() {
           className="[font-family:'Playfair_Display',serif] font-black leading-[1] tracking-[-0.02em] mb-6"
           style={{ fontSize: "clamp(36px,6vw,64px)" }}
         >
-          Investir em conhecimento
+          Investir em Você
           <br />
           <em className="not-italic text-white/70">é o melhor retorno.</em>
         </motion.h2>
@@ -39,7 +39,7 @@ export function CtaSection() {
           variants={fadeUpVariants}
           className="font-sans font-light text-base leading-[1.7] text-white/45 mb-12"
         >
-          Cada ebook é entregue diretamente no seu e-mail após a compra.
+          Cada ensinamento é entregue diretamente no seu e-mail após a compra.
           Pagamento simples e seguro via Caktos Pay.
         </motion.p>
 

@@ -35,7 +35,7 @@ export function FAQSection() {
 
     return (
         <section className="pb-[120px] border-t border-white/[0.05]">
-            <div className="max-w-[1600px] w-full mx-auto">
+            <div className="max-w-[1200px] w-full mx-auto">
                 <motion.div
                     variants={staggerContainer}
                     initial="hidden"

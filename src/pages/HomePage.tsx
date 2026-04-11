@@ -14,6 +14,7 @@ import { CtaSection } from "../components/CtaSection";
 import { SocialFanBadge } from "../components/FlanSocialBadges";
 import { HonorableMentionsSection } from "../components/HonorableMentions";
 import { AggressiveBanner } from "../components/AggressiveBanner";
+import { FAQSection } from "../components/FAQSection";
 
 export function HomePage() {
   const { pathname } = useLocation();
@@ -48,6 +49,7 @@ export function HomePage() {
       <BooksSection />
       <SocialProofCarousel />
       <QuizSection />
+        <FAQSection />
       <AboutSection />
       <HonorableMentionsSection />
       <CtaSection />

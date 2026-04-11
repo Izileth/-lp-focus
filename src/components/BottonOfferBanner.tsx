@@ -168,7 +168,7 @@ export function BottonOfferBanner() {
           role="complementary"
           aria-label="Oferta personalizada por tempo limitado"
           // ── Fixed to bottom-right corner, above footer ──
-          className="fixed bottom-6 right-6 z-[100] w-full max-w-[380px] bg-black border border-white/[0.1] shadow-[0_0_40px_rgba(0,0,0,0.8)]"
+          className="fixed bottom-6 right-6 z-[100] w-full max-w-[380px] bg-black border border-white/[0.1] rounded-2xl shadow-[0_0_40px_rgba(0,0,0,0.8)]"
         >
           {/* Noise */}
           <div

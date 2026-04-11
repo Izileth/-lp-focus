@@ -1,6 +1,6 @@
 // src/components/SocialProofCarousel.tsx
 import { motion } from "framer-motion";
-import { IconStar, IconQuote } from "./Icons";
+import { IconStar, IconQuote, IconVerified } from "./Icons";
 import {  staggerContainer } from "../motionVariants";
 
 interface Testimonial {
@@ -87,7 +87,9 @@ export function SocialProofCarousel() {
                     {t.name.split(' ').map(n => n[0]).join('')}
                   </div>
                   <div>
-                    <h5 className="text-[12px] font-bold text-white/90 uppercase tracking-wider">{t.name}</h5>
+                    <h5 className="text-[12px] flex flex-row justify-center py-0 my-0 font-bold text-white/90 uppercase tracking-wider flex items-center">
+                      {t.name} <IconVerified className="mb-1" size={14} />
+                    </h5>
                     <p className="text-[10px] text-white/30 uppercase tracking-[0.1em]">{t.role}</p>
                   </div>
                 </div>

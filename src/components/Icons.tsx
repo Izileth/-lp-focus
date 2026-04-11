@@ -244,6 +244,24 @@ export function IconGift({ size = 20, strokeWidth = 1.5, className }: IconProps)
 
 // ─── Trust & Security ─────────────────────────────────────────────────────────
 
+export function IconVerified({ size = 16, className }: IconProps) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 24 24" fill="none" className={className}>
+      <path 
+        d="M12 2L13.84 4.1L16.48 3.53L17.5 6.03L20 7.02L19.5 9.65L21.35 11.75L19.5 13.85L20 16.48L17.5 17.47L16.48 19.97L13.84 19.4L12 21.5L10.16 19.4L7.52 19.97L6.5 17.47L4 16.48L4.5 13.85L2.65 11.75L4.5 9.65L4 7.02L6.5 6.03L7.52 3.53L10.16 4.1L12 2Z" 
+        fill="#3897f0" 
+      />
+      <path 
+        d="M9 12L11 14L15 10" 
+        stroke="white" 
+        strokeWidth="2" 
+        strokeLinecap="round" 
+        strokeLinejoin="round" 
+      />
+    </svg>
+  );
+}
+
 export function IconShield({ size = 18, strokeWidth = 1.5, className }: IconProps) {
   return (
     <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={strokeWidth} strokeLinecap="round" strokeLinejoin="round" className={className}>

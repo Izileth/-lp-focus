@@ -3,7 +3,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { useNavigate, Link } from "react-router-dom";
 import { useState } from "react";
 import { cardVariants } from "../motionVariants";
-import { IconBook, IconArrowRight, IconStar, IconMoreHorizontal, IconX, IconGift, IconVideo, IconMail } from "./Icons";
+import { IconBook, IconArrowRight, IconStar, IconMoreHorizontal, IconX, IconGift, IconVideo, IconMail, IconVerified } from "./Icons";
 import { BookCarousel } from "./book/BookCarousel";
 import type { Product } from "../types";
 
@@ -165,8 +165,24 @@ export function BookCard({ book, index }: BookCardProps) {
           {book.category}
         </Link>
       </p>
-      <h3 className="[font-family:'Playfair_Display',serif] text-[18px] font-bold leading-[1.25] mb-4 h-[2.5em] line-clamp-2">
+      <div className="flex items-center gap-2 mb-2">
+        <div className="flex gap-0.5">
+          {[...Array(5)].map((_, i) => (
+            <IconStar 
+              key={i} 
+              size={10} 
+              className={i < Math.floor(book.rating || 5) ? "text-emerald-500" : "text-white/10"} 
+            />
+          ))}
+        </div>
+        <span className="text-[10px] text-white/30 font-sans tracking-wider font-medium mt-0.5">
+          {book.rating?.toFixed(1) || "5.0"}
+        </span>
+      </div>
+
+      <h3 className="[font-family:'Playfair_Display',serif] text-[18px] font-bold leading-[1.25] mb-4 h-[2.5em] line-clamp-2 flex items-center gap-2">
         {book.name}
+        <IconVerified size={16} className="flex-shrink-0 mt-1" />
       </h3>
 
       <div className="flex items-center justify-between mb-5">
