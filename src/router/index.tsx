@@ -18,7 +18,7 @@ import ArticlesPage from "../pages/ArticlesPage";
 import ArticleDetailPage from "../pages/ArticleDetailPage";
 import SplashScreen from "../components/SplashScreen";
 import ScrollToTop from "../components/ScrollToTop";
-
+import { DirectCheckoutPage } from "../pages/DirectCheckoutPage";
 function SplashLayout() {
   const [isLoading, setIsLoading] = useState<boolean>(() => {
     return sessionStorage.getItem("splash_shown") !== "true";
@@ -91,6 +91,10 @@ const router = createBrowserRouter([
           {
             path: "/checkout",
             element: <CheckoutPage />,
+          },
+          {
+            path: "/checkout-direct/:slug",
+            element: <DirectCheckoutPage />,
           },
           {
             path: "/categoria/:categorySlug",
