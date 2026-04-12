@@ -50,8 +50,8 @@ export function HomePage() {
       <SocialProofCarousel />
       <QuizSection />
       <AboutSection />
-      <FAQSection />
       <CtaSection />
+      <FAQSection />
       <AggressiveBanner />
       <SocialFanBadge />
     </main>

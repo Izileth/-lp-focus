@@ -4,6 +4,7 @@ import App from "../App";
 import { HomePage } from "../pages/HomePage";
 import { BookPage } from "../pages/BookPage";
 import { CheckoutPage } from "../pages/CheckoutPage";
+import { CheckoutDirectPage } from "../pages/CheckoutExtraPage";
 import { LandingPage } from "../pages/LandingPage";
 import { VideoPromotionPage } from "../pages/VideoPromotionPage";
 import { AdminPage } from "../pages/AdminPage";
@@ -18,8 +19,9 @@ import ArticlesPage from "../pages/ArticlesPage";
 import ArticleDetailPage from "../pages/ArticleDetailPage";
 import SplashScreen from "../components/SplashScreen";
 import ScrollToTop from "../components/ScrollToTop";
-import { DirectCheckoutPage } from "../pages/DirectCheckoutPage";
+
 function SplashLayout() {
+
   const [isLoading, setIsLoading] = useState<boolean>(() => {
     return sessionStorage.getItem("splash_shown") !== "true";
   });
@@ -89,12 +91,12 @@ const router = createBrowserRouter([
             element: <BookPage />,
           },
           {
-            path: "/checkout",
+            path: "/checkout/:slug?",
             element: <CheckoutPage />,
           },
-          {
-            path: "/checkout-direct/:slug",
-            element: <DirectCheckoutPage />,
+            {
+            path: "/checkout/direct",
+            element: <CheckoutDirectPage />,
           },
           {
             path: "/categoria/:categorySlug",

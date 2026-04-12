@@ -58,7 +58,7 @@ export function BookDetails({ book, formattedPrice, formattedDiscountPrice, hasD
       action: 'checkout_from_details'
     });
 
-    navigate('/checkout', { 
+    navigate('/checkout/direct', { 
       state: { 
         product: book 
       } 
