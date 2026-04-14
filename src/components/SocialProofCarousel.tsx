@@ -88,7 +88,7 @@ export function SocialProofCarousel() {
                   </div>
                   <div>
                     <h5 className="text-[12px]  py-0 my-0 font-bold text-white/90 uppercase tracking-wider flex items-center">
-                      {t.name} <IconVerified className="mb-1" size={14} />
+                      {t.name} <IconVerified className="mb-1 ml-1" size={14} />
                     </h5>
                     <p className="text-[10px] text-white/30 uppercase tracking-[0.1em]">{t.role}</p>
                   </div>

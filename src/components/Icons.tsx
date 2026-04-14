@@ -247,16 +247,53 @@ export function IconGift({ size = 20, strokeWidth = 1.5, className }: IconProps)
 export function IconVerified({ size = 16, className }: IconProps) {
   return (
     <svg width={size} height={size} viewBox="0 0 24 24" fill="none" className={className}>
-      <path 
-        d="M12 2L13.84 4.1L16.48 3.53L17.5 6.03L20 7.02L19.5 9.65L21.35 11.75L19.5 13.85L20 16.48L17.5 17.47L16.48 19.97L13.84 19.4L12 21.5L10.16 19.4L7.52 19.97L6.5 17.47L4 16.48L4.5 13.85L2.65 11.75L4.5 9.65L4 7.02L6.5 6.03L7.52 3.53L10.16 4.1L12 2Z" 
-        fill="#3897f0" 
+      <defs>
+        <linearGradient id="goldGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" stopColor="#FFD700" />
+          <stop offset="50%" stopColor="#FFC300" />
+          <stop offset="100%" stopColor="#B8860B" />
+        </linearGradient>
+      </defs>
+
+      <path
+        d="M12 2L13.84 4.1L16.48 3.53L17.5 6.03L20 7.02L19.5 9.65L21.35 11.75L19.5 13.85L20 16.48L17.5 17.47L16.48 19.97L13.84 19.4L12 21.5L10.16 19.4L7.52 19.97L6.5 17.47L4 16.48L4.5 13.85L2.65 11.75L4.5 9.65L4 7.02L6.5 6.03L7.52 3.53L10.16 4.1L12 2Z"
+        fill="url(#goldGradient)"
       />
-      <path 
-        d="M9 12L11 14L15 10" 
-        stroke="white" 
-        strokeWidth="2" 
-        strokeLinecap="round" 
-        strokeLinejoin="round" 
+
+      <path
+        d="M9 12L11 14L15 10"
+        stroke="white"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </svg>
+  );
+}
+
+
+export function IconPremium({ size = 16, className }: IconProps) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 24 24" fill="none" className={className}>
+      <defs>
+        <linearGradient id="blueGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" stopColor="#60A5FA" />
+          <stop offset="50%" stopColor="#2563EB" />
+          <stop offset="100%" stopColor="#0B1F3A" />
+        </linearGradient>
+      </defs>
+
+      <path
+        d="M12 2L13.84 4.1L16.48 3.53L17.5 6.03L20 7.02L19.5 9.65L21.35 11.75L19.5 13.85L20 16.48L17.5 17.47L16.48 19.97L13.84 19.4L12 21.5L10.16 19.4L7.52 19.97L6.5 17.47L4 16.48L4.5 13.85L2.65 11.75L4.5 9.65L4 7.02L6.5 6.03L7.52 3.53L10.16 4.1L12 2Z"
+        fill="url(#goldGradient)"
+      />
+
+      <path
+        d="M9 12L11 14L15 10"
+        stroke="white"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
     </svg>
   );

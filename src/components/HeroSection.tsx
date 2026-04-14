@@ -92,7 +92,7 @@ export function HeroSection() {
             href="#livros"
             whileHover={{ scale: 1.03, y: -1 }}
             whileTap={{ scale: 0.97 }}
-            className="bg-white text-black font-sans text-[13px] font-medium tracking-[0.1em] uppercase px-8 py-3.5 flex items-center gap-2 hover:bg-white/85 transition-colors"
+            className="bg-emerald-500 text-white font-sans text-[13px] font-medium tracking-[0.1em] uppercase px-8 py-3.5 flex items-center gap-2 hover:bg-emerald-600 transition-colors"
           >
             Começar Agora <IconArrowRight />
           </motion.a>

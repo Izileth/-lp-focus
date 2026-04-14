@@ -1,6 +1,6 @@
 // src/components/book/SocialProofSection.tsx
 import { motion } from "framer-motion";
-import { IconStar, IconQuote, IconArrowUpRight } from "../Icons";
+import { IconStar, IconQuote, IconArrowUpRight, IconVerified } from "../Icons";
 import { fadeUpVariants, staggerContainer } from "../../motionVariants";
 import { useNavigate } from "react-router-dom";
 // ─── Tipos ────────────────────────────────────────────────────────────────────
@@ -46,7 +46,7 @@ function StarRating({ count }: { count: number }) {
   return (
     <div className="flex gap-1">
       {[...Array(count)].map((_, i) => (
-        <IconStar key={i} size={10} className="text-white/80" />
+        <IconStar key={i} size={10} className="text-amber-500" />
       ))}
     </div>
   );
@@ -158,7 +158,7 @@ export function SocialProofSection() {
               </div>
 
               <div className="flex flex-col gap-4">
-                <StarRating count={t.rating} />
+                <StarRating  count={t.rating}  />
                 <p className="font-serif text-[17px] leading-[1.6] text-white/70 italic">
                   "{t.content}"
                 </p>
@@ -169,7 +169,10 @@ export function SocialProofSection() {
                   {t.name.split(' ').map(n => n[0]).join('')}
                 </div>
                 <div>
-                  <h5 className="font-sans text-[12px] font-bold text-white/90 uppercase tracking-wider">{t.name}</h5>
+                  <h5 className="font-sans text-[12px] font-bold text-white/90 uppercase tracking-wider flex items-center gap-1.5">
+                    {t.name}
+                    <IconVerified size={12} />
+                  </h5>
                   <p className="font-sans text-[10px] text-white/30 uppercase tracking-[0.1em]">{t.role}</p>
                 </div>
               </div>
