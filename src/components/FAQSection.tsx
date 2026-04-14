@@ -24,6 +24,49 @@ const FAQ_ITEMS = [
         answer:
             "Não. Você pode explorar todos os artigos livremente. Em alguns casos, oferecemos recursos adicionais para quem deseja ir além, mas o acesso ao conteúdo principal permanece aberto.",
     },
+
+    // 🔥 NOVAS PERGUNTAS
+
+    {
+        question: "O que é a Modus Focus?",
+        answer:
+            "A Modus Focus é uma plataforma digital focada em desenvolvimento pessoal e mentalidade estratégica. Reunimos conteúdos que ajudam você a ganhar clareza, disciplina e controle sobre suas decisões e sua rotina.",
+    },
+    {
+        question: "Por que escolher a Modus Focus?",
+        answer:
+            "Porque não entregamos conteúdo genérico. Nosso foco está em materiais diretos, aplicáveis e estruturados para gerar mudança real, sem promessas vazias ou excesso de teoria.",
+    },
+    {
+        question: "Para quem é a Modus Focus?",
+        answer:
+            "Para pessoas que buscam evolução prática, desejam mais foco, disciplina e clareza, e estão dispostas a aplicar conhecimento no dia a dia para alcançar resultados concretos.",
+    },
+    {
+        question: "Como funciona o acesso aos ebooks?",
+        answer:
+            "Após a aquisição, o acesso é liberado imediatamente na plataforma. Você pode consumir o conteúdo no seu ritmo, com total liberdade e sem limitações de horário.",
+    },
+    {
+        question: "Os conteúdos possuem aplicação prática?",
+        answer:
+            "Sim. Todo material é desenvolvido com foco em aplicação real. A proposta é transformar conhecimento em ação, com estratégias que podem ser utilizadas imediatamente.",
+    },
+    {
+        question: "A plataforma oferece suporte ou atualizações?",
+        answer:
+            "Trabalhamos constantemente na evolução dos conteúdos. Novos materiais e melhorias são adicionados com o objetivo de manter a experiência sempre relevante e atualizada.",
+    },
+    {
+        question: "Existe algum tipo de garantia?",
+        answer:
+            "Buscamos oferecer uma experiência transparente e de alto valor. Detalhes sobre garantias e políticas podem variar conforme o produto e são informados no momento da aquisição.",
+    },
+    {
+        question: "Quanto tempo leva para ver resultados?",
+        answer:
+            "Os resultados variam de acordo com a aplicação prática. Usuários que aplicam o conteúdo com consistência tendem a perceber mudanças progressivas na clareza, disciplina e tomada de decisão.",
+    },
 ];
 
 export function FAQSection() {
