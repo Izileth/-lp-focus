@@ -5,7 +5,7 @@ import { IconCheckCircle, IconDownload, IconMail, IconArrowRight, IconShield, Ic
 
 export function SuccessRedemptionPage() {
   const location = useLocation();
-  const { orderId, email, items } = location.state || {};
+  const { orderId, email} = location.state || {};
 
   return (
     <div className="bg-black min-h-screen text-white font-sans pt-[104px] relative overflow-hidden">

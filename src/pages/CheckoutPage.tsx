@@ -2,14 +2,14 @@
 import { useLocation, useNavigate, Link, useParams } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import { useEffect, useState } from "react";
-import { 
-  IconArrowLeft, 
-  IconShield, 
-  IconMail, 
-  IconArrowRight, 
-  IconLock, 
-  IconCheckCircle, 
-  IconCreditCard, 
+import {
+  IconArrowLeft,
+  IconShield,
+  IconMail,
+  IconArrowRight,
+  IconLock,
+  IconCheckCircle,
+  IconCreditCard,
   IconLoader,
   IconSmartphone,
 } from "../components/Icons";
@@ -17,14 +17,14 @@ import { useProduct } from "../hooks/useProduct";
 import { useCart } from "../hooks/useCart";
 import { paymentsApi } from "../api/payments";
 import type { Product } from "../types";
-import type { PaymentResponse, PaymentError } from "../api/payments";
+import type { PaymentResponse, PaymentError} from "../api/payments";
 
 export function CheckoutPage() {
   const { slug } = useParams();
   const location = useLocation();
   const navigate = useNavigate();
   const { cartItems, totalPrice: cartTotalPrice, clearCart, loading: cartLoading } = useCart();
-  
+
   // Captura produto de compra direta (via state ou slug)
   const stateProduct = location.state?.product as Product | undefined;
   const { product: fetchedProduct, loading: fetchingProduct } = useProduct(stateProduct ? undefined : slug);
@@ -35,7 +35,7 @@ export function CheckoutPage() {
   const [step, setStep] = useState<"form" | "processing" | "pix" | "boleto" | "success">("form");
   const [paymentMethod, setPaymentMethod] = useState<"card" | "pix" | "boleto">("card");
   const [paymentResult, setPaymentResult] = useState<PaymentResponse | null>(null);
-  
+
   // Dados do Formulário
   const [formData, setFormData] = useState({
     name: "",
@@ -47,12 +47,12 @@ export function CheckoutPage() {
   });
 
   const isCartCheckout = !directProduct;
-  const itemsToDisplay = isCartCheckout 
+  const itemsToDisplay = isCartCheckout
     ? cartItems.map(item => ({ product: item.product, quantity: item.quantity }))
     : [{ product: directProduct, quantity: 1 }];
 
-  const totalAmount = isCartCheckout 
-    ? cartTotalPrice 
+  const totalAmount = isCartCheckout
+    ? cartTotalPrice
     : (directProduct?.discount_price || directProduct?.price || 0);
 
   useEffect(() => {
@@ -74,6 +74,8 @@ export function CheckoutPage() {
     currency: 'BRL'
   }).format(totalAmount);
 
+
+
   const handleConfirmOrder = async (e: React.FormEvent) => {
     e.preventDefault();
     if (itemsToDisplay.length === 0) return;
@@ -82,12 +84,13 @@ export function CheckoutPage() {
     setStep("processing");
 
     try {
-      // Para o MVP, enviamos o ID do primeiro produto ou concatenamos se a API suportar
-      // Idealmente, a API receberia uma lista de IDs
+      // Alinhado com @docs/PAYMENTS_STRIPE_API_GUIDE.md
+      // Note: O amount deve ser enviado em REAIS para a paymentsApi, 
+      // pois ela interna faz a conversão para centavos (* 100).
       const response = await paymentsApi.processPayment({
         productId: itemsToDisplay[0].product?.id.toString() || "0",
-        amount: totalAmount,
-        currency: "BRL",
+        amount: totalAmount, 
+        currency: "brl",
         customerName: formData.name,
         customerEmail: formData.email,
         paymentMethod: paymentMethod,
@@ -96,6 +99,7 @@ export function CheckoutPage() {
 
       setPaymentResult(response);
 
+      // Mapeamento de Status conforme Guia
       if (response.status === "succeeded") {
         await clearCart();
         navigate("/success", { 
@@ -105,20 +109,26 @@ export function CheckoutPage() {
             items: itemsToDisplay 
           } 
         });
-      } else if (response.nextAction) {
-        if (response.nextAction.type === "display_pix_qr_code") {
+      } else if (response.status === "requires_action") {
+        const nextAction = response.nextAction;
+        
+        if (nextAction?.type === "display_pix_qr_code") {
           setStep("pix");
         } else if (paymentMethod === "boleto") {
           setStep("boleto");
+        } else if (nextAction?.redirectToUrl) {
+          // Para 3D Secure ou Redirecionamentos Genéricos
+          window.location.href = nextAction.redirectToUrl;
         }
-      } else if (response.status === "requires_action" || response.status === "requires_confirmation") {
-        // Lógica para 3D Secure ou outros redirecionamentos do Stripe
-        if (response.nextAction?.redirectToUrl) {
-          window.location.href = response.nextAction.redirectToUrl;
-        }
+      } else if (response.status === "processing") {
+        // Para boletos que demoram a processar ou análise de fraude
+        alert("Seu pagamento está sendo processado. Você receberá um e-mail em breve.");
+        navigate("/");
+      } else if (response.status === "requires_payment_method") {
+        throw new Error("O pagamento não pôde ser processado. Tente outro método ou verifique os dados.");
       }
     } catch (error: PaymentError | unknown) {
-      const msg = (error as PaymentError).message || "Erro no processamento. Verifique os dados e tente novamente.";
+      const msg = (error as Error).message || "Ops! Algo deu errado com seu pagamento. Tente novamente ou use outro método.";
       alert(msg);
       setStep("form");
     } finally {
@@ -213,27 +223,27 @@ export function CheckoutPage() {
                   <div className="space-y-4">
                     <div className="space-y-1.5">
                       <label className="text-[10px] uppercase tracking-widest font-bold text-black/40">Nome Completo</label>
-                      <input required type="text" className="w-full border-b-2 border-black/10 px-0 py-2 focus:border-black outline-none transition-colors" placeholder="JOÃO SILVA" value={formData.name} onChange={e => setFormData({...formData, name: e.target.value})} />
+                      <input required type="text" className="w-full border-b-2 border-black/10 px-0 py-2 focus:border-black outline-none transition-colors" placeholder="JOÃO SILVA" value={formData.name} onChange={e => setFormData({ ...formData, name: e.target.value })} />
                     </div>
                     <div className="space-y-1.5">
                       <label className="text-[10px] uppercase tracking-widest font-bold text-black/40">E-mail para entrega</label>
-                      <input required type="email" className="w-full border-b-2 border-black/10 px-0 py-2 focus:border-black outline-none transition-colors" placeholder="seu@email.com" value={formData.email} onChange={e => setFormData({...formData, email: e.target.value})} />
+                      <input required type="email" className="w-full border-b-2 border-black/10 px-0 py-2 focus:border-black outline-none transition-colors" placeholder="seu@email.com" value={formData.email} onChange={e => setFormData({ ...formData, email: e.target.value })} />
                     </div>
                     {(paymentMethod !== "card") && (
                       <div className="space-y-1.5">
                         <label className="text-[10px] uppercase tracking-widest font-bold text-black/40">CPF / CNPJ</label>
-                        <input required type="text" className="w-full border-b-2 border-black/10 px-0 py-2 focus:border-black outline-none transition-colors" placeholder="000.000.000-00" value={formData.taxId} onChange={e => setFormData({...formData, taxId: e.target.value})} />
+                        <input required type="text" className="w-full border-b-2 border-black/10 px-0 py-2 focus:border-black outline-none transition-colors" placeholder="000.000.000-00" value={formData.taxId} onChange={e => setFormData({ ...formData, taxId: e.target.value })} />
                       </div>
                     )}
                     {paymentMethod === "card" && (
                       <div className="space-y-4 pt-2">
                         <div className="space-y-1.5">
                           <label className="text-[10px] uppercase tracking-widest font-bold text-black/40">Número do Cartão</label>
-                          <input required type="text" className="w-full border-b-2 border-black/10 px-0 py-2 focus:border-black outline-none transition-colors" placeholder="0000 0000 0000 0000" value={formData.cardNumber} onChange={e => setFormData({...formData, cardNumber: e.target.value})} />
+                          <input required type="text" className="w-full border-b-2 border-black/10 px-0 py-2 focus:border-black outline-none transition-colors" placeholder="0000 0000 0000 0000" value={formData.cardNumber} onChange={e => setFormData({ ...formData, cardNumber: e.target.value })} />
                         </div>
                         <div className="grid grid-cols-2 gap-6">
-                          <input required type="text" className="w-full border-b-2 border-black/10 px-0 py-2 focus:border-black outline-none transition-colors" placeholder="MM/AA" value={formData.expiry} onChange={e => setFormData({...formData, expiry: e.target.value})} />
-                          <input required type="text" className="w-full border-b-2 border-black/10 px-0 py-2 focus:border-black outline-none transition-colors" placeholder="CVV" value={formData.cvv} onChange={e => setFormData({...formData, cvv: e.target.value})} />
+                          <input required type="text" className="w-full border-b-2 border-black/10 px-0 py-2 focus:border-black outline-none transition-colors" placeholder="MM/AA" value={formData.expiry} onChange={e => setFormData({ ...formData, expiry: e.target.value })} />
+                          <input required type="text" className="w-full border-b-2 border-black/10 px-0 py-2 focus:border-black outline-none transition-colors" placeholder="CVV" value={formData.cvv} onChange={e => setFormData({ ...formData, cvv: e.target.value })} />
                         </div>
                       </div>
                     )}
