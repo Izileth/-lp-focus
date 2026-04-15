@@ -3,9 +3,10 @@ import { motion, AnimatePresence } from "framer-motion";
 import { useNavigate, Link } from "react-router-dom";
 import { useState } from "react";
 import { cardVariants } from "../motionVariants";
-import { IconBook, IconArrowRight, IconStar, IconMoreHorizontal, IconX, IconGift, IconVideo, IconMail, IconVerified } from "./Icons";
+import { IconBook, IconArrowRight, IconStar, IconMoreHorizontal, IconX, IconGift, IconVideo, IconMail, IconVerified, IconShoppingCart } from "./Icons";
 import { BookCarousel } from "./book/BookCarousel";
 import type { Product } from "../types";
+import { useCart } from "../hooks/useCart";
 
 interface BookCardProps {
   book: Product;
@@ -15,9 +16,15 @@ interface BookCardProps {
 export function BookCard({ book, index }: BookCardProps) {
   const navigate = useNavigate();
   const [showBonuses, setShowBonuses] = useState(false);
+  const { addItem } = useCart();
 
   const handleCardClick = () => {
     navigate(`/livros/${book.slug}`);
+  };
+
+  const handleAddToCart = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    addItem(book.id);
   };
 
   const handleNavigateBookId = () => {
@@ -30,11 +37,12 @@ export function BookCard({ book, index }: BookCardProps) {
         state: {
           videoUrl: book.video_url,
           checkoutUrl: book.checkout_url,
-          bookName: book.name
+          bookName: book.name,
+          product: book
         }
       });
-    } else if (book.checkout_url) {
-      window.location.href = book.checkout_url;
+    } else {
+      navigate(`/checkout/${book.slug}`, { state: { product: book } });
     }
   };
 
@@ -200,31 +208,39 @@ export function BookCard({ book, index }: BookCardProps) {
       </div>
 
       <div className="flex flex-col gap-2">
+        <motion.button
+          whileHover={{ scale: 1.02 }}
+          whileTap={{ scale: 0.98 }}
+          className="w-full bg-white text-black font-sans text-[12px] font-medium tracking-[0.1em] uppercase py-3 flex items-center justify-center gap-2 transition-colors duration-200 hover:bg-white/90"
+          onClick={handleAddToCart}
+        >
+          <IconShoppingCart size={16} />
+          Adicionar ao Carrinho
+        </motion.button>
 
         <motion.button
           whileHover={{ scale: 1.02 }}
           whileTap={{ scale: 0.98 }}
-          className="w-full 3 bg-emerald-500 text-white font-sans text-[12px] font-medium tracking-[0.1em] uppercase py-3 flex items-center justify-center gap-2 transition-colors duration-200 hover:bg-emerald-600"
+          className="w-full bg-emerald-500 text-white font-sans text-[12px] font-medium tracking-[0.1em] uppercase py-3 flex items-center justify-center gap-2 transition-colors duration-200 hover:bg-emerald-600"
           onClick={(e) => {
             e.stopPropagation();
             handleCheckout();
           }}
         >
-          Adquirir
+          Adquirir Agora
           <IconArrowRight />
         </motion.button>
-
-        <motion.button
-          whileHover={{ scale: 1.02 }}
-          whileTap={{ scale: 0.98 }}
-          className="w-full bg-white text-black font-sans text-[12px] font-medium tracking-[0.1em] uppercase py-3 flex items-center justify-center gap-2 transition-colors duration-200 hover:bg-white/85"
-          onClick={handleNavigateBookId}
-        >
-          Detalhes
-          <IconArrowRight />
-        </motion.button>
-
       </div>
+
+      <button
+        onClick={(e) => {
+          e.stopPropagation();
+          handleNavigateBookId();
+        }}
+        className="w-full mt-4 font-sans text-[10px] tracking-[0.15em] uppercase text-white/30 hover:text-white flex items-center justify-center gap-2 transition-colors py-2"
+      >
+        Ver Detalhes do Livro
+      </button>
       <button
         onClick={(e) => {
           e.stopPropagation();

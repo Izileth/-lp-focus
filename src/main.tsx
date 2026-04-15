@@ -4,13 +4,16 @@ import './index.css'
 import { Router } from './router'
 import { AuthProvider } from './hooks/useAuth';
 import { UserProfileProvider } from './hooks/useUserProfile';
+import { CartProvider } from './context/CartContext';
 
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
     <AuthProvider>
       <UserProfileProvider>
-        <Router />
+        <CartProvider>
+          <Router />
+        </CartProvider>
       </UserProfileProvider>
     </AuthProvider>
   </StrictMode>,

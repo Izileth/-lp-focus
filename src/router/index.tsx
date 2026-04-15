@@ -4,7 +4,7 @@ import App from "../App";
 import { HomePage } from "../pages/HomePage";
 import { BookPage } from "../pages/BookPage";
 import { CheckoutPage } from "../pages/CheckoutPage";
-import { CheckoutDirectPage } from "../pages/CheckoutExtraPage";
+import { SuccessRedemptionPage } from "../pages/SuccessRedemptionPage";
 import { LandingPage } from "../pages/LandingPage";
 import { VideoPromotionPage } from "../pages/VideoPromotionPage";
 import { AdminPage } from "../pages/AdminPage";
@@ -94,9 +94,9 @@ const router = createBrowserRouter([
             path: "/checkout/:slug?",
             element: <CheckoutPage />,
           },
-            {
-            path: "/checkout/direct",
-            element: <CheckoutDirectPage />,
+          {
+            path: "/success",
+            element: <SuccessRedemptionPage />,
           },
           {
             path: "/categoria/:categorySlug",

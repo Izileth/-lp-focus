@@ -93,3 +93,13 @@ export interface Article {
   reading_time?: string;
 }
 
+export interface CartItem {
+  id: string;
+  user_id: string;
+  product_id: number;
+  quantity: number;
+  created_at: string;
+  updated_at: string;
+  product?: Product; // For UI display
+}
+
