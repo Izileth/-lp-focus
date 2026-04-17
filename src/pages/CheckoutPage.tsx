@@ -11,7 +11,6 @@ import {
   IconCheckCircle,
   IconCreditCard,
   IconLoader,
-  IconSmartphone,
 } from "../components/Icons";
 import { useProduct } from "../hooks/useProduct";
 import { useCart } from "../hooks/useCart";
@@ -43,7 +42,11 @@ export function CheckoutPage() {
     taxId: "",
     cardNumber: "",
     expiry: "",
-    cvv: ""
+    cvv: "",
+    line1: "",
+    city: "",
+    state: "",
+    postal_code: ""
   });
 
   const isCartCheckout = !directProduct;
@@ -94,7 +97,11 @@ export function CheckoutPage() {
         customerName: formData.name,
         customerEmail: formData.email,
         paymentMethod: paymentMethod,
-        taxId: formData.taxId
+        taxId: formData.taxId,
+        line1: formData.line1,
+        city: formData.city,
+        state: formData.state,
+        postal_code: formData.postal_code
       });
 
       setPaymentResult(response);
@@ -211,10 +218,10 @@ export function CheckoutPage() {
               {step === "form" && (
                 <motion.form key="form" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} onSubmit={handleConfirmOrder} className="flex flex-col gap-6">
                   <h2 className="text-xl font-bold mb-6">Dados de Pagamento</h2>
-                  <div className="grid grid-cols-3 gap-3 mb-4">
-                    {["card", "pix", "boleto"].map((m) => (
-                      <button key={m} type="button" onClick={() => setPaymentMethod(m as "card" | "pix" | "boleto")} className={`flex flex-col items-center gap-2 p-3 border-2 rounded-xl transition-all ${paymentMethod === m ? 'border-black bg-black/5' : 'border-black/5 hover:border-black/20'}`}>
-                        {m === "card" ? <IconCreditCard size={20} /> : m === "pix" ? <IconSmartphone size={20} /> : <IconMail size={20} />}
+                  <div className="grid grid-cols-2 gap-3 mb-4">
+                    {["card", "boleto"].map((m) => (
+                      <button key={m} type="button" onClick={() => setPaymentMethod(m as "card" | "boleto")} className={`flex flex-col items-center gap-2 p-3 border-2 rounded-xl transition-all ${paymentMethod === m ? 'border-black bg-black/5' : 'border-black/5 hover:border-black/20'}`}>
+                        {m === "card" ? <IconCreditCard size={20} /> : <IconMail size={20} />}
                         <span className="text-[10px] font-bold uppercase tracking-tighter">{m === "card" ? "Cartão" : m.toUpperCase()}</span>
                       </button>
                     ))}
@@ -230,9 +237,29 @@ export function CheckoutPage() {
                       <input required type="email" className="w-full border-b-2 border-black/10 px-0 py-2 focus:border-black outline-none transition-colors" placeholder="seu@email.com" value={formData.email} onChange={e => setFormData({ ...formData, email: e.target.value })} />
                     </div>
                     {(paymentMethod !== "card") && (
-                      <div className="space-y-1.5">
-                        <label className="text-[10px] uppercase tracking-widest font-bold text-black/40">CPF / CNPJ</label>
-                        <input required type="text" className="w-full border-b-2 border-black/10 px-0 py-2 focus:border-black outline-none transition-colors" placeholder="000.000.000-00" value={formData.taxId} onChange={e => setFormData({ ...formData, taxId: e.target.value })} />
+                      <div className="space-y-4">
+                        <div className="space-y-1.5">
+                          <label className="text-[10px] uppercase tracking-widest font-bold text-black/40">CPF / CNPJ</label>
+                          <input required type="text" className="w-full border-b-2 border-black/10 px-0 py-2 focus:border-black outline-none transition-colors" placeholder="000.000.000-00" value={formData.taxId} onChange={e => setFormData({ ...formData, taxId: e.target.value })} />
+                        </div>
+                        <div className="space-y-1.5">
+                          <label className="text-[10px] uppercase tracking-widest font-bold text-black/40">Endereço (Rua, nº)</label>
+                          <input required type="text" className="w-full border-b-2 border-black/10 px-0 py-2 focus:border-black outline-none transition-colors" placeholder="Rua Exemplo, 123" value={formData.line1} onChange={e => setFormData({ ...formData, line1: e.target.value })} />
+                        </div>
+                        <div className="grid grid-cols-2 gap-4">
+                          <div className="space-y-1.5">
+                            <label className="text-[10px] uppercase tracking-widest font-bold text-black/40">Cidade</label>
+                            <input required type="text" className="w-full border-b-2 border-black/10 px-0 py-2 focus:border-black outline-none transition-colors" placeholder="São Paulo" value={formData.city} onChange={e => setFormData({ ...formData, city: e.target.value })} />
+                          </div>
+                          <div className="space-y-1.5">
+                            <label className="text-[10px] uppercase tracking-widest font-bold text-black/40">Estado (UF)</label>
+                            <input required type="text" className="w-full border-b-2 border-black/10 px-0 py-2 focus:border-black outline-none transition-colors" placeholder="SP" maxLength={2} value={formData.state} onChange={e => setFormData({ ...formData, state: e.target.value.toUpperCase() })} />
+                          </div>
+                        </div>
+                        <div className="space-y-1.5">
+                          <label className="text-[10px] uppercase tracking-widest font-bold text-black/40">CEP</label>
+                          <input required type="text" className="w-full border-b-2 border-black/10 px-0 py-2 focus:border-black outline-none transition-colors" placeholder="00000-000" value={formData.postal_code} onChange={e => setFormData({ ...formData, postal_code: e.target.value })} />
+                        </div>
                       </div>
                     )}
                     {paymentMethod === "card" && (
@@ -255,7 +282,7 @@ export function CheckoutPage() {
                       <span className="text-3xl font-serif font-bold text-black">{formattedTotal}</span>
                     </div>
                     <button disabled={loading} className="w-full bg-black text-white py-5 rounded-xl font-sans text-xs font-bold uppercase tracking-[0.2em] flex items-center justify-center gap-3 hover:bg-black/90 transition-all active:scale-[0.98]">
-                      {paymentMethod === 'card' ? 'Confirmar Pagamento' : paymentMethod === 'pix' ? 'Gerar PIX' : 'Gerar Boleto'}
+                      {paymentMethod === 'card' ? 'Confirmar Pagamento' : 'Gerar Boleto'}
                       <IconArrowRight size={16} />
                     </button>
                   </div>

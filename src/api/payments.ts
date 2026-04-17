@@ -2,7 +2,7 @@
 // src/api/payments.ts
 import { supabase } from "../lib/supabaseClient";
 
-const API_URL = import.meta.env.VITE_API_URL || "http://localhost:8080";
+const API_URL =  "http://localhost:8080";
 
 export interface PaymentData {
   productId: string;
@@ -12,6 +12,10 @@ export interface PaymentData {
   customerEmail: string;
   paymentMethod: "card" | "pix" | "boleto";
   taxId?: string; // CPF/CNPJ para Boleto
+  line1?: string;
+  city?: string;
+  state?: string;
+  postal_code?: string;
 }
 
 export interface NextAction {
@@ -48,7 +52,11 @@ export const paymentsApi = {
       payment_method: data.paymentMethod,
       email: data.customerEmail,
       name: data.customerName,
-      tax_id: data.taxId
+      tax_id: data.taxId,
+      line1: data.line1,
+      city: data.city,
+      state: data.state,
+      postal_code: data.postal_code
     };
 
     try {
