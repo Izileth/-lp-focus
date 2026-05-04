@@ -1,6 +1,6 @@
 # Guia de Gerenciamento de Administradores (Supabase)
 
-[← Voltar para o Guia do Projeto](./PROJECT_GUIDE.md)
+[← Início (README.md)](../README.md) | [← Guia do Projeto](./PROJECT_GUIDE.md)
 
 Este documento descreve como promover usuários ao cargo de administrador para acessar o painel de controle (`/admin`). Ser um administrador é essencial para gerenciar produtos, artigos e visualizar métricas de tráfego.
 

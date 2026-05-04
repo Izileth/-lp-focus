@@ -1,6 +1,6 @@
 # ✍️ Guia de Formatação de Artigos - Focus Conhecimento
 
-[← Voltar para o Guia do Projeto](./PROJECT_GUIDE.md)
+[← Início (README.md)](../README.md) | [← Guia do Projeto](./PROJECT_GUIDE.md)
 
 Este guia orienta como utilizar o editor de artigos para manter a consistência visual e a elegância do portal. O sistema agora utiliza **Markdown** para renderizar o conteúdo, o que facilita a escrita e leitura.
 

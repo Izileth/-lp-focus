@@ -1,5 +1,7 @@
 # 📖 Guia Completo do Projeto - Focus Conhecimento
 
+[← Início (README.md)](../README.md)
+
 Bem-vindo ao guia central do **Focus Conhecimento**. Este documento serve como o "Mapa da Mina" para desenvolvedores e administradores, consolidando a arquitetura, funcionalidades e referências técnicas do projeto.
 
 ---
@@ -84,7 +86,7 @@ O projeto utiliza **Row Level Security (RLS)** para garantir que apenas administ
 - `admin_users`: Lista de UUIDs autorizados como administradores.
 
 ### Migrações:
-Todas as alterações de banco estão documentadas na pasta `supabase/migrations/`, seguindo uma ordem cronológica de `0000` a `0024+`.
+Todas as alterações de banco estão documentadas na pasta `supabase/migrations/`, seguindo uma ordem cronológica de `0000` a `0028+`.
 
 ---
 

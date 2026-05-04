@@ -1,55 +1,76 @@
-# Focus Conhecimento - Landing Page de Ebooks
+# 🌑 Focus Conhecimento — Digital Content Platform
 
-Uma landing page moderna, elegante e performática para uma plataforma de ebooks, desenvolvida com React, TypeScript e Framer Motion.
+[![React](https://img.shields.io/badge/React-19-61DAFB?logo=react&logoColor=black)](https://react.dev/)
+[![Vite](https://img.shields.io/badge/Vite-7-646CFF?logo=vite&logoColor=white)](https://vitejs.dev/)
+[![Tailwind CSS](https://img.shields.io/badge/Tailwind-4-06B6D4?logo=tailwind-css&logoColor=white)](https://tailwindcss.com/)
+[![Supabase](https://img.shields.io/badge/Supabase-Backend-3ECF8E?logo=supabase&logoColor=white)](https://supabase.com/)
+[![Motion](https://img.shields.io/badge/Motion-Animações-black?logo=framer&logoColor=white)](https://motion.dev/)
+[![TypeScript](https://img.shields.io/badge/TypeScript-5-3178C6?logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
 
-##  Sobre o Projeto
+O **Focus Conhecimento** é uma plataforma digital premium que une uma Landing Page de alta conversão para produtos digitais (Ebooks) com um portal de artigos de conhecimento profundo. Desenvolvido com uma stack moderna focada em performance, tipografia refinada e uma experiência de usuário minimalista.
 
-O **Focus Conhecimento** é uma vitrine digital dedicada à curadoria de conteúdos que transformam. O projeto foca em oferecer uma experiência de usuário premium, com animações suaves, tipografia refinada e um design minimalista "dark mode".
+---
 
-##  Funcionalidades
+## 🗺️ Mapa de Documentação
 
-- **Splash Screen Interativa:** Tela de carregamento com barra de progresso dinâmica.
-- **Design Responsivo:** Otimizado para dispositivos móveis, tablets e desktops.
-- **Animações Fluidas:** Utilização de `framer-motion` para transições e revelações de conteúdo ao rolar a página.
-- **Seções Detalhadas:**
-  - **Hero:** Impacto inicial com estatísticas e chamadas para ação.
-  - **Livros:** Galeria de ebooks disponíveis com cards interativos.
-  - **Sobre:** Descrição da missão e valores da marca.
-  - **Contato:** Área dedicada para suporte e dúvidas.
-- **Efeitos Visuais:** Noise overlay para textura e gradientes sutis para profundidade.
+Para facilitar a navegação técnica e operacional, o projeto está dividido nos seguintes guias especializados:
 
-##  Documentação Completa
+| Documento | Objetivo | Público |
+| :--- | :--- | :--- |
+| 📖 [**Guia do Projeto**](./docs/PROJECT_GUIDE.md) | Arquitetura, stack e estrutura de pastas. | Desenvolvedores |
+| 🛡️ [**Gestão de Admins**](./docs/SUPABASE_ADMIN_GUIDE.md) | Como promover usuários e gerenciar permissões. | Administradores |
+| ✍️ [**Guia de Artigos**](./docs/ARTICLES_FORMATTING_GUIDE.md) | Padrões de escrita e formatação Markdown/GFM. | Editores/Copywriters |
+| 🎯 [**Tracking de Ads**](./docs/ADS_TESTING_GUIDE.md) | Teste e validação de rotas de tráfego pago. | Gestores de Tráfego |
+| 💳 [**Integração de Pagamentos**](./docs/PAYMENTS_STRIPE_API_GUIDE.md) | Endpoints e fluxos da API de checkout (Stripe/Go). | Desenvolvedores Backend |
 
-Para informações detalhadas sobre a arquitetura, gerenciamento de administradores, formatação de artigos e rastreamento de anúncios, consulte o:
-👉 [**Guia Completo do Projeto (docs/PROJECT_GUIDE.md)**](./docs/PROJECT_GUIDE.md)
+---
 
-##  Tecnologias Utilizadas
+## ✨ Funcionalidades Principais
 
-- **Core:** [React 19](https://react.dev/) + [TypeScript](https://www.typescriptlang.org/)
-- **Build Tool:** [Vite 7](https://vitejs.dev/)
-- **Estilização:** [Tailwind CSS 4](https://tailwindcss.com/)
-- **Animações:** [Motion](https://motion.dev/)
-- **Backend:** [Supabase](https://supabase.com/)
-- **Fontes:** Playfair Display (Serifa) e DM Sans (Sans-serif) via Google Fonts.
-- **Ícones:** Lucide React.
+- **Funil de Conversão:** Quiz interativo com diagnóstico personalizado e recomendação de produtos.
+- **Portal de Conhecimento:** Sistema de artigos com renderização Markdown e SEO otimizado.
+- **Painel Administrativo:** Gerenciamento de catálogo, blog e análise de métricas em tempo real.
+- **Tracking Inteligente:** Captura de UTMs e métricas de anúncios sem comprometer a performance.
+- **UX Premium:** Splash screen dinâmica, transições fluidas e design "Content-first".
 
-##  Como Executar
+## 🚀 Guia Rápido
 
-1. Instale as dependências:
-   ```bash
-   npm install
-   ```
+### Configuração Inicial
+```bash
+# 1. Instalar dependências
+npm install
 
-2. Inicie o servidor de desenvolvimento:
-   ```bash
-   npm run dev
-   ```
+# 2. Configurar variáveis de ambiente
+cp .env.example .env
 
-3. Para build de produção:
-   ```bash
-   npm run build
-   ```
+# 3. Rodar em desenvolvimento
+npm run dev
+```
 
-##  Design & Estilo
+### Comandos Úteis
+- `npm run build`: Gera o pacote de produção otimizado.
+- `npm run lint`: Executa a verificação estática de código.
+- `npm run preview`: Visualiza o build localmente.
 
-O projeto utiliza uma paleta de cores focada no preto e branco (Black & White) com variações de opacidade, proporcionando um visual sofisticado e focado no conteúdo ("Content-first"). A tipografia combina o clássico da *Playfair Display* com a modernidade da *DM Sans*.
+---
+
+## 🎨 Design & Estética
+
+A identidade visual segue o conceito **"Elegância no Contraste"**:
+- **Paleta:** Focada em tons de preto, branco e esmeralda para destaques de conversão.
+- **Tipografia:** Mix entre *Playfair Display* (autoridade) e *DM Sans* (clareza).
+- **Interação:** Feedback tátil e visual em todos os pontos de contato através do Motion.
+
+---
+
+## 🛠️ Stack Tecnológica
+
+- **Frontend:** React 19, TypeScript, React Router 7.
+- **Estilização:** Tailwind CSS 4 (PostCSS), Lucide Icons.
+- **Backend:** Supabase (PostgreSQL, Auth, RLS, Edge Functions).
+- **Conteúdo:** React Markdown + Remark GFM + Rehype Raw.
+- **Infra:** Vercel (Edge Runtime).
+
+---
+Developed by **Modus Focus** | 2026
+
