@@ -44,13 +44,20 @@ export const paymentsApi = {
    * Cria uma intenção de pagamento no Stripe via Backend Go
    */
   async processPayment(data: PaymentData): Promise<PaymentResponse> {
-    console.log("Iniciando processamento via API Backend:", data);
+    // 1. Sanitização rigorosa dos dados
+    const amountInCents = Math.round(data.amount * 100);
+    const customerEmail = data.customerEmail.replace(/\s+/g, ""); // Remove TODOS os espaços, inclusive internos
 
+    console.log("DEBUG - Dados recebidos no processPayment:", { ...data });
+    
+    // Payload estrito para o Backend Go
     const body = {
-      amount: Math.round(data.amount * 100), // Converte para centavos
+      amount: amountInCents,
       currency: data.currency.toLowerCase(),
-      email: data.customerEmail
+      email: customerEmail
     };
+
+    console.log("DEBUG - Payload final enviado para /api/v1/payments/create-intent:", body);
 
     try {
       const response = await fetch(`${API_URL}/api/v1/payments/create-intent`, {
@@ -67,15 +74,15 @@ export const paymentsApi = {
         throw new Error(result.error || "Erro ao processar pagamento");
       }
 
-      // Registrar transação estruturada na nova tabela 'payments' do Supabase
+      // 2. Registro no Supabase com os dados sanitizados
       if (supabase) {
         await supabase.from("payments").insert({
           stripe_id: result.id,
           product_id: parseInt(data.productId),
           customer_name: data.customerName,
-          customer_email: data.customerEmail,
+          customer_email: customerEmail,
           tax_id: data.taxId,
-          amount: Math.round(data.amount * 100),
+          amount: amountInCents,
           currency: data.currency.toLowerCase(),
           payment_method: data.paymentMethod,
           status: result.status,
@@ -83,15 +90,14 @@ export const paymentsApi = {
           metadata: result.nextAction || {}
         });
         
-        // Mantemos também a interação para estatísticas genéricas
         await supabase.from("interactions").insert({
           type: "purchase_intent_created",
           target_id: data.productId,
           metadata: { 
             status: result.status, 
             method: data.paymentMethod,
-            amount: Math.round(data.amount * 100), // Em centavos para consistência
-            customer: data.customerEmail
+            amount: amountInCents,
+            customer: customerEmail
           }
         });
       }

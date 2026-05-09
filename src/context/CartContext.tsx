@@ -94,10 +94,10 @@ export const CartProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
   };
 
   const totalItems = cartItems.reduce((acc, item) => acc + item.quantity, 0);
-  const totalPrice = cartItems.reduce((acc, item) => {
+  const totalPrice = Number(cartItems.reduce((acc, item) => {
     const price = item.product?.discount_price || item.product?.price || 0;
     return acc + (price * item.quantity);
-  }, 0);
+  }, 0).toFixed(2));
 
   return (
     <CartContext.Provider value={{
