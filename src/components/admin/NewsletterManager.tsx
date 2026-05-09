@@ -1,6 +1,6 @@
 // src/components/admin/NewsletterManager.tsx
 import { useState, useEffect } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence, type Variants } from "framer-motion";
 import { getNewsletterTemplates, updateNewsletterTemplate } from "../../api/newsletter";
 import {
   IconLoader,
@@ -10,9 +10,9 @@ import {
 } from "../Icons";
 import type { NewsletterTemplate } from "../../types";
 
-const fadeUp = {
+const fadeUp: Variants = {
   hidden: { opacity: 0, y: 14 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: [0.16, 1, 0.3, 1] } },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] } },
 };
 
 export function NewsletterManager() {
@@ -57,6 +57,7 @@ export function NewsletterManager() {
     setStatus("idle");
   };
 
+
   const handleSave = async () => {
     if (!selectedId) return;
     setSaving(true);
@@ -94,8 +95,8 @@ export function NewsletterManager() {
             key={template.id}
             onClick={() => selectTemplate(template)}
             className={`flex flex-col gap-1 p-5 text-left border transition-all ${selectedId === template.id
-                ? "bg-white/[0.05] border-white/20"
-                : "bg-transparent border-white/[0.05] hover:border-white/10"
+              ? "bg-white/[0.05] border-white/20"
+              : "bg-transparent border-white/[0.05] hover:border-white/10"
               }`}
           >
             <span className="font-sans text-[11px] font-bold tracking-[0.2em] uppercase">
