@@ -10,13 +10,14 @@ import { supabase } from "../lib/supabaseClient";
 
 // ─── Shared Components ──────────────────────────────────────────────────────
 import { LoadingState, ErrorState } from "../components/ui/StatesScreens";
-import { IconPlus, IconArrowLeft, IconBook, IconFileText } from "../components/Icons";
+import { IconPlus, IconArrowLeft, IconBook, IconFileText, IconMail } from "../components/Icons";
 
 // ─── Admin Specific Components ──────────────────────────────────────────────
 import { ProductList } from "../components/admin/ProductList";
 import { ProductForm } from "../components/admin/ProductForm";
 import { ArticleList } from "../components/admin/ArticleList";
 import { ArticleForm } from "../components/admin/ArticleForm";
+import { NewsletterManager } from "../components/admin/NewsletterManager";
 import { AdminHeader } from "../components/admin/AdminHeader";
 import { AdminAccessDenied } from "../components/admin/AdminAccessDenied";
 import { slideRight } from "../components/admin/AdminVariants";
@@ -24,7 +25,7 @@ import { slideRight } from "../components/admin/AdminVariants";
 // ─── Types ────────────────────────────────────────────────────────────────────
 import type { AdminStats } from "../types";
 
-type EntityType = "products" | "articles";
+type EntityType = "products" | "articles" | "newsletter";
 type View = "list" | "create" | "edit";
 
 interface ViewState {
@@ -143,6 +144,15 @@ export function AdminPage() {
               </div>
               {viewState.entity === "articles" && <motion.div layoutId="activeTab" className="absolute bottom-0 left-0 right-0 h-0.5 bg-white" />}
             </button>
+            <button
+              onClick={() => switchEntity("newsletter")}
+              className={`pb-4 font-sans text-[11px] tracking-[0.2em] uppercase transition-all relative ${viewState.entity === "newsletter" ? "text-white" : "text-white/30 hover:text-white/50"}`}
+            >
+              <div className="flex items-center gap-2">
+                <IconMail size={14} /> Newsletter
+              </div>
+              {viewState.entity === "newsletter" && <motion.div layoutId="activeTab" className="absolute bottom-0 left-0 right-0 h-0.5 bg-white" />}
+            </button>
           </div>
         )}
 
@@ -158,26 +168,28 @@ export function AdminPage() {
               <div className="flex items-center justify-between mb-6">
                 <div className="flex flex-col gap-1">
                   <span className="font-sans text-[10px] tracking-[0.22em] uppercase text-white/30">
-                    {viewState.entity === "products" ? "Catálogo" : "Journal"}
+                    {viewState.entity === "products" ? "Catálogo" : viewState.entity === "articles" ? "Journal" : "E-mails"}
                   </span>
                   <h2
                     className="[font-family:'Playfair_Display',serif] font-bold"
                     style={{ fontSize: "clamp(18px,2.5vw,26px)" }}
                   >
-                    {viewState.entity === "products" ? "Catálogo atual" : "Artigos do Blog"}
+                    {viewState.entity === "products" ? "Catálogo atual" : viewState.entity === "articles" ? "Artigos do Blog" : "Gerenciar Templates"}
                   </h2>
                 </div>
 
-                <motion.button
-                  type="button"
-                  onClick={handleCreateNew}
-                  whileHover={{ scale: 1.03, y: -1 }}
-                  whileTap={{ scale: 0.97 }}
-                  className="bg-white text-black font-sans text-[11px] font-medium tracking-[0.12em] uppercase px-5 py-3 flex items-center gap-2 hover:bg-white/85 transition-colors"
-                >
-                  <IconPlus size={14} />
-                  {viewState.entity === "products" ? "Novo produto" : "Novo artigo"}
-                </motion.button>
+                {viewState.entity !== "newsletter" && (
+                  <motion.button
+                    type="button"
+                    onClick={handleCreateNew}
+                    whileHover={{ scale: 1.03, y: -1 }}
+                    whileTap={{ scale: 0.97 }}
+                    className="bg-white text-black font-sans text-[11px] font-medium tracking-[0.12em] uppercase px-5 py-3 flex items-center gap-2 hover:bg-white/85 transition-colors"
+                  >
+                    <IconPlus size={14} />
+                    {viewState.entity === "products" ? "Novo produto" : "Novo artigo"}
+                  </motion.button>
+                )}
               </div>
 
               <div className="h-px bg-white/[0.07] mb-8" />
@@ -188,12 +200,14 @@ export function AdminPage() {
                   onEdit={handleEdit}
                   onSuccess={handleSuccess}
                 />
-              ) : (
+              ) : viewState.entity === "articles" ? (
                 <ArticleList
                   key={`articles-${refreshKey}`}
                   onEdit={handleEdit}
                   onSuccess={handleSuccess}
                 />
+              ) : (
+                <NewsletterManager key="newsletter-manager" />
               )}
             </motion.div>
           )}
@@ -217,7 +231,7 @@ export function AdminPage() {
                     <span className="transition-transform duration-200 group-hover:-translate-x-1">
                       <IconArrowLeft size={14} />
                     </span>
-                    Voltar para {viewState.entity === "products" ? "produtos" : "artigos"}
+                    Voltar para {viewState.entity === "products" ? "produtos" : viewState.entity === "articles" ? "artigos" : "newsletter"}
                   </motion.button>
 
                   <div className="flex flex-col gap-1">

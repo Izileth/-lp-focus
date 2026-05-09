@@ -103,3 +103,10 @@ export interface CartItem {
   product?: Product; // For UI display
 }
 
+export interface NewsletterTemplate {
+  id: string; // 'welcome' or 'weekly'
+  subject: string;
+  content_html: string;
+  updated_at: string;
+}
+

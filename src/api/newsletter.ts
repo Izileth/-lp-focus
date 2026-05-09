@@ -1,4 +1,5 @@
 import { supabase } from '../lib/supabaseClient';
+import type { NewsletterTemplate } from '../types';
 
 export async function subscribeToNewsletter(email: string) {
   if (!supabase) throw new Error("Database connection not available.");
@@ -14,4 +15,26 @@ export async function subscribeToNewsletter(email: string) {
     throw error;
   }
   return true;
+}
+
+export async function getNewsletterTemplates() {
+  const { data, error } = await supabase
+    .from('newsletter_templates')
+    .select('*')
+    .order('id');
+
+  if (error) throw error;
+  return data as NewsletterTemplate[];
+}
+
+export async function updateNewsletterTemplate(id: string, updates: Partial<NewsletterTemplate>) {
+  const { data, error } = await supabase
+    .from('newsletter_templates')
+    .update(updates)
+    .eq('id', id)
+    .select()
+    .single();
+
+  if (error) throw error;
+  return data as NewsletterTemplate;
 }
