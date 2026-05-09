@@ -49,14 +49,7 @@ export const paymentsApi = {
     const body = {
       amount: Math.round(data.amount * 100), // Converte para centavos
       currency: data.currency.toLowerCase(),
-      payment_method: data.paymentMethod,
-      email: data.customerEmail,
-      name: data.customerName,
-      tax_id: data.taxId,
-      line1: data.line1,
-      city: data.city,
-      state: data.state,
-      postal_code: data.postal_code
+      email: data.customerEmail
     };
 
     try {
@@ -93,11 +86,11 @@ export const paymentsApi = {
         // Mantemos também a interação para estatísticas genéricas
         await supabase.from("interactions").insert({
           type: "purchase_intent_created",
-          product_id: data.productId,
+          target_id: data.productId,
           metadata: { 
             status: result.status, 
             method: data.paymentMethod,
-            amount: data.amount,
+            amount: Math.round(data.amount * 100), // Em centavos para consistência
             customer: data.customerEmail
           }
         });
