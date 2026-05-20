@@ -5,58 +5,65 @@ import { fadeUpVariants, staggerContainer } from "../motionVariants";
 import { useArticles } from "../hooks/useArticles";
 import { IconLoader } from "../components/Icons";
 import { FreeAccessSection } from "../components/ArticleProofBasement";
+import { SEO } from "../components/SEO";
+
 export default function ArticlesPage() {
   const { articles, loading, error } = useArticles();
 
   return (
     <div className="bg-black text-white min-h-screen flex flex-col">
+      <SEO
+        title="Artigos"
+        description="Explorações profundas sobre conhecimento, produtividade e desenvolvimento pessoal para mentes inquietas."
+        url="/artigos"
+      />
       <main className="flex-grow pt-[140px]">
         {/* Hero Section */}
         <section className="px-10 pb-20 border-b border-white/[0.05]">
-          <div className="max-w-[1200px] mx-auto">
-            <motion.div
-              variants={staggerContainer}
-              initial="hidden"
-              animate="visible"
+          ...
+
+          <motion.div
+            variants={staggerContainer}
+            initial="hidden"
+            animate="visible"
+          >
+            <motion.p
+              variants={fadeUpVariants}
+              className="font-sans text-[11px] tracking-[0.25em] uppercase text-white/30 mb-3"
             >
-              <motion.p
+              Journal & Insights
+            </motion.p>
+            <motion.h1
+              variants={fadeUpVariants}
+              className="[font-family:'Playfair_Display',serif] text-[48px] md:text-[80px] font-bold leading-[1.1] mb-8"
+            >
+              Nossos <em className="not-italic text-white/40">Artigos</em>
+            </motion.h1>
+            <motion.p
+              variants={fadeUpVariants}
+              className="font-sans text-white/50 text-base md:text-lg max-w-[600px] leading-relaxed"
+            >
+              Explorações profundas sobre conhecimento, produtividade e desenvolvimento pessoal para mentes inquietas.
+            </motion.p>
+
+            <div className="flex flex-col gap-0 mt-2">
+
+              <motion.span
                 variants={fadeUpVariants}
-                className="font-sans text-[11px] tracking-[0.25em] uppercase text-white/30 mb-3"
+                className="font-sans text-emerald-400 text-base md:text-lg max-w-[600px] leading-relaxed"
               >
-                Journal & Insights
-              </motion.p>
-              <motion.h1
-                variants={fadeUpVariants}
-                className="[font-family:'Playfair_Display',serif] text-[48px] md:text-[80px] font-bold leading-[1.1] mb-8"
-              >
-                Nossos <em className="not-italic text-white/40">Artigos</em>
-              </motion.h1>
-              <motion.p
+                100% Gratuito
+              </motion.span>
+
+              <motion.span
                 variants={fadeUpVariants}
                 className="font-sans text-white/50 text-base md:text-lg max-w-[600px] leading-relaxed"
               >
-                Explorações profundas sobre conhecimento, produtividade e desenvolvimento pessoal para mentes inquietas.
-              </motion.p>
+                Centenas de pessoas já deram o primeiro passo apenas em nossos manifestos.
+              </motion.span>
+            </div>
 
-              <div className="flex flex-col gap-0 mt-2">
-
-                <motion.span
-                  variants={fadeUpVariants}
-                  className="font-sans text-emerald-400 text-base md:text-lg max-w-[600px] leading-relaxed"
-                >
-                  100% Gratuito
-                </motion.span>
-
-                <motion.span
-                  variants={fadeUpVariants}
-                  className="font-sans text-white/50 text-base md:text-lg max-w-[600px] leading-relaxed"
-                >
-                  Centenas de pessoas já deram o primeiro passo apenas em nossos manifestos.
-                </motion.span>
-              </div>
-
-            </motion.div>
-          </div>
+          </motion.div>
         </section>
 
         {/* Articles Grid */}
@@ -89,6 +96,7 @@ export default function ArticlesPage() {
           <FreeAccessSection />
         </section>
       </main>
-    </div>
+    </div >
+
   );
 }

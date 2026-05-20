@@ -7,6 +7,7 @@ import { fadeUpVariants, staggerContainer } from "../motionVariants";
 import { useArticle } from "../hooks/useArticles";
 import { ShareButtons } from "../components/ShareButtons";
 import { MarkdownRenderer } from "../components/ui/MarkdownRenderer";
+import { SEO } from "../components/SEO";
 
 export default function ArticleDetailPage() {
   const { slug } = useParams<{ slug: string }>();
@@ -44,8 +45,43 @@ export default function ArticleDetailPage() {
     );
   }
 
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    "headline": article.title,
+    "image": article.image_url,
+    "datePublished": article.published_at,
+    "author": {
+      "@type": "Person",
+      "name": article.author_name || "Modus Focus"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "Modus Focus",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https://modusfocus.online/logo.png"
+      }
+    },
+    "description": article.excerpt || article.title,
+    "mainEntityOfPage": {
+      "@type": "WebPage",
+      "@id": `https://modusfocus.online/artigo/${article.slug}`
+    }
+  };
+
   return (
     <div className="bg-black text-white min-h-screen flex flex-col">
+      <SEO 
+        title={article.title}
+        description={article.excerpt || article.title}
+        image={article.image_url ?? 'https://modusfocus.online/logo.png'}
+        url={`/artigo/${article.slug}`}
+        type="article"
+        publishedTime={article.published_at ?? '2024-01-01T00:00:00Z'}
+        author={article.author_name}
+        jsonLd={jsonLd}
+      />
       <main className="flex-grow pt-[140px]">
         <article className="max-w-[720px] mx-auto px-10">
           {/* Back Link */}

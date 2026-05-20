@@ -15,6 +15,7 @@ import { SocialFanBadge } from "../components/FlanSocialBadges";
 //import { HonorableMentionsSection } from "../components/HonorableMentions";
 import { AggressiveBanner } from "../components/AggressiveBanner";
 import { FAQSection } from "../components/FAQSection";
+import { SEO } from "../components/SEO";
 
 export function HomePage() {
   const { pathname } = useLocation();
@@ -42,6 +43,20 @@ export function HomePage() {
 
   return (
     <main>
+      <SEO 
+        url="/"
+        jsonLd={{
+          "@context": "https://schema.org",
+          "@type": "WebSite",
+          "name": "Modus Focus",
+          "url": "https://modusfocus.online",
+          "potentialAction": {
+            "@type": "SearchAction",
+            "target": "https://modusfocus.online/artigos?q={search_term_string}",
+            "query-input": "required name=search_term_string"
+          }
+        }}
+      />
       <HeroSection />
       <PlatformsStrip />
       <MethodEPSDPSection />

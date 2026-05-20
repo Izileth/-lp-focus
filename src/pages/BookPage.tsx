@@ -3,6 +3,7 @@ import { useProduct } from "../hooks/useProduct";
 import { IconArrowLeft, IconShare } from "../components/Icons";
 import { NotFound } from "../components/ui/NotFound";
 import { LoadingState } from "../components/ui/StatesScreens";
+import { SEO } from "../components/SEO";
 
 // ─── Offer Banner ────────────────────────────────────────────────────────────────────
 import { BottonOfferBanner } from "../components/BottonOfferBanner";
@@ -64,8 +65,35 @@ export function BookPage() {
     }
   };
 
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "Product",
+    "name": book.name,
+    "image": book.product_images?.[0]?.image_url|| book.video_url,
+    "description": book.description,
+    "brand": {
+      "@type": "Brand",
+      "name": "Modus Focus"
+    },
+    "offers": {
+      "@type": "Offer",
+      "url": `https://modusfocus.online/livros/${book.slug}`,
+      "priceCurrency": "BRL",
+      "price": book.discount_price || book.price,
+      "availability": "https://schema.org/InStock"
+    }
+  };
+
   return (
     <>
+      <SEO 
+        title={book.name}
+        description={book.description}
+        image={book.product_images?.[0]?.image_url|| book.video_url}
+        url={`/livros/${book.slug}`}
+        type="book"
+        jsonLd={jsonLd}
+      />
       <div className="bg-black min-h-screen text-white overflow-x-hidden pt-[104px]">
         <BookBackground />
 

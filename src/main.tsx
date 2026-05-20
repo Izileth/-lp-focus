@@ -5,16 +5,19 @@ import { Router } from './router'
 import { AuthProvider } from './hooks/useAuth';
 import { UserProfileProvider } from './hooks/useUserProfile';
 import { CartProvider } from './context/CartContext';
+import { HelmetProvider } from 'react-helmet-async';
 
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
-    <AuthProvider>
-      <UserProfileProvider>
-        <CartProvider>
-          <Router />
-        </CartProvider>
-      </UserProfileProvider>
-    </AuthProvider>
+    <HelmetProvider>
+      <AuthProvider>
+        <UserProfileProvider>
+          <CartProvider>
+            <Router />
+          </CartProvider>
+        </UserProfileProvider>
+      </AuthProvider>
+    </HelmetProvider>
   </StrictMode>,
 )
